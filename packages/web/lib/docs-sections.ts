@@ -16,7 +16,7 @@ export type DocSection = {
 export const DOC_SECTIONS: readonly DocSection[] = [
   { id: "overview", file: "overview.md", title: "Overview" },
   { id: "installation", file: "installation.md", title: "Installation" },
-  { id: "skills", file: "skills.md", title: "Skills guide" },
+  { id: "skills", file: "skills.md", title: "Feature coverage" },
   { id: "ultrawork", file: "ultrawork.md", title: "ultrawork mode" },
   { id: "ulw-loop", file: "ulw-loop.md", title: "$ulw-loop" },
   { id: "ulw-plan", file: "ulw-plan.md", title: "$ulw-plan" },

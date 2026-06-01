@@ -20,30 +20,30 @@ export const SITE_CONFIG = {
   },
   ultraworkTagline: "One word. Every agent activates. Doesn't stop until done.",
   ultraworkExample: "ulw add authentication",
-  gameDev: {
-    kicker: "Field notes for large repos",
-    title: "Build games with LazyCodex",
+  featureWorkflows: {
+    kicker: "What LazyCodex installs",
+    title: "Use the built-in workflows",
     intro:
-      "Game projects rarely fit a clean folder story. LazyCodex gives agents landmarks before they touch gameplay, tools, data, launchers, editors, and build pipelines.",
+      "LazyCodex is a thin Codex distribution for OmO. It installs the command loop, planner, executor, project-memory setup, skills, hooks, model routing, and verification defaults in one pass.",
     points: [
       {
-        label: "/init-deep is the map",
-        text: "Generate hierarchical AGENTS.md context when a repo is too large, old, or cross-cutting to explain from memory.",
+        label: "Project memory",
+        text: "/init-deep generates hierarchical AGENTS.md context so future agents start with local guidance instead of guessing.",
       },
       {
-        label: "The MVP is not the product",
-        text: "Keep the surrounding apps in scope: Tools, data, launchers, editors, and build pipelines are often where production risk lives.",
+        label: "Planning and execution",
+        text: "$ulw-plan turns fuzzy work into a plan, then $start-work executes that plan with durable Boulder progress.",
       },
       {
-        label: "Rerun it at milestones",
-        text: "Rerun it when the milestone changes so the project memory keeps matching the actual shape of the game.",
+        label: "Verified completion",
+        text: "$ulw-loop keeps work moving until the completion promise is backed by evidence instead of a hopeful status update.",
       },
     ],
   },
-  skillWorkflow: {
-    title: "Skill-first workflows",
+  builtInSkills: {
+    title: "Built-in skill coverage",
     summary:
-      "The three command pillars stay up front. Skills add the specialist guidance for review, cleanup, UI, language discipline, LSP, AST-grep, rules, and comment-checker feedback.",
+      "Skills add specialist guidance for review, cleanup, UI, strict language work, LSP diagnostics, AST-grep rewrites, project rules, and comment-checker feedback.",
     skills: ["review-work", "remove-ai-slops", "frontend-ui-ux", "programming", "LSP", "AST-grep", "rules", "comment-checker"],
   },
 } as const;

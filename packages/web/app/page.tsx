@@ -1,7 +1,7 @@
 import type { JSX } from "react"
 import { CommandCards } from "../components/site/command-cards"
 import { DocsCta } from "../components/site/docs-cta"
-import { GameDevSection } from "../components/site/game-dev-section"
+import { FeatureWorkflowsSection } from "../components/site/feature-workflows-section"
 import { Hero } from "../components/site/hero"
 import { InstallBlock } from "../components/site/install-block"
 import { SiteFooter } from "../components/site/site-footer"
@@ -26,7 +26,7 @@ export default function LandingPage(): JSX.Element {
         </div>
         <InstallBlock />
         <CommandCards />
-        <GameDevSection />
+        <FeatureWorkflowsSection />
         <UltraworkSection />
         <DocsCta />
       </main>

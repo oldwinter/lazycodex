@@ -52,58 +52,51 @@ LazyCodex installs these as OmO commands for Codex. Invoke them with the
 
 Full documentation lives at [lazycodex.ai/docs](https://lazycodex.ai/docs).
 
-## Build games with LazyCodex
+## Use the built-in workflows
 
-The first time, there was no grand theory. It worked, so we kept using it.
-After working around a KartRider Drift codebase on [oba.run](https://oba.run),
-the pattern became clear: game projects are where LazyCodex makes the most
-sense.
+LazyCodex should be judged by the features it actually installs. It is a thin
+Codex distribution for OmO: project memory, planning, execution, verified
+completion, skills, hooks, model routing, and diagnostics.
 
-### 1. `/init-deep` is the map
+### 1. `/init-deep` creates project memory
 
-Game projects rarely fit a clean folder story. Big repos carry gameplay code,
-tools, editors, content pipelines, experiments, vendor drops, and old milestone
-work in the same tree. The goal is not to make the structure look pure before an
-agent can help. The goal is to give the agent landmarks.
+`/init-deep` generates hierarchical `AGENTS.md` context. It scores complex
+directories, writes local guidance near the code that needs it, and gives future
+agents landmarks before they edit.
 
-`/init-deep` builds that map by generating hierarchical `AGENTS.md` context. It
-scores complex directories, writes local guidance near the code that needs it,
-and lets future agents find the right files faster.
+Use it when the repository is too large to explain from memory. Run it again
+when the shape of the codebase changes.
 
-### 2. A game MVP is usually not the product
+### 2. The three command pillars stay up front
 
-A POC can prove the loop. The product around it is usually several applications:
-Tools, data, launchers, editors, and build pipelines. If the agent only looks at
-the game executable, it misses the actual development system.
+Use `$ulw-plan` when the work needs decisions before implementation. It writes a
+plan to `plans/<slug>.md` and does not touch product code.
 
-LazyCodex keeps that wider context in play. Use `$ulw-plan` when the shape is
-still fuzzy, `$start-work` when the plan is ready, and `$ulw-loop` when you want
-the agent to keep moving until the evidence says it is done.
+Use `$start-work` when a plan is ready. It executes the checklist with durable
+Boulder progress and stops only when the plan is complete.
 
-### 3. Dense domains get faster with memory
+Use `$ulw-loop` when the task should keep moving until the result is verified by
+evidence instead of a hopeful status update.
 
-`/init-deep` is not only a first-run setup command. Rerun it when the milestone changes.
-Run it again when the repo shape changes or when a new subsystem becomes important.
-The result behaves like compressed project memory.
+### 3. Skills cover specialized work
 
-In legacy game code, the hard part is not reading everything. The hard part is
-knowing where to read first. That is where LazyCodex is strong.
+The command layer stays simple. The skill layer adds specialist judgment for the
+actual work:
 
-### Skill-first workflows
-
-The three main commands stay simple, but the skill layer is where specialized
-work gets sharper:
-
-| Use case | Reach for |
+| Feature | Use it for |
 | --- | --- |
-| Map a messy game repo | `/init-deep` |
-| Turn vague production work into a plan | `$ulw-plan` |
-| Execute a plan with durable progress | `$start-work` |
-| Keep pushing until verified completion | `$ulw-loop` |
-| Review implementation from multiple angles | `review-work` |
-| Remove AI-looking code without changing behavior | `remove-ai-slops` |
-| Build polished UI surfaces | `frontend-ui-ux` |
-| Work safely in strict TypeScript, Rust, Python, or Go | `programming` |
+| `/init-deep` | Hierarchical project memory through `AGENTS.md` |
+| `$ulw-plan` | Decision-complete planning before code changes |
+| `$start-work` | Durable plan execution with Boulder progress |
+| `$ulw-loop` | Verified completion for open-ended tasks |
+| `review-work` | Multi-angle post-implementation review |
+| `remove-ai-slops` | Behavior-preserving cleanup of AI-looking code |
+| `frontend-ui-ux` | Polished UI surfaces |
+| `programming` | Strict TypeScript, Rust, Python, or Go discipline |
+| `LSP` | Diagnostics, definitions, references, symbols, and renames |
+| `AST-grep` | Structural search and rewrite across code |
+| `rules` | Project instructions from AGENTS, rules, and instruction files |
+| `comment-checker` | Feedback after edit-like operations |
 
 Start at [https://lazycodex.ai](https://lazycodex.ai).
 

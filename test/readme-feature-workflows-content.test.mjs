@@ -5,13 +5,16 @@ import assert from "node:assert/strict"
 const README = readFileSync("README.md", "utf8")
 const HANGUL_PATTERN = /[\u1100-\u11ff\u3130-\u318f\uac00-\ud7af]/u
 
-test("README documents game-development workflows without Hangul", () => {
+test("README documents built-in LazyCodex workflows without Hangul", () => {
   const requiredSnippets = [
-    "Build games with LazyCodex",
+    "Use the built-in workflows",
     "/init-deep",
-    "Game projects rarely fit a clean folder story",
-    "Tools, data, launchers, editors, and build pipelines",
-    "Rerun it when the milestone changes",
+    "project memory",
+    "$ulw-plan",
+    "$start-work",
+    "$ulw-loop",
+    "review-work",
+    "remove-ai-slops",
     "https://lazycodex.ai",
   ]
 

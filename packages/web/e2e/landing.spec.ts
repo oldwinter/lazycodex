@@ -54,18 +54,15 @@ test.describe("landing page — install + commands", () => {
     }
   })
 
-  test("game-development guidance keeps the three command pillars first", async ({ page }) => {
+  test("feature workflow guidance keeps the three command pillars first", async ({ page }) => {
     await page.goto("/")
 
     await expect(page.locator("article h2")).toHaveText(COMMANDS.map((command) => command.name))
-    await expect(page.getByText("Build games with LazyCodex", { exact: false })).toBeVisible()
-    await expect(page.getByText("/init-deep", { exact: false }).first()).toBeVisible()
-    await expect(
-      page
-        .getByText("Tools, data, launchers, editors, and build pipelines", { exact: false })
-        .first(),
-    ).toBeVisible()
-    await expect(page.getByText("Skill-first workflows", { exact: false }).first()).toBeVisible()
+    await expect(page.getByText("Use the built-in workflows", { exact: false })).toBeVisible()
+    await expect(page.getByText("Project memory", { exact: false }).first()).toBeVisible()
+    await expect(page.getByText("Planning and execution", { exact: false }).first()).toBeVisible()
+    await expect(page.getByText("Verified completion", { exact: false }).first()).toBeVisible()
+    await expect(page.getByText("Built-in skill coverage", { exact: false }).first()).toBeVisible()
   })
 })
 

@@ -1,12 +1,12 @@
-LazyCodex is most useful when the work is bigger than one prompt. Game projects are a good example: the codebase may include gameplay, tools, data, launchers, editors, and build pipelines in one repo.
+LazyCodex is most useful when you use the features it actually installs: project memory, planning, execution, verified completion, skills, hooks, model routing, and diagnostics.
 
-### Build games with LazyCodex
+### Built-in workflows
 
 Start with `/init-deep` when the repository is too large or too old to explain from memory. It generates hierarchical `AGENTS.md` context so agents can find the right files before they change code.
 
-Rerun `/init-deep` when milestones change. A new gameplay loop, content tool, asset pipeline, or launcher can change where the important context lives.
+Use `$ulw-plan` when the work needs decisions before implementation, `$start-work` when a plan should be executed, and `$ulw-loop` when you want the agent to keep going until the result is verified.
 
-### Skill-first workflows
+### Feature coverage
 
 The three command pillars stay simple:
 

@@ -60,13 +60,13 @@ test.describe("docs page — structure", () => {
     ).toBeVisible()
   })
 
-  test("documents skills and game-development usage", async ({ page }) => {
+  test("documents skills and built-in workflow usage", async ({ page }) => {
     await page.goto("/docs")
 
     const body = page.locator("body")
-    await expect(body).toContainText("Build games with LazyCodex")
+    await expect(body).toContainText("Built-in workflows")
     await expect(body).toContainText("/init-deep")
-    await expect(body).toContainText("Skill-first workflows")
+    await expect(body).toContainText("Feature coverage")
     await expect(body).toContainText("review-work")
     await expect(body).toContainText("remove-ai-slops")
     await expect(body).toContainText("frontend-ui-ux")

@@ -80,11 +80,11 @@ The landing page is a single scrollable document with the following sections, to
    - `$start-work` — plan executor
    - Each card has a monospace command header, a one-line description, and a syntax example
 
-5. **Game development + skills guide**
+5. **Built-in workflows + skill coverage**
    - The existing three command cards remain the main pillars and appear before this guide
-   - Adds "Build games with LazyCodex" positioning for large repos with gameplay, tools, data, launchers, editors, and build pipelines
-   - Calls out `/init-deep` as the map for messy project structure
-   - Lists skill-first workflows such as `review-work`, `remove-ai-slops`, `frontend-ui-ux`, `programming`, LSP, AST-grep, rules, and comment-checker
+   - Explains the installed LazyCodex workflows: `/init-deep`, `$ulw-plan`, `$start-work`, and `$ulw-loop`
+   - Calls out project memory, planning, execution, and verified completion
+   - Lists built-in skill coverage such as `review-work`, `remove-ai-slops`, `frontend-ui-ux`, `programming`, LSP, AST-grep, rules, and comment-checker
 
 6. **Ultrawork explainer**
    - Short paragraph on what `ultrawork` means (OmO discipline mode, parallel agents, auto-verification)
