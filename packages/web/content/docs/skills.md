@@ -1,4 +1,4 @@
-LazyCodex is most useful when you use the features it actually installs: project memory, planning, execution, verified completion, skills, hooks, model routing, and diagnostics.
+LazyCodex is most useful as a harness for complex codebases: project memory, planning, execution, verified completion, skills, hooks, model routing, and diagnostics.
 
 ### Built-in workflows
 

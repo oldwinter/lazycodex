@@ -9,7 +9,7 @@ import "@/app/styles/docs.css";
 export const metadata: Metadata = {
   title: "Documentation",
   description:
-    "LazyCodex documentation — install, built-in workflows, skills, ultrawork mode, $ulw-loop, $ulw-plan, $start-work.",
+    "LazyCodex documentation for the OmO agent harness: install, project memory, skills, ultrawork mode, $ulw-loop, $ulw-plan, and $start-work.",
   alternates: {
     canonical: "/docs",
   },
@@ -28,7 +28,7 @@ export default function DocsPage() {
         <div className="docs-hero">
           <h1 className="docs-hero-title">Documentation</h1>
           <p className="docs-hero-tagline">
-            Learn how to install, configure, and use LazyCodex for ultrawork and built-in workflows.
+            Learn how to install and run the OmO harness inside Codex for complex codebases.
           </p>
         </div>
         <DocsShell sections={sections}>

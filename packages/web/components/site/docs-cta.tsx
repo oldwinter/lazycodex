@@ -5,18 +5,16 @@ import { SITE_CONFIG } from "../../lib/site-config"
 export function DocsCta(): JSX.Element {
   return (
     <section className="mx-auto mt-32 mb-24 flex w-full max-w-[800px] flex-col items-center rounded-2xl border border-white/10 bg-[color:var(--surface-panel)] px-6 py-16 text-center md:mt-40 md:px-12 relative overflow-hidden">
-      {/* Decorative cyan ring */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full border-[1.5px] border-[rgba(135,240,242,0.12)]" />
-      
+
       <h2 className="relative z-10 text-3xl font-medium tracking-tight text-[color:var(--text-primary)]">
-        Ready to stop thinking?
+        Ready to wire the harness?
       </h2>
       <p className="relative z-10 mt-4 text-lg text-[color:var(--text-muted)]">
-        Read the manual. It's short.
+        Install the Codex setup, then run the workflows that keep large changes under control.
       </p>
       <div className="relative z-10 mt-8 flex flex-wrap justify-center gap-4">
         <div className="relative group">
-          {/* Soft cyan glow behind primary button */}
           <div className="absolute -inset-1 rounded-lg bg-[color:var(--accent-glow)] opacity-20 blur-xl transition-opacity group-hover:opacity-30" />
           <Link
             href={SITE_CONFIG.docsPath}

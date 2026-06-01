@@ -4,11 +4,11 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "LazyCodex",
     short_name: "LazyCodex",
-    description: "Codex for no-brainers. Just prompt with ultrawork.",
+    description: "Agent harness for complex codebases inside Codex.",
     start_url: "/",
     display: "standalone",
-    background_color: "#14154d",
-    theme_color: "#2a2dbf",
+    background_color: "#0a0a0a",
+    theme_color: "#008385",
     // No icons array: the browser favicon comes from the app/icon.svg file
     // convention; duplicating it here triggers a second eager favicon fetch
     // that lands on the Lantern LCP critical path. PWA installability isn't a

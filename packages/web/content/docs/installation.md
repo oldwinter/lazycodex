@@ -1,4 +1,4 @@
-One command gets you running. LazyCodex installs the Codex platform setup for OmO without a global package install.
+One command installs the OmO agent harness for Codex without a global package install.
 
 ### Install
 

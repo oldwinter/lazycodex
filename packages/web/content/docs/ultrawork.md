@@ -1,6 +1,6 @@
 ultrawork is the headline mode. Typing `ultrawork` (or the short alias `ulw`) anywhere in your prompt activates maximum-precision, outcome-first, evidence-driven orchestration.
 
-> "One word. Every agent activates. Doesn't stop until done."
+> "Plan, execute, verify, and keep the evidence attached."
 
 ### Usage
 

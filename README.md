@@ -3,8 +3,8 @@
 
   <h1>LazyCodex</h1>
 
-  <p><strong>Codex for no-brainers.</strong><br />
-  You don't need to think. Just prompt with <code>ultrawork</code>.</p>
+  <p><strong>The one and only agent harness for complex codebases.</strong><br />
+  Project memory, planning, execution, and verified completion inside Codex.</p>
 
   <p>
     <a href="https://github.com/code-yeongyu/lazycodex/stargazers">
@@ -54,9 +54,9 @@ Full documentation lives at [lazycodex.ai/docs](https://lazycodex.ai/docs).
 
 ## Use the built-in workflows
 
-LazyCodex should be judged by the features it actually installs. It is a thin
-Codex distribution for OmO: project memory, planning, execution, verified
-completion, skills, hooks, model routing, and diagnostics.
+LazyCodex should be judged by the features it actually installs. It is the
+Codex distribution for OmO's agent harness: project memory, planning,
+execution, verified completion, skills, hooks, model routing, and diagnostics.
 
 ### 1. `/init-deep` creates project memory
 
@@ -104,11 +104,11 @@ Start at [https://lazycodex.ai](https://lazycodex.ai).
 
 ## 💤 What is this?
 
-**LazyCodex** is the **lazy way** to get [OmO (oh-my-openagent)](https://github.com/code-yeongyu/oh-my-openagent) up and running.
+**LazyCodex** packages [OmO (oh-my-openagent)](https://github.com/code-yeongyu/oh-my-openagent) as the Codex agent harness for complex codebases.
 
 Think [LazyVim](https://github.com/LazyVim/LazyVim) for [lazy.nvim](https://github.com/folke/lazy.nvim), but for Codex.
 
-OmO is the best agent harness: discipline agents, parallel orchestration, multi-model routing, skills, hooks, and more. LazyCodex wraps it so you don't have to think about setup.
+OmO is the agent harness: discipline agents, parallel orchestration, multi-model routing, skills, hooks, and verified completion. LazyCodex packages that harness for Codex.
 
 > _"LazyVim made Neovim usable for the rest of us. LazyCodex does the same for Codex."_
 

@@ -1,12 +1,12 @@
-LazyCodex is the lazy way to get [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) (OmO) up and running inside Codex. Think [LazyVim](https://github.com/LazyVim/LazyVim) for [lazy.nvim](https://github.com/folke/lazy.nvim), but for Codex.
+LazyCodex packages [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) (OmO) inside Codex as the agent harness for complex codebases. Think [LazyVim](https://github.com/LazyVim/LazyVim) for [lazy.nvim](https://github.com/folke/lazy.nvim), but for Codex.
 
 ### What you get
 
-OmO is a full AI dev team in a harness. It gives you discipline agents (Sisyphus orchestrates Hephaestus, Oracle, and Librarian), parallel execution, multi-model routing, a skills system, hooks and lifecycle, and zero-config defaults. LazyCodex wraps the entire setup so you don't have to think about it.
+OmO gives Codex a full agent harness: discipline agents (Sisyphus orchestrates Hephaestus, Oracle, and Librarian), parallel execution, multi-model routing, a skills system, hooks and lifecycle, and verification defaults. LazyCodex packages that harness as a repeatable Codex setup.
 
-### The one-word workflow
+### The harness workflow
 
-You don't need to ultrathink. Just prompt with `{your prompt} ultrawork`. One word, and every agent activates.
+Use `{your prompt} ultrawork` when the job needs project memory, planning, parallel agents, and verified completion to run as one coordinated loop.
 
 ### How it fits together
 

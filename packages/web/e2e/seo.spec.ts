@@ -32,6 +32,8 @@ test.describe("site SEO + metadata", () => {
     expect(description?.length).toBeGreaterThan(50)
     expect(description?.length).toBeLessThanOrEqual(170)
     expect(description).toMatch(/Codex/i)
+    expect(description).toMatch(/agent harness/i)
+    expect(description).toMatch(/complex codebases/i)
     expect(description).not.toMatch(LAUNCH_GATING_PATTERN)
 
     const canonical = await page.locator('link[rel="canonical"]').getAttribute("href")

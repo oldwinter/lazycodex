@@ -5,14 +5,14 @@ import "./globals.css"
 
 const SITE_URL = "https://lazycodex.ai"
 const SITE_NAME = "LazyCodex"
-const TAGLINE = "Codex for no-brainers"
+const TAGLINE = "Codex agent harness for complex codebases"
 const DESCRIPTION =
-  "LazyCodex. You don't need to ultrathink. Just prompt with ultrawork and install the Codex agent harness in one command."
+  "LazyCodex installs the OmO agent harness inside Codex: project memory, planning, parallel agents, skills, hooks, routing, and verified completion for complex codebases."
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#2a2dbf",
+  themeColor: "#008385",
   colorScheme: "dark",
 }
 
@@ -33,6 +33,9 @@ export const metadata: Metadata = {
     "ai agent",
     "code agent",
     "agent harness",
+    "complex codebases",
+    "verified completion",
+    "project memory",
     "sisyphus",
     "lazyvim",
   ],

@@ -4,7 +4,7 @@ import { OgBrandMark } from "./og-brand-mark"
 import { OG_GRADIENTS, OG_PALETTE, OG_SIZE } from "./og-image-theme"
 
 export const runtime = "nodejs"
-export const alt = "LazyCodex - Codex for no-brainers."
+export const alt = "LazyCodex - agent harness for complex codebases."
 export const size = OG_SIZE
 export const contentType = "image/png"
 
@@ -107,12 +107,12 @@ export default function OgImage(): ImageResponse {
               position: "relative",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "flex-start",
               justifyContent: "center",
               width: "100%",
               height: "100%",
-              padding: "70px 72px 62px",
-              textAlign: "center",
+              padding: "70px 86px 62px",
+              textAlign: "left",
             }}
           >
             <div
@@ -131,12 +131,12 @@ export default function OgImage(): ImageResponse {
             </div>
             <div
               style={{
-                marginTop: "28px",
+                marginTop: "18px",
                 color: palette.textPrimary,
-                fontSize: "142px",
+                fontSize: "104px",
                 fontWeight: 500,
-                letterSpacing: "-4.3px",
-                lineHeight: 0.98,
+                letterSpacing: "-3.1px",
+                lineHeight: 1.1,
               }}
             >
               {SITE_CONFIG.wordmark}
@@ -145,18 +145,19 @@ export default function OgImage(): ImageResponse {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                alignItems: "center",
-                marginTop: "30px",
-                gap: "2px",
+                alignItems: "flex-start",
+                marginTop: "56px",
+                gap: "8px",
                 color: palette.textMuted,
-                fontSize: "33px",
+                fontSize: "36px",
                 fontWeight: 400,
                 letterSpacing: "-0.17px",
-                lineHeight: 1.35,
+                lineHeight: 1.2,
+                width: "880px",
               }}
             >
               <div>{SITE_CONFIG.heroLineA}</div>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
                 <span>{SITE_CONFIG.heroLineB.prefix}</span>
                 <span
                   style={{
@@ -167,7 +168,7 @@ export default function OgImage(): ImageResponse {
                     padding: "1px 11px 3px",
                     color: palette.textSoft,
                     fontFamily: "monospace",
-                    fontSize: "30px",
+                    fontSize: "34px",
                     lineHeight: 1.2,
                   }}
                 >
@@ -185,6 +186,34 @@ export default function OgImage(): ImageResponse {
                 </span>
                 <span>{SITE_CONFIG.heroLineB.period}</span>
               </div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                marginTop: "26px",
+              }}
+            >
+              {SITE_CONFIG.harnessPillars.map((pillar) => (
+                <div
+                  key={pillar}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    borderRadius: "999px",
+                    border: `1px solid ${palette.border}`,
+                    backgroundColor: "rgba(255, 255, 255, 0.07)",
+                    padding: "9px 14px",
+                    color: palette.textSoft,
+                    fontFamily: "monospace",
+                    fontSize: "18px",
+                    lineHeight: 1,
+                  }}
+                >
+                  {pillar}
+                </div>
+              ))}
             </div>
           </div>
         </div>

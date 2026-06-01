@@ -23,7 +23,6 @@ test.describe("home page — content", () => {
 
     await expect(page.getByText(SITE_CONFIG.eyebrow, { exact: true })).toBeVisible()
 
-    // New hero copy (replaces the old "You don't need to think." splash).
     await expect(page.getByText(SITE_CONFIG.heroLineA, { exact: false }).first()).toBeVisible()
     await expect(
       page.getByText(SITE_CONFIG.heroLineB.slot, { exact: false }).first(),

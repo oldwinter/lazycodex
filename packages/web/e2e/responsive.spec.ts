@@ -9,7 +9,7 @@ import { COMMANDS } from "../lib/commands"
  * For each viewport, we assert:
  *   1. No horizontal overflow (the page fits).
  *   2. The wordmark is visible AND fits inside the viewport width.
- *   3. The hero keyword "ultrawork" is visible.
+ *   3. The hero keyword is visible.
  *   4. All three command names are visible.
  *   5. The footer ("lazycodex.ai") is visible.
  *

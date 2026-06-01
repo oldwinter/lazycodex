@@ -13,7 +13,7 @@ export const COMMANDS: readonly LazyCommand[] = [
     syntax: '/ulw-loop "task" [--completion-promise=TEXT] [--strategy=reset|continue]',
     summary: "A self-referential loop that runs until VERIFIED completion.",
     facts: [
-      "Emits <promise>DONE</promise> when it thinks it's done",
+      "Emits <promise>DONE</promise> when it reaches a completion claim",
       "Oracle must verify before the loop ends",
       "Iteration cap 500 in ultrawork mode (100 normal)",
     ],
