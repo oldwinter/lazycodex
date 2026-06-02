@@ -407,7 +407,7 @@ describe("codex rules hooks", () => {
 		);
 	});
 
-	it("#given cached dynamic context #when PostCompact runs #then PostToolUse can re-inject after compaction", async () => {
+	it("#given cached dynamic context #when PostCompact runs #then PostToolUse emits no duplicate dynamic context", async () => {
 		// given
 		const { root, pluginData } = makeTempProject();
 		const filePath = path.join(root, "src", "app.ts");
@@ -434,10 +434,10 @@ describe("codex rules hooks", () => {
 
 		// then
 		expect(compactOutput).toBe("");
-		expect(parseHookOutput(output).hookSpecificOutput?.additionalContext).toContain("Prefer strict TypeScript");
+		expect(output).toBe("");
 	});
 
-	it("#given compacted transcript #when static re-injects before dynamic #then dynamic still re-injects", async () => {
+	it("#given cached static and dynamic context #when static recovery runs before dynamic #then neither emits duplicate context", async () => {
 		// given
 		const { root, pluginData } = makeTempProject();
 		const filePath = path.join(root, "src", "app.ts");
@@ -470,15 +470,11 @@ describe("codex rules hooks", () => {
 		);
 
 		// then
-		expect(parseHookOutput(staticReinjectOutput).hookSpecificOutput?.additionalContext).toContain(
-			"Always wear safety goggles",
-		);
-		expect(parseHookOutput(dynamicReinjectOutput).hookSpecificOutput?.additionalContext).toContain(
-			"Prefer strict TypeScript",
-		);
+		expect(staticReinjectOutput).toBe("");
+		expect(dynamicReinjectOutput).toBe("");
 	});
 
-	it("#given compacted transcript #when dynamic re-injects before static #then static still re-injects", async () => {
+	it("#given cached static and dynamic context #when dynamic recovery runs before static #then neither emits duplicate context", async () => {
 		// given
 		const { root, pluginData } = makeTempProject();
 		const filePath = path.join(root, "src", "app.ts");
@@ -511,12 +507,8 @@ describe("codex rules hooks", () => {
 		});
 
 		// then
-		expect(parseHookOutput(dynamicReinjectOutput).hookSpecificOutput?.additionalContext).toContain(
-			"Prefer strict TypeScript",
-		);
-		expect(parseHookOutput(staticReinjectOutput).hookSpecificOutput?.additionalContext).toContain(
-			"Always wear safety goggles",
-		);
+		expect(dynamicReinjectOutput).toBe("");
+		expect(staticReinjectOutput).toBe("");
 	});
 
 	it("#given legacy session cache #when PostToolUse hydrates state #then it accepts the old shape", async () => {
