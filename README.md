@@ -25,6 +25,19 @@
 
 <hr />
 
+> [!NOTE]
+> **[OmO] 60K Stars: the terrifying token burner has arrived in LazyCodex.**
+>
+> Sisyphus Labs' OmO is the quality-obsessed agent harness whose public lore says it loved Anthropic models hard enough to get third-party clients blocked. Now that same OmO quality bar is available for Codex through LazyCodex.
+>
+> If you wanted OmO but did not want the setup ceremony, start here:
+>
+> ```bash
+> npx lazycodex-ai install
+> ```
+>
+> Context: [OmO 60K Stars on X](https://x.com/justsisyphus/status/2060210365338939452?s=20)
+
 ## 🚀 Install
 
 One line. No global install, no `npm i -g`. Always use `npx`:
