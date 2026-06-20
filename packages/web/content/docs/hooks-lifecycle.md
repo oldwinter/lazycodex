@@ -1,22 +1,22 @@
-Hooks and lifecycle are how the harness keeps a long run moving without you re-prompting every turn. OmO installs lifecycle hooks into Codex that observe each turn and decide what happens next.
+Hooks and lifecycle 让 harness 可以在不需要你每回合重新提示的情况下持续推进长任务。OmO 会向 Codex 安装 lifecycle hooks，观察每个回合并决定下一步。
 
-### The core mechanism
+### 核心机制
 
-A Stop-hook fires when a turn ends. If a plan is still in progress, the hook re-injects the next turn automatically — the agent continues from durable progress state instead of waiting for you to say "continue". The run only stops when the plan is complete or a gate fails in a way that needs a human.
+Stop-hook 会在一个回合结束时触发。如果计划仍在进行，hook 会自动重新注入下一轮，让 agent 从持久进度状态继续，而不是等待你说 "continue"。只有计划完成，或某个 gate 以需要人工介入的方式失败，运行才会停止。
 
-### Where progress lives
+### 进度在哪里
 
-Progress state is written to `.omo/boulder.json` and survives across turns and sessions. That is what lets [`$start-work`](./start-work.md) resume a plan after a restart, and what keeps [`$ulw-loop`](./ulw-loop.md) honest about how far it has actually gotten.
+进度状态写入 `.omo/boulder.json`，可以跨回合、跨会话保存。这让 [`$start-work`](./start-work.md) 能在重启后恢复计划，也让 [`$ulw-loop`](./ulw-loop.md) 对实际推进距离保持诚实。
 
-### Approval and trust
+### 批准与信任
 
-Hooks never run before approval. On the first launch after install, Codex's startup review asks you to approve the omo hooks. After every upgrade the hooks show as **Modified** — expected, because the plugin files changed and the previous trust hashes no longer match — re-approve and the next session re-runs bootstrap on the new version.
+Hooks 在批准前绝不会运行。安装后第一次启动时，Codex 的 startup review 会要求你批准 omo hooks。每次升级后 hooks 会显示为 **Modified**，这是预期行为，因为 plugin 文件变了、旧 trust hashes 不再匹配。重新批准后，下一个会话会在新版本上重新运行 bootstrap。
 
-### Evidence gates
+### 证据门禁
 
-During execution the lifecycle enforces five evidence gates before a step can close: plan reread, automated verification, manual-QA, adversarial QA, and cleanup. A step that cannot pass its gates does not advance, regardless of what the status text claims.
+执行期间，lifecycle 会在 step 关闭前强制执行五个 evidence gates：plan reread、automated verification、manual-QA、adversarial QA 和 cleanup。无论状态文本声称什么，一个不能通过 gates 的 step 都不会前进。
 
-### Reading more
+### 继续阅读
 
-- [ultrawork mode](./ultrawork.md) — the mode that turns these gates into a binding loop.
-- [Configuration](./configuration.md) — how to tune hook behavior and lifecycle defaults.
+- [ultrawork 模式](./ultrawork.md) — 把这些 gates 变成强约束循环的模式。
+- [配置](./configuration.md) — 如何调整 hook 行为和 lifecycle defaults。

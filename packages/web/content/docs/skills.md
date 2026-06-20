@@ -1,40 +1,40 @@
-LazyCodex is most useful as a harness for complex codebases: project memory, planning, execution, verified completion, skills, hooks, model routing, and diagnostics.
+LazyCodex 最适合作为复杂代码库的 harness：项目记忆、规划、执行、可验证完成、skills、hooks、model routing 和 diagnostics。
 
-### Built-in workflows
+### 内置工作流
 
-Start with `$init-deep` when the repository is too large or too old to explain from memory. It generates hierarchical `AGENTS.md` context so agents can find the right files before they change code.
+当仓库太大或历史太久，无法靠记忆解释时，从 `$init-deep` 开始。它生成分层 `AGENTS.md` 上下文，让 agent 在改代码前能找到正确文件。
 
-Use `$ulw-plan` when the work needs decisions before implementation, `$start-work` when a plan should be executed, and `$ulw-loop` when you want the agent to keep going until the result is verified.
+当工作需要先做决策再实现，使用 `$ulw-plan`；当计划需要执行，使用 `$start-work`；当你希望 agent 持续推进到结果被验证，使用 `$ulw-loop`。
 
-### Feature coverage
+### 能力覆盖
 
-The three command pillars stay simple:
+三个命令支柱保持简单：
 
-- `$ulw-loop` keeps moving until verified completion
-- `$ulw-plan` turns fuzzy work into a decision-complete plan
-- `$start-work` executes a plan with durable Boulder progress
+- `$ulw-loop` 持续推进到 verified completion
+- `$ulw-plan` 把模糊工作变成 decision-complete plan
+- `$start-work` 用 durable Boulder progress 执行计划
 
-Skills add specialist judgment around those pillars:
+Skills 为这些支柱加入专业判断：
 
-| Skill | Use it for |
+| Skill | 用途 |
 | --- | --- |
-| `review-work` | Multi-angle post-implementation review |
-| `remove-ai-slops` | Behavior-preserving cleanup of AI-looking code |
-| `frontend-ui-ux` | Designed UI work instead of generic layout filling |
-| `programming` | Strict TypeScript, Rust, Python, or Go discipline |
-| `LSP` | Diagnostics, definitions, references, symbols, and renames |
-| `AST-grep` | Structural search and rewrite across code |
-| `rules` | Project instructions from AGENTS, rules, and instruction files |
-| `comment-checker` | Feedback after edit-like operations |
+| `review-work` | 多角度实现后审查 |
+| `remove-ai-slops` | 保持行为不变地清理 AI 痕迹代码 |
+| `frontend-ui-ux` | 经过设计的 UI 工作，而不是泛泛填充布局 |
+| `programming` | 严格的 TypeScript、Rust、Python 或 Go 工程纪律 |
+| `LSP` | diagnostics、definitions、references、symbols 和 renames |
+| `AST-grep` | 跨代码结构搜索与重写 |
+| `rules` | 来自 AGENTS、rules 和 instruction files 的项目指令 |
+| `comment-checker` | 对编辑类操作后的反馈 |
 
-### Where skills live
+### Skills 在哪里
 
-OmO can load skills from project and user locations such as `.opencode/skills`, `~/.config/opencode/skills`, `.claude/skills`, `.agents/skills`, and `~/.agents/skills`.
+OmO 可以从项目和用户位置加载 skills，例如 `.opencode/skills`、`~/.config/opencode/skills`、`.claude/skills`、`.agents/skills` 和 `~/.agents/skills`。
 
-LazyCodex installs the Codex Light setup with:
+LazyCodex 通过以下命令安装 Codex Light setup：
 
 ```bash
 npx lazycodex-ai install
 ```
 
-That installer wires the Codex marketplace plugin as `omo@sisyphuslabs` while keeping the public package alias easy to remember.
+该安装器会把 Codex marketplace plugin 注册为 `omo@sisyphuslabs`，同时保留容易记住的 public package alias。

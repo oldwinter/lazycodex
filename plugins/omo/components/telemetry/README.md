@@ -1,12 +1,12 @@
 # codex-telemetry
 
-Codex plugin component that emits a single anonymous daily-active event (`omo_codex_daily_active`) to PostHog whenever a Codex session starts.
+这是一个 Codex plugin component。每当 Codex session 启动时，它会向 PostHog 发送一个匿名 daily-active event（`omo_codex_daily_active`）。
 
-The event is sent **at most once per UTC day per machine**. It uses a SHA256-hashed installation identifier derived from `omo-codex:${hostname}` and never sends the raw hostname. PostHog person profiles are explicitly disabled.
+该 event **每台机器每天 UTC 最多发送一次**。它使用从 `omo-codex:${hostname}` 派生的 SHA256 hashed installation identifier，绝不发送 raw hostname。PostHog person profiles 被显式禁用。
 
-## Hook Wiring
+## Hook 接线
 
-The component registers a single `SessionStart` hook:
+组件注册单个 `SessionStart` hook：
 
 ```json
 {
@@ -26,11 +26,11 @@ The component registers a single `SessionStart` hook:
 }
 ```
 
-The aggregate `plugin/hooks/hooks.json` mounts this hook alongside `rules` and `ultrawork` so all three fire in parallel at the start of every Codex session.
+aggregate `plugin/hooks/hooks.json` 会把此 hook 与 `rules` 和 `ultrawork` 一起挂载，让三者在每次 Codex session 开始时并行触发。
 
-## What Is Captured
+## 采集内容
 
-A single PostHog `capture` call with:
+单次 PostHog `capture` 调用包含：
 
 - `event: "omo_codex_daily_active"`
 - `distinctId: sha256("omo-codex:" + hostname)`
@@ -41,14 +41,14 @@ A single PostHog `capture` call with:
   - `$os`, `$os_version`, `os_arch`, `os_type`
   - `cpu_count`, `cpu_model`, `total_memory_gb`
   - `locale`, `timezone`, `shell`, `ci`, `terminal`
-  - `day_utc` (today's UTC date)
+  - `day_utc`（当天 UTC 日期）
   - `$process_person_profile: false`
 
-The component never sends prompt contents, file contents, API keys, raw hostnames, or any user-identifying data.
+组件绝不会发送 prompt contents、file contents、API keys、raw hostnames 或任何 user-identifying data。
 
-## Opt-Out
+## 退出遥测
 
-Set any of the following environment variables before launching Codex:
+启动 Codex 前设置任意以下环境变量：
 
 ```bash
 # Codex-only opt-out
@@ -60,42 +60,42 @@ export OMO_DISABLE_POSTHOG=1
 export OMO_SEND_ANONYMOUS_TELEMETRY=0
 ```
 
-When any of these is set the component creates a no-op PostHog client and exits without any network call.
+设置任意变量后，组件会创建 no-op PostHog client，并且不发起任何网络调用。
 
-## Daily Deduplication
+## 每日去重
 
-The component writes a small JSON state file at:
+组件会在以下位置写入小型 JSON state file：
 
-```
+```text
 $XDG_DATA_HOME/omo-codex/posthog-activity.json
 # or, when XDG_DATA_HOME is unset:
 ~/.local/share/omo-codex/posthog-activity.json
 ```
 
-containing `{ "lastActiveDayUTC": "YYYY-MM-DD" }`. If the stored day matches today (UTC), the hook returns without sending anything. The file is written atomically via `rename(2)`.
+内容形如 `{ "lastActiveDayUTC": "YYYY-MM-DD" }`。如果存储日期与今天（UTC）相同，hook 会直接返回，不发送任何内容。文件通过 `rename(2)` 原子写入。
 
-## Failure Behavior
+## 失败行为
 
-Every telemetry path is wrapped in `try`/`catch`. The hook always exits 0 with no stdout or stderr output, even when PostHog construction, capture, or shutdown fails. Codex session startup is never blocked or slowed by telemetry failures.
+每条 telemetry 路径都包在 `try`/`catch` 中。即使 PostHog construction、capture 或 shutdown 失败，hook 也始终 exit 0，并且没有 stdout 或 stderr 输出。Codex session startup 不会被 telemetry failures 阻塞或拖慢。
 
-Handled telemetry failures are written only to a local diagnostics file:
+已处理的 telemetry failures 只会写到本地 diagnostics file：
 
-```
+```text
 $XDG_DATA_HOME/omo-codex/telemetry-diagnostics.jsonl
 # or, when XDG_DATA_HOME is unset:
 ~/.local/share/omo-codex/telemetry-diagnostics.jsonl
 ```
 
-The diagnostics file keeps JSONL rows for recent telemetry failures, prunes stale rows during writes, and caps itself at 256 KiB by dropping the oldest complete rows. Diagnostics are never sent to PostHog and do not include prompt contents, transcript contents, raw hostnames, API keys, tokens, or full hook payloads.
+diagnostics file 会保留最近 telemetry failures 的 JSONL rows，写入时清理陈旧 rows，并通过丢弃最旧的完整 rows 把文件限制在 256 KiB。Diagnostics 永远不会发送给 PostHog，也不包含 prompt contents、transcript contents、raw hostnames、API keys、tokens 或完整 hook payloads。
 
-## Endpoint Overrides
+## Endpoint 覆盖
 
-| Variable | Default |
+| 变量 | 默认值 |
 |----------|---------|
 | `POSTHOG_HOST` | `https://us.i.posthog.com` |
 | `POSTHOG_API_KEY` | shared `omo-codex` project key |
 
-## Development
+## 开发
 
 ```bash
 npm install
@@ -105,8 +105,8 @@ npm run build      # tsc -> dist/
 npm run check      # typecheck + biome + build
 ```
 
-The component shares its product identity constants with the `@oh-my-opencode/omo-codex` CLI installer. Drift between the two implementations is guarded by `packages/omo-codex/src/telemetry/cross-package-equivalence.test.ts`.
+组件与 `@oh-my-opencode/omo-codex` CLI installer 共享 product identity constants。两处实现漂移会由 `packages/omo-codex/src/telemetry/cross-package-equivalence.test.ts` 防护。
 
-## Privacy
+## 隐私
 
-See [the omo Privacy Policy](https://github.com/code-yeongyu/oh-my-openagent/blob/dev/docs/legal/privacy-policy.md) for the full disclosure.
+完整披露见 [omo Privacy Policy](https://github.com/code-yeongyu/oh-my-openagent/blob/dev/docs/legal/privacy-policy.md)。

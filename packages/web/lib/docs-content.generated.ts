@@ -1,19 +1,19 @@
 // AUTO-GENERATED — do not edit. Run: node ./scripts/generate-docs-content.mjs
 export const DOC_SOURCES: Record<string, string> = {
-  "overview.md": "<p>LazyCodex is a light port of <a href=\"https://github.com/code-yeongyu/oh-my-openagent\">OmO</a> into Codex. It does not ship the full harness — it ports one role, <strong>Hephaestus</strong>, the autonomous deep worker, and the workflows that keep its runs honest. Think <a href=\"https://github.com/LazyVim/LazyVim\">LazyVim</a> for <a href=\"https://github.com/folke/lazy.nvim\">lazy.nvim</a>, but for Codex.</p>\n<h3 id=\"where-it-comes-from\">Where it comes from</h3>\n<p>OmO is the full agent harness: a primary orchestrator (Sisyphus) with <code>.omo/boulder.json</code> session continuity, a deep worker (Hephaestus), specialist agents, multi-model routing, 54+ lifecycle hooks, and team mode. That is a lot. LazyCodex takes only the piece that matters for a focused Codex setup and packages it as a repeatable install.</p>\n<h3 id=\"what-you-get\">What you get</h3>\n<p>The Hephaestus deep worker, ported into Codex with:</p>\n<ul>\n<li>Goal-oriented execution — you give it objectives, not step-by-step recipes.</li>\n<li>A tight operating loop: <strong>Explore → Plan → Implement → Verify → Manually QA</strong>.</li>\n<li>Parallel explore subagents so it maps the terrain before writing anything.</li>\n<li>The <code>$ulw-plan</code>, <code>$start-work</code>, and <code>$ulw-loop</code> workflows that keep complex work moving until it is verified.</li>\n<li>Skills, hooks, model routing, and verification defaults wired into Codex in one pass.</li>\n</ul>\n<h3 id=\"the-harness-workflow\">The harness workflow</h3>\n<p>Use <code>{your prompt} ultrawork</code> when the job needs the deep worker to run as one coordinated, evidence-bound loop instead of a single turn.</p>\n<h3 id=\"how-it-fits-together\">How it fits together</h3>\n<p>LazyCodex is a thin distribution layer over <a href=\"https://github.com/code-yeongyu/oh-my-openagent\">OmO</a>. The core engine is OmO; LazyCodex packages OmO&#39;s Hephaestus for Codex.</p>\n<p>Credit: The LazyCodex name idea is inspired by <a href=\"https://github.com/LazyVim/LazyVim\">LazyVim</a>. The Ultragoal and UltraQA ideas are inspired by <a href=\"https://github.com/Yeachan-Heo/oh-my-codex\">oh-my-codex</a>, reimplemented from concept for this Codex setup.</p>\n<ul>\n<li><a href=\"https://github.com/code-yeongyu/lazycodex\">LazyCodex on GitHub</a></li>\n<li><a href=\"https://github.com/code-yeongyu/oh-my-openagent\">OmO on GitHub</a></li>\n</ul>\n",
-  "installation.md": "<p>One command installs the OmO agent harness for Codex without a global package install.</p>\n<h3 id=\"install\">Install</h3>\n<pre><code class=\"language-bash\">npx lazycodex-ai install\n</code></pre>\n<p>This is exactly equivalent to <code>npx --yes --package oh-my-openagent omo install --platform=codex</code>.</p>\n<h3 id=\"autonomous-one-liner\">Autonomous one-liner</h3>\n<pre><code class=\"language-bash\">npx lazycodex-ai install --no-tui --codex-autonomous\n</code></pre>\n<h3 id=\"prerequisites\">Prerequisites</h3>\n<ul>\n<li><a href=\"https://nodejs.org\">Node.js</a> — any maintained LTS; <code>npx</code> ships with it. Bun is <strong>not</strong> required: the installer runs on plain Node.</li>\n<li>The <a href=\"https://github.com/openai/codex\">OpenAI Codex CLI</a></li>\n</ul>\n<blockquote>\n<p>Do NOT use <code>npm install -g</code> or <code>bun add -g</code>. Always invoke via <code>npx</code>.</p>\n</blockquote>\n<h3 id=\"install-from-the-codex-marketplace-experimental\">Install from the Codex marketplace (experimental)</h3>\n<p>The npx installer above stays the primary path. As an additive, experimental alternative you can install from inside Codex itself: type <code>/plugins</code>, open the <strong>Add Marketplace</strong> tab (&quot;Add a marketplace from a Git repo or local root.&quot;), and enter <code>https://github.com/code-yeongyu/lazycodex</code>, then install <code>omo</code> from the <code>sisyphuslabs</code> marketplace. Or from the CLI:</p>\n<pre><code class=\"language-bash\">codex plugin marketplace add https://github.com/code-yeongyu/lazycodex\ncodex plugin add omo@sisyphuslabs\n</code></pre>\n<p>On the next launch, approve the omo hooks in Codex&#39;s startup review — hooks never run before approval. The first approved session prints <code>LazyCodex bootstrap running in background — restart the session when it completes</code> while a background worker finishes the setup (config blocks, agent roles, bin links, a pinned <code>sg</code> binary for the <code>ast_grep</code> MCP); restart when it is done. The marketplace path never touches Codex permission settings — autonomous mode remains the explicit <code>npx lazycodex-ai install --no-tui --codex-autonomous</code> choice.</p>\n<p>Upgrade with <code>codex plugin marketplace upgrade sisyphuslabs</code>. The next startup review shows the hooks as <strong>Modified</strong> — expected after every upgrade, because the plugin files changed and the previous trust hashes no longer match — re-approve them and the following session re-runs bootstrap on the new version. If anything looks pending or degraded, <code>npx lazycodex-ai doctor</code> explains what and why.</p>\n<h3 id=\"windows\">Windows</h3>\n<p>Native Windows works with both install paths.</p>\n<ul>\n<li><strong>Node:</strong> <code>npx lazycodex-ai install</code> needs Node.js on <code>PATH</code> (LTS recommended). On marketplace installs the bootstrap step provisions a pinned Node LTS runtime into <code>%USERPROFILE%\\.codex\\runtime\\node\\</code> automatically when <code>node</code> is missing — installing Node yourself first also works and skips the download.</li>\n<li><strong>Git Bash:</strong> required for shell hooks. The installer and the marketplace bootstrap both try <code>winget install --id Git.Git -e --source winget</code> when Git Bash is missing. If Git lives somewhere custom, set <code>OMO_CODEX_GIT_BASH_PATH</code> to a path like <code>C:\\Program Files\\Git\\bin\\bash.exe</code>.</li>\n<li><strong><code>where bash</code> shows <code>C:\\Windows\\System32\\bash.exe</code>:</strong> that is the WSL launcher, not Git Bash — LazyCodex intentionally ignores <code>System32</code> and <code>WindowsApps</code> <code>bash.exe</code> shims when resolving Git Bash. Install Git for Windows or point <code>OMO_CODEX_GIT_BASH_PATH</code> at a real Git Bash so the resolver finds it.</li>\n<li><strong>Troubleshooting:</strong> the Windows marketplace bootstrap writes a transcript to <code>%USERPROFILE%\\.codex\\plugins\\data\\omo-sisyphuslabs\\bootstrap\\ps-bootstrap.log</code>; degraded lines look like <code>degraded component=node reason=... hint=npx lazycodex-ai doctor</code>. Run <code>npx lazycodex-ai doctor</code> for the full health report.</li>\n</ul>\n<h3 id=\"let-an-agent-do-it\">Let an agent do it</h3>\n<p>It is strongly recommended to let an LLM agent run the install and walk the setup for you. The agent handles subscription detection, model selection, and provider auth automatically.</p>\n",
-  "getting-started.md": "<p>LazyCodex is most useful as a harness for complex codebases: project memory, planning, execution, verified completion, skills, hooks, model routing, and diagnostics. This page walks through the four commands you will reach for most often and when to pick each.</p>\n<h3 id=\"the-four-commands\">The four commands</h3>\n<table>\n<thead>\n<tr>\n<th>Command</th>\n<th>Use it when</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>$init-deep</code></td>\n<td>The repository is too large or too old to explain from memory.</td>\n</tr>\n<tr>\n<td><code>$ulw-plan</code></td>\n<td>The work needs decisions before any code is written.</td>\n</tr>\n<tr>\n<td><code>$start-work</code></td>\n<td>A plan exists and should be executed to completion.</td>\n</tr>\n<tr>\n<td><code>$ulw-loop</code></td>\n<td>You want the agent to keep going until the result is verified.</td>\n</tr>\n</tbody></table>\n<h3 id=\"how-to-choose\">How to choose</h3>\n<p>Start with <code>$init-deep</code> once per repository so agents have hierarchical <code>AGENTS.md</code> context to work from.</p>\n<p>For anything ambiguous, run <code>$ulw-plan</code> first. It interviews you, explores the codebase in parallel, and writes a decision-complete plan to <code>plans/&lt;slug&gt;.md</code> without touching product code.</p>\n<p>Hand that plan to <code>$start-work</code> to execute it: durable Boulder state, parallel subagents, strict TDD, and five evidence gates. It prints <code>ORCHESTRATION COMPLETE</code> when every checkbox is done.</p>\n<p><code>$ulw-loop</code> is the tightest loop — use it for a single task that must run until an oracle verifies completion. It does not plan; it executes and verifies.</p>\n<h3 id=\"a-typical-session\">A typical session</h3>\n<pre><code class=\"language-text\">$init-deep\n$ulw-plan &quot;add rate limiting to the api gateway&quot;\n$start-work plans/add-rate-limiting.md\n</code></pre>\n<p>If the job is small and well-understood, skip the plan and loop directly:</p>\n<pre><code class=\"language-text\">ulw fix the flaky checkout test\n</code></pre>\n<p>See <a href=\"#skills\">Feature coverage</a> for the skills that add specialist judgment around these commands.</p>\n",
-  "init-deep.md": "<p><code>$init-deep</code> generates hierarchical <code>AGENTS.md</code> context so agents start from local guidance before touching a large repository. Run it once per project, and again whenever the architecture shifts enough that the existing context no longer reflects reality.</p>\n<h3 id=\"what-it-produces\">What it produces</h3>\n<ul>\n<li>A root <code>AGENTS.md</code> that orients agents to the project: stack, layout, conventions, and where to look first.</li>\n<li>Nested <code>AGENTS.md</code> files in the directories that matter most, so an agent descending into a package gets scoped guidance instead of guessing.</li>\n<li>References to project rules, skills, and instruction files the harness should respect.</li>\n</ul>\n<h3 id=\"when-to-run-it\">When to run it</h3>\n<ul>\n<li>Onboarding a repository that is too large or too old to explain from memory.</li>\n<li>After a major refactor, migration, or layout change.</li>\n<li>When agents keep picking the wrong files or ignoring local conventions.</li>\n</ul>\n<h3 id=\"how-to-use-it\">How to use it</h3>\n<pre><code class=\"language-text\">$init-deep\n</code></pre>\n<p>The command walks the tree, reads the files that define how the project actually works, and writes the context. Review the generated <code>AGENTS.md</code> files, trim anything stale, and commit them. Agents in later turns read that context before they edit, so the first session pays for every session after it.</p>\n<h3 id=\"after-init\">After init</h3>\n<p>With context in place, move to <a href=\"#ulw-plan\"><code>$ulw-plan</code></a> when the work needs a plan, or <a href=\"#ulw-loop\"><code>$ulw-loop</code></a> for a single verified task.</p>\n",
-  "ulw-plan.md": "<p><code>$ulw-plan</code> is the strategic planning consultant (Prometheus). It turns an idea into a decision-complete work plan. It is a planner, NOT an implementer. When you say &quot;do X&quot; it produces a plan for X and never writes product code.</p>\n<h3 id=\"the-flow\">The flow</h3>\n<ol>\n<li>Socratic interview</li>\n<li>Parallel codebase exploration</li>\n<li>Metis gap analysis</li>\n<li>Writes the plan to <code>plans/&lt;slug&gt;.md</code></li>\n<li>Optional Momus high-accuracy review</li>\n</ol>\n<h3 id=\"output\">Output</h3>\n<p>Questions, research, and a work plan you can hand to <a href=\"#start-work\"><code>$start-work</code></a>.</p>\n",
-  "start-work.md": "<p><code>$start-work</code> executes a Prometheus work plan until every top-level checkbox is done.</p>\n<h3 id=\"how-it-works\">How it works</h3>\n<ul>\n<li>Durable Boulder state in <code>.omo/boulder.json</code> survives across turns and sessions</li>\n<li>A Stop-hook re-injects the next turn until the plan is complete</li>\n<li>Independent sub-tasks fan out to parallel subagents</li>\n<li>Strict TDD plus five evidence gates: plan reread, automated verification, manual-QA, adversarial QA, cleanup</li>\n<li>Progress is recorded to a ledger</li>\n</ul>\n<h3 id=\"syntax\">Syntax</h3>\n<pre><code class=\"language-bash\">$start-work [plan-name] [--worktree &lt;absolute-path&gt;]\n</code></pre>\n<h3 id=\"done\">Done</h3>\n<p>It prints an <code>ORCHESTRATION COMPLETE</code> block when every checkbox is checked.</p>\n",
-  "ulw-loop.md": "<p><code>$ulw-loop</code> is a self-referential development loop that runs until verified completion.</p>\n<h3 id=\"how-it-works\">How it works</h3>\n<p>The agent works continuously and emits <code>&lt;promise&gt;DONE&lt;/promise&gt;</code> when it believes the task is complete, but that does NOT end the loop. An Oracle must verify the result first. The loop ends only after the system confirms Oracle verified it. If verification fails, it continues with the message: &quot;Oracle verification failed. Continuing ULTRAWORK loop.&quot;</p>\n<h3 id=\"syntax\">Syntax</h3>\n<pre><code class=\"language-bash\">$ulw-loop &quot;task description&quot; [--completion-promise=TEXT] [--strategy=reset|continue]\n</code></pre>\n<h3 id=\"limits\">Limits</h3>\n<p>The iteration cap is 500 in ultrawork mode (100 in normal mode).</p>\n",
-  "ultrawork.md": "<p>ultrawork is the headline mode. Typing <code>ultrawork</code> (or the short alias <code>ulw</code>) anywhere in your prompt activates maximum-precision, outcome-first, evidence-driven orchestration.</p>\n<blockquote>\n<p>&quot;Plan, execute, verify, and keep the evidence attached.&quot;</p>\n</blockquote>\n<h3 id=\"usage\">Usage</h3>\n<pre><code class=\"language-bash\">ulw add authentication\n</code></pre>\n<h3 id=\"what-it-enforces\">What it enforces</h3>\n<ul>\n<li>Strict TDD: RED → GREEN → SURFACE → CLEAN</li>\n<li>At least 3 realistic QA scenarios</li>\n<li>Real manual-QA channels (HTTP call, tmux, browser)</li>\n<li>A binding verification gate that loops until the work is genuinely done</li>\n</ul>\n",
-  "discipline-agents.md": "<p>LazyCodex ports a single discipline agent from OmO into Codex: <strong>Hephaestus</strong>, the autonomous deep worker. There is no Sisyphus orchestrator in the Codex package — Hephaestus is the one role, and it carries the whole run itself with read-only subagents for parallel exploration.</p>\n<h3 id=\"what-hephaestus-is\">What Hephaestus is</h3>\n<p>Named after the Greek god of the forge. Goal-oriented: you give it objectives, not step-by-step recipes, and it executes them end-to-end. &quot;The Legitimate Craftsman.&quot; Methodical, thorough, obsessive — built for deep architectural reasoning, complex debugging, and cross-domain synthesis.</p>\n<h3 id=\"the-operating-loop\">The operating loop</h3>\n<p>Hephaestus runs a short, tight loop on every unit of work:</p>\n<ol>\n<li><strong>Explore</strong> — map the terrain. Read the code with tools, never speculate. Fire 2-5 parallel explore subagents before writing anything.</li>\n<li><strong>Plan</strong> — chart the course. Record files to modify, specific changes, and dependencies via <code>update_plan</code>.</li>\n<li><strong>Implement</strong> — build with precision. Surgical edits that match codebase style (naming, indentation, imports, error handling) even when a greenfield would read differently.</li>\n<li><strong>Verify</strong> — prove it works. LSP diagnostics on changed files, related tests, and build — in parallel where possible.</li>\n<li><strong>Manually QA</strong> — drive the artifact through its real surface (HTTP call, tmux, browser), then write the final message.</li>\n</ol>\n<h3 id=\"what-it-never-does\">What it never does</h3>\n<ul>\n<li><strong>Never trusts subagent self-reports.</strong> Verification is independent; a child saying &quot;done&quot; does not close the work.</li>\n<li><strong>Never proposes when you asked for code.</strong> Unless you explicitly want a plan or a brainstorm, it implements.</li>\n<li><strong>Never speculates about code it has not read.</strong> Exploration is cheap; assumption is expensive.</li>\n<li><strong>Never leaves work unresolved at end of turn.</strong> Every plan step is reconciled: <code>completed</code>, blocked (one-line reason), or removed (one-line reason).</li>\n</ul>\n<h3 id=\"delegation-not-orchestration\">Delegation, not orchestration</h3>\n<p>Hephaestus stays the parent. For parallel exploration it spawns read-only Codex subagent roles (<code>multi_agent_v1.spawn_agent</code>) and keeps the parent session live with brief status updates while children run. It does not hand the run off to a separate orchestrator — it owns the goal, delegates the grunt work, and verifies the results itself.</p>\n<h3 id=\"where-the-boulder-comes-from\">Where the boulder comes from</h3>\n<p>The full OmO has a second primary agent, <strong>Sisyphus</strong>, the orchestrator with <code>.omo/boulder.json</code> session continuity. The Codex package is the Hephaestus-only light port, so on Codex the durable progress state lives in <code>.omo/boulder.json</code> as written by <a href=\"#start-work\"><code>$start-work</code></a> and the Stop-hook continuation — without the Sisyphus orchestration layer.</p>\n<h3 id=\"reading-more\">Reading more</h3>\n<ul>\n<li><a href=\"#ultrawork\">ultrawork mode</a> — the mode that turns the loop into a binding verified run.</li>\n<li><a href=\"#hooks-lifecycle\">Hooks &amp; Lifecycle</a> — how the Stop-hook re-injects the next turn until the plan is complete.</li>\n</ul>\n",
-  "model-routing.md": "<p>Multi-model routing sends each part of a run to the model that fits it best, instead of running everything on one model. LazyCodex installs OmO&#39;s routing defaults into Codex so a serious repository is not bottlenecked by a single context window or price point.</p>\n<h3 id=\"what-gets-routed\">What gets routed</h3>\n<ul>\n<li><strong>Planning and exploration</strong> go to a strong reasoning model that can hold a large context and weigh trade-offs.</li>\n<li><strong>Implementation turns</strong> go to a fast, capable coding model for the bulk of the edit loop.</li>\n<li><strong>Verification</strong> goes to a model used as an oracle, chosen for judgment rather than throughput.</li>\n<li><strong>Specialist skills</strong> can target their own model when a skill benefits from a specific profile.</li>\n</ul>\n<h3 id=\"how-it-fits-the-harness\">How it fits the harness</h3>\n<p>Routing is part of the harness setup that <code>npx lazycodex-ai install</code> wires into Codex. It detects the available subscriptions and provider auth, then maps roles to models so you do not hand-configure each one.</p>\n<h3 id=\"provider-auth\">Provider auth</h3>\n<p>Auth targets Codex itself, not LazyCodex. Once Codex is logged in, the installer&#39;s subscription detection and provider routing take over. If you let an LLM agent run the install, it walks the same detection and selection for you.</p>\n<h3 id=\"customizing-it\">Customizing it</h3>\n<p>Routing and provider settings live in the configuration. See <a href=\"#configuration\">Configuration</a> for the fields that control which model handles which role, and how to override the defaults per project.</p>\n",
-  "hooks-lifecycle.md": "<p>Hooks and lifecycle are how the harness keeps a long run moving without you re-prompting every turn. OmO installs lifecycle hooks into Codex that observe each turn and decide what happens next.</p>\n<h3 id=\"the-core-mechanism\">The core mechanism</h3>\n<p>A Stop-hook fires when a turn ends. If a plan is still in progress, the hook re-injects the next turn automatically — the agent continues from durable progress state instead of waiting for you to say &quot;continue&quot;. The run only stops when the plan is complete or a gate fails in a way that needs a human.</p>\n<h3 id=\"where-progress-lives\">Where progress lives</h3>\n<p>Progress state is written to <code>.omo/boulder.json</code> and survives across turns and sessions. That is what lets <a href=\"#start-work\"><code>$start-work</code></a> resume a plan after a restart, and what keeps <a href=\"#ulw-loop\"><code>$ulw-loop</code></a> honest about how far it has actually gotten.</p>\n<h3 id=\"approval-and-trust\">Approval and trust</h3>\n<p>Hooks never run before approval. On the first launch after install, Codex&#39;s startup review asks you to approve the omo hooks. After every upgrade the hooks show as <strong>Modified</strong> — expected, because the plugin files changed and the previous trust hashes no longer match — re-approve and the next session re-runs bootstrap on the new version.</p>\n<h3 id=\"evidence-gates\">Evidence gates</h3>\n<p>During execution the lifecycle enforces five evidence gates before a step can close: plan reread, automated verification, manual-QA, adversarial QA, and cleanup. A step that cannot pass its gates does not advance, regardless of what the status text claims.</p>\n<h3 id=\"reading-more\">Reading more</h3>\n<ul>\n<li><a href=\"#ultrawork\">ultrawork mode</a> — the mode that turns these gates into a binding loop.</li>\n<li><a href=\"#configuration\">Configuration</a> — how to tune hook behavior and lifecycle defaults.</li>\n</ul>\n",
-  "skills.md": "<p>LazyCodex is most useful as a harness for complex codebases: project memory, planning, execution, verified completion, skills, hooks, model routing, and diagnostics.</p>\n<h3 id=\"built-in-workflows\">Built-in workflows</h3>\n<p>Start with <code>$init-deep</code> when the repository is too large or too old to explain from memory. It generates hierarchical <code>AGENTS.md</code> context so agents can find the right files before they change code.</p>\n<p>Use <code>$ulw-plan</code> when the work needs decisions before implementation, <code>$start-work</code> when a plan should be executed, and <code>$ulw-loop</code> when you want the agent to keep going until the result is verified.</p>\n<h3 id=\"feature-coverage\">Feature coverage</h3>\n<p>The three command pillars stay simple:</p>\n<ul>\n<li><code>$ulw-loop</code> keeps moving until verified completion</li>\n<li><code>$ulw-plan</code> turns fuzzy work into a decision-complete plan</li>\n<li><code>$start-work</code> executes a plan with durable Boulder progress</li>\n</ul>\n<p>Skills add specialist judgment around those pillars:</p>\n<table>\n<thead>\n<tr>\n<th>Skill</th>\n<th>Use it for</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>review-work</code></td>\n<td>Multi-angle post-implementation review</td>\n</tr>\n<tr>\n<td><code>remove-ai-slops</code></td>\n<td>Behavior-preserving cleanup of AI-looking code</td>\n</tr>\n<tr>\n<td><code>frontend-ui-ux</code></td>\n<td>Designed UI work instead of generic layout filling</td>\n</tr>\n<tr>\n<td><code>programming</code></td>\n<td>Strict TypeScript, Rust, Python, or Go discipline</td>\n</tr>\n<tr>\n<td><code>LSP</code></td>\n<td>Diagnostics, definitions, references, symbols, and renames</td>\n</tr>\n<tr>\n<td><code>AST-grep</code></td>\n<td>Structural search and rewrite across code</td>\n</tr>\n<tr>\n<td><code>rules</code></td>\n<td>Project instructions from AGENTS, rules, and instruction files</td>\n</tr>\n<tr>\n<td><code>comment-checker</code></td>\n<td>Feedback after edit-like operations</td>\n</tr>\n</tbody></table>\n<h3 id=\"where-skills-live\">Where skills live</h3>\n<p>OmO can load skills from project and user locations such as <code>.opencode/skills</code>, <code>~/.config/opencode/skills</code>, <code>.claude/skills</code>, <code>.agents/skills</code>, and <code>~/.agents/skills</code>.</p>\n<p>LazyCodex installs the Codex Light setup with:</p>\n<pre><code class=\"language-bash\">npx lazycodex-ai install\n</code></pre>\n<p>That installer wires the Codex marketplace plugin as <code>omo@sisyphuslabs</code> while keeping the public package alias easy to remember.</p>\n",
-  "configuration.md": "<p>LazyCodex is a thin distribution layer over <a href=\"https://github.com/code-yeongyu/oh-my-openagent\">OmO</a>. The configuration that the installer writes into Codex controls model routing, hooks, skills, and the agent roles the harness uses.</p>\n<h3 id=\"where-config-lives\">Where config lives</h3>\n<ul>\n<li>Codex configuration that the installer connects to.</li>\n<li>Project-level <code>AGENTS.md</code> and rule files that shape agent behavior per repository.</li>\n<li>User-level skill locations such as <code>~/.config/opencode/skills</code> and <code>~/.agents/skills</code>.</li>\n</ul>\n<h3 id=\"what-you-can-tune\">What you can tune</h3>\n<ul>\n<li><strong>Model routing</strong> — which model handles planning, implementation, verification, and specialist skills. The installer sets sensible defaults from your detected subscriptions; override per role when a project needs a different profile.</li>\n<li><strong>Hooks and lifecycle</strong> — whether the Stop-hook auto-continues a plan, iteration caps (500 in ultrawork mode, 100 in normal mode), and how completion is gated.</li>\n<li><strong>Skills</strong> — which skills are active and where they load from.</li>\n<li><strong>Agent</strong> — Hephaestus, the autonomous deep worker, and its model/prompt overrides. The Codex package is the Hephaestus-only light port; the full OmO&#39;s Sisyphus orchestrator is not included.</li>\n</ul>\n<h3 id=\"diagnosing-config\">Diagnosing config</h3>\n<p>If something looks pending or degraded, run:</p>\n<pre><code class=\"language-bash\">npx lazycodex-ai doctor\n</code></pre>\n<p>It explains what is misconfigured and why, and points at the specific field to fix.</p>\n<h3 id=\"re-running-setup\">Re-running setup</h3>\n<p>The installer is idempotent. Re-running <code>npx lazycodex-ai install</code> rewrites the config blocks, agent roles, and bin links on top of what is there, so it is safe to run after editing configuration by hand.</p>\n<p>See the <a href=\"#cli\">CLI reference</a> for every command the installer exposes.</p>\n",
-  "cli.md": "<p>The <code>lazycodex-ai</code> CLI is the entry point for installing and diagnosing the harness. It is meant to be run through <code>npx</code> — never install it globally.</p>\n<h3 id=\"install\">install</h3>\n<pre><code class=\"language-bash\">npx lazycodex-ai install\n</code></pre>\n<p>Installs the OmO agent harness into Codex: commands, skills, hooks, model routing, and verification defaults in one pass. This is exactly equivalent to:</p>\n<pre><code class=\"language-bash\">npx --yes --package oh-my-openagent omo install --platform=codex\n</code></pre>\n<p>To skip the TUI and let the installer run autonomously:</p>\n<pre><code class=\"language-bash\">npx lazycodex-ai install --no-tui --codex-autonomous\n</code></pre>\n<h3 id=\"doctor\">doctor</h3>\n<pre><code class=\"language-bash\">npx lazycodex-ai doctor\n</code></pre>\n<p>Prints a health report: what is configured, what is missing, and why. Run this first when a hook is pending, a skill is not loading, or routing looks wrong.</p>\n<h3 id=\"prerequisites\">Prerequisites</h3>\n<ul>\n<li><a href=\"https://nodejs.org\">Node.js</a> — any maintained LTS; <code>npx</code> ships with it. Bun is <strong>not</strong> required for the installer.</li>\n<li>The <a href=\"https://github.com/openai/codex\">OpenAI Codex CLI</a> or the Codex app, logged in.</li>\n</ul>\n<blockquote>\n<p>Do not use <code>npm install -g</code> or <code>bun add -g</code>. Always invoke via <code>npx</code>.</p>\n</blockquote>\n<h3 id=\"marketplace-alternative\">Marketplace alternative</h3>\n<p>As an additive, experimental path you can install from inside Codex: type <code>/plugins</code>, open the <strong>Add Marketplace</strong> tab, and enter <code>https://github.com/code-yeongyu/lazycodex</code>, then install <code>omo</code> from the <code>sisyphuslabs</code> marketplace. Or from the CLI:</p>\n<pre><code class=\"language-bash\">codex plugin marketplace add https://github.com/code-yeongyu/lazycodex\ncodex plugin add omo@sisyphuslabs\n</code></pre>\n<p>The npx installer above stays the primary path. See <a href=\"#installation\">Installation</a> for the full walkthrough.</p>\n"
+  "overview.md": "<p>LazyCodex 是把 <a href=\"https://github.com/code-yeongyu/oh-my-openagent\">OmO</a> 移植到 Codex 的轻量版本。它不交付完整 harness；它移植一个角色：<strong>Hephaestus</strong>，自主 deep worker，以及让它的运行保持诚实的 workflows。可以把它理解成 Codex 版 <a href=\"https://github.com/LazyVim/LazyVim\">LazyVim</a>。</p>\n<h3 id=\"它来自哪里\">它来自哪里</h3>\n<p>OmO 是完整 agent harness：主 orchestrator（Sisyphus）通过 <code>.omo/boulder.json</code> 提供 session continuity，deep worker（Hephaestus）、specialist agents、multi-model routing、54+ lifecycle hooks 和 team mode。规模很大。LazyCodex 只取 focused Codex setup 最需要的部分，并把它打包成可重复安装。</p>\n<h3 id=\"你会得到什么\">你会得到什么</h3>\n<p>移植到 Codex 的 Hephaestus deep worker，包括：</p>\n<ul>\n<li>Goal-oriented execution — 你给 objective，而不是 step-by-step recipes。</li>\n<li>紧凑运行循环：<strong>Explore -&gt; Plan -&gt; Implement -&gt; Verify -&gt; Manually QA</strong>。</li>\n<li>并行 explore subagents，让它写代码前先映射地形。</li>\n<li><code>$ulw-plan</code>、<code>$start-work</code> 和 <code>$ulw-loop</code> workflows，让复杂工作持续推进直到被验证。</li>\n<li>一次性写入 Codex 的 skills、hooks、model routing 和 verification defaults。</li>\n</ul>\n<h3 id=\"harness-工作流\">Harness 工作流</h3>\n<p>当任务需要 deep worker 作为一个协调一致、受证据约束的循环运行，而不是单个回合时，使用 <code>{your prompt} ultrawork</code>。</p>\n<h3 id=\"如何组合在一起\">如何组合在一起</h3>\n<p>LazyCodex 是 <a href=\"https://github.com/code-yeongyu/oh-my-openagent\">OmO</a> 之上的薄发行层。核心引擎是 OmO；LazyCodex 把 OmO 的 Hephaestus 打包给 Codex。</p>\n<p>鸣谢：LazyCodex 这个名字受到 <a href=\"https://github.com/LazyVim/LazyVim\">LazyVim</a> 启发。Ultragoal 和 UltraQA 的想法受到 <a href=\"https://github.com/Yeachan-Heo/oh-my-codex\">oh-my-codex</a> 启发，并为这个 Codex setup 重新实现。</p>\n<ul>\n<li><a href=\"https://github.com/code-yeongyu/lazycodex\">GitHub 上的 LazyCodex</a></li>\n<li><a href=\"https://github.com/code-yeongyu/oh-my-openagent\">GitHub 上的 OmO</a></li>\n</ul>\n",
+  "installation.md": "<p>一个命令即可为 Codex 安装 OmO agent harness，不需要全局安装 package。</p>\n<h3 id=\"安装\">安装</h3>\n<pre><code class=\"language-bash\">npx lazycodex-ai install\n</code></pre>\n<p>这完全等价于 <code>npx --yes --package oh-my-openagent omo install --platform=codex</code>。</p>\n<h3 id=\"自主安装一行命令\">自主安装一行命令</h3>\n<pre><code class=\"language-bash\">npx lazycodex-ai install --no-tui --codex-autonomous\n</code></pre>\n<h3 id=\"前置条件\">前置条件</h3>\n<ul>\n<li><a href=\"https://nodejs.org\">Node.js</a> — 任意仍受维护的 LTS；<code>npx</code> 随它一起安装。Bun <strong>不是</strong> 必需项，安装器运行在普通 Node 上。</li>\n<li><a href=\"https://github.com/openai/codex\">OpenAI Codex CLI</a></li>\n</ul>\n<blockquote>\n<p>不要使用 <code>npm install -g</code> 或 <code>bun add -g</code>。始终通过 <code>npx</code> 调用。</p>\n</blockquote>\n<h3 id=\"从-codex-marketplace-安装实验性\">从 Codex marketplace 安装（实验性）</h3>\n<p>上面的 npx 安装器仍然是主要路径。作为补充性的实验路径，你可以在 Codex 内安装：输入 <code>/plugins</code>，打开 <strong>Add Marketplace</strong> 标签页（&quot;Add a marketplace from a Git repo or local root.&quot;），填入 <code>https://github.com/code-yeongyu/lazycodex</code>，然后从 <code>sisyphuslabs</code> marketplace 安装 <code>omo</code>。也可以通过 CLI：</p>\n<pre><code class=\"language-bash\">codex plugin marketplace add https://github.com/code-yeongyu/lazycodex\ncodex plugin add omo@sisyphuslabs\n</code></pre>\n<p>下次启动时，在 Codex startup review 中批准 omo hooks。hook 在批准前绝不会运行。第一次批准后的会话会打印 <code>LazyCodex bootstrap running in background — restart the session when it completes</code>，同时后台 worker 完成 setup：config blocks、agent roles、bin links，以及 <code>ast_grep</code> MCP 使用的固定版 <code>sg</code> binary。完成后重启即可。marketplace 安装不会修改 Codex permission settings；autonomous mode 仍然需要显式使用 <code>npx lazycodex-ai install --no-tui --codex-autonomous</code>。</p>\n<p>升级使用 <code>codex plugin marketplace upgrade sisyphuslabs</code>。下次 startup review 会把 hooks 显示为 <strong>Modified</strong>，这是每次升级后的预期状态，因为 plugin 文件变了、旧 trust hashes 不再匹配。重新批准后，下一次会话会在新版本上重新运行 bootstrap。如果任何项目看起来 pending 或 degraded，<code>npx lazycodex-ai doctor</code> 会解释原因。</p>\n<h3 id=\"windows\">Windows</h3>\n<p>两条安装路径都支持原生 Windows。</p>\n<ul>\n<li><strong>Node:</strong> <code>npx lazycodex-ai install</code> 需要 <code>PATH</code> 上有 Node.js（推荐 LTS）。marketplace 安装时，如果缺少 <code>node</code>，bootstrap 步骤会自动把固定版 Node LTS runtime provision 到 <code>%USERPROFILE%\\.codex\\runtime\\node\\</code>；你先自行安装 Node 也可以，并会跳过下载。</li>\n<li><strong>Git Bash:</strong> shell hooks 需要它。安装器和 marketplace bootstrap 在缺少 Git Bash 时，都会尝试运行 <code>winget install --id Git.Git -e --source winget</code>。如果 Git 安装在自定义位置，把 <code>OMO_CODEX_GIT_BASH_PATH</code> 设置为类似 <code>C:\\Program Files\\Git\\bin\\bash.exe</code> 的路径。</li>\n<li><strong><code>where bash</code> 显示 <code>C:\\Windows\\System32\\bash.exe</code>:</strong> 这是 WSL launcher，不是 Git Bash。LazyCodex 在解析 Git Bash 时会有意忽略 <code>System32</code> 和 <code>WindowsApps</code> 下的 <code>bash.exe</code> shim。安装 Git for Windows，或把 <code>OMO_CODEX_GIT_BASH_PATH</code> 指向真实 Git Bash。</li>\n<li><strong>故障排查:</strong> Windows marketplace bootstrap 会把 transcript 写到 <code>%USERPROFILE%\\.codex\\plugins\\data\\omo-sisyphuslabs\\bootstrap\\ps-bootstrap.log</code>；degraded 行看起来像 <code>degraded component=node reason=... hint=npx lazycodex-ai doctor</code>。运行 <code>npx lazycodex-ai doctor</code> 查看完整健康报告。</li>\n</ul>\n<h3 id=\"让-agent-替你安装\">让 agent 替你安装</h3>\n<p>强烈建议让 LLM agent 运行安装并引导 setup。agent 会自动处理 subscription detection、model selection 和 provider auth。</p>\n",
+  "getting-started.md": "<p>LazyCodex 最适合作为复杂代码库的 harness：项目记忆、规划、执行、可验证完成、skills、hooks、model routing 和 diagnostics。本页说明最常用的四个命令，以及什么时候选择它们。</p>\n<h3 id=\"四个命令\">四个命令</h3>\n<table>\n<thead>\n<tr>\n<th>Command</th>\n<th>适用场景</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>$init-deep</code></td>\n<td>仓库太大或历史太久，无法靠记忆解释。</td>\n</tr>\n<tr>\n<td><code>$ulw-plan</code></td>\n<td>写代码前需要先做决策。</td>\n</tr>\n<tr>\n<td><code>$start-work</code></td>\n<td>已有计划，需要执行到完成。</td>\n</tr>\n<tr>\n<td><code>$ulw-loop</code></td>\n<td>希望 agent 持续推进，直到结果被验证。</td>\n</tr>\n</tbody></table>\n<h3 id=\"如何选择\">如何选择</h3>\n<p>每个仓库先运行一次 <code>$init-deep</code>，让 agent 有分层 <code>AGENTS.md</code> 上下文可用。</p>\n<p>只要任务有歧义，先运行 <code>$ulw-plan</code>。它会访谈你、并行探索代码库，并把 decision-complete 计划写入 <code>plans/&lt;slug&gt;.md</code>，不会触碰产品代码。</p>\n<p>把该计划交给 <code>$start-work</code> 执行：durable Boulder state、parallel subagents、strict TDD 和五个 evidence gates。所有 checkbox 完成后，它会打印 <code>ORCHESTRATION COMPLETE</code>。</p>\n<p><code>$ulw-loop</code> 是最紧的循环。适合单个任务必须运行到 oracle 验证完成的情况。它不规划，只执行和验证。</p>\n<h3 id=\"一个典型会话\">一个典型会话</h3>\n<pre><code class=\"language-text\">$init-deep\n$ulw-plan &quot;add rate limiting to the api gateway&quot;\n$start-work plans/add-rate-limiting.md\n</code></pre>\n<p>如果工作很小且已经清楚，可以跳过计划，直接进入 loop：</p>\n<pre><code class=\"language-text\">ulw fix the flaky checkout test\n</code></pre>\n<p>为这些命令补充专业判断的 skills 见 <a href=\"#skills\">能力覆盖</a>。</p>\n",
+  "init-deep.md": "<p><code>$init-deep</code> 会生成分层 <code>AGENTS.md</code> 上下文，让 agent 在触碰大型仓库前先读取局部指导。每个项目运行一次；当架构变化到现有上下文不再反映现实，也要再次运行。</p>\n<h3 id=\"它会产出什么\">它会产出什么</h3>\n<ul>\n<li>根级 <code>AGENTS.md</code>，说明项目 stack、layout、conventions，以及优先查看的位置。</li>\n<li>关键目录中的嵌套 <code>AGENTS.md</code>，让 agent 进入某个 package 时获得作用域内指导，而不是猜测。</li>\n<li>指向 harness 应遵守的 project rules、skills 和 instruction files。</li>\n</ul>\n<h3 id=\"什么时候运行\">什么时候运行</h3>\n<ul>\n<li>接手一个太大或太旧、无法靠记忆说明的仓库。</li>\n<li>完成一次大型重构、迁移或布局变化后。</li>\n<li>当 agent 反复选错文件或忽略局部约定时。</li>\n</ul>\n<h3 id=\"如何使用\">如何使用</h3>\n<pre><code class=\"language-text\">$init-deep\n</code></pre>\n<p>该命令会遍历目录树，读取定义项目实际工作方式的文件，并写入上下文。审查生成的 <code>AGENTS.md</code> 文件，删掉陈旧内容，然后提交。后续回合中的 agent 会在编辑前读取这些上下文，因此第一次会话的成本会回报给之后每个会话。</p>\n<h3 id=\"初始化之后\">初始化之后</h3>\n<p>上下文就位后，如果工作需要计划，进入 <a href=\"#ulw-plan\"><code>$ulw-plan</code></a>；如果是单个可验证任务，进入 <a href=\"#ulw-loop\"><code>$ulw-loop</code></a>。</p>\n",
+  "ulw-plan.md": "<p><code>$ulw-plan</code> 是战略规划顾问（Prometheus）。它会把想法转成 decision-complete work plan。它是 planner，<strong>不是</strong> implementer。当你说 &quot;do X&quot; 时，它会为 X 产出计划，绝不写产品代码。</p>\n<h3 id=\"流程\">流程</h3>\n<ol>\n<li>Socratic 访谈</li>\n<li>并行代码库探索</li>\n<li>Metis 差距分析</li>\n<li>把计划写入 <code>plans/&lt;slug&gt;.md</code></li>\n<li>可选 Momus high-accuracy review</li>\n</ol>\n<h3 id=\"输出\">输出</h3>\n<p>问题、研究结果，以及可以交给 <a href=\"#start-work\"><code>$start-work</code></a> 的工作计划。</p>\n",
+  "start-work.md": "<p><code>$start-work</code> 会执行 Prometheus work plan，直到每个 top-level checkbox 都完成。</p>\n<h3 id=\"工作方式\">工作方式</h3>\n<ul>\n<li><code>.omo/boulder.json</code> 中的 durable Boulder state 可跨回合和会话保存</li>\n<li>Stop-hook 会重新注入下一轮，直到计划完成</li>\n<li>独立 sub-tasks 会扇出到并行 subagents</li>\n<li>Strict TDD 加五个 evidence gates：plan reread、automated verification、manual-QA、adversarial QA、cleanup</li>\n<li>进度会记录到 ledger</li>\n</ul>\n<h3 id=\"语法\">语法</h3>\n<pre><code class=\"language-bash\">$start-work [plan-name] [--worktree &lt;absolute-path&gt;]\n</code></pre>\n<h3 id=\"完成\">完成</h3>\n<p>当每个 checkbox 都被勾选后，它会打印 <code>ORCHESTRATION COMPLETE</code> block。</p>\n",
+  "ulw-loop.md": "<p><code>$ulw-loop</code> 是自指式开发循环，会一直运行到 verified completion。</p>\n<h3 id=\"工作方式\">工作方式</h3>\n<p>agent 会持续工作，并在它认为任务完成时输出 <code>&lt;promise&gt;DONE&lt;/promise&gt;</code>，但这<strong>不会</strong>结束循环。必须先由 Oracle 验证结果。只有系统确认 Oracle verified 后，循环才会结束。如果验证失败，它会继续，并附带消息：&quot;Oracle verification failed. Continuing ULTRAWORK loop.&quot;</p>\n<h3 id=\"语法\">语法</h3>\n<pre><code class=\"language-bash\">$ulw-loop &quot;task description&quot; [--completion-promise=TEXT] [--strategy=reset|continue]\n</code></pre>\n<h3 id=\"限制\">限制</h3>\n<p>迭代上限在 ultrawork 模式下是 500，普通模式下是 100。</p>\n",
+  "ultrawork.md": "<p>ultrawork 是主打模式。在 prompt 任意位置输入 <code>ultrawork</code>（或短别名 <code>ulw</code>），即可激活最高精度、结果优先、证据驱动的 orchestration。</p>\n<blockquote>\n<p>&quot;Plan, execute, verify, and keep the evidence attached.&quot;</p>\n</blockquote>\n<h3 id=\"用法\">用法</h3>\n<pre><code class=\"language-bash\">ulw add authentication\n</code></pre>\n<h3 id=\"它会强制什么\">它会强制什么</h3>\n<ul>\n<li>Strict TDD：RED -&gt; GREEN -&gt; SURFACE -&gt; CLEAN</li>\n<li>至少 3 个现实 QA scenarios</li>\n<li>真实 manual-QA channels（HTTP call、tmux、browser）</li>\n<li>绑定 verification gate，持续循环直到工作真正完成</li>\n</ul>\n",
+  "discipline-agents.md": "<p>LazyCodex 从 OmO 向 Codex 移植了一个 discipline agent：<strong>Hephaestus</strong>，自主 deep worker。Codex 包里没有 Sisyphus orchestrator；Hephaestus 是唯一主角色，它会用只读子 agent 做并行探索，并独自承担整次运行。</p>\n<h3 id=\"hephaestus-是什么\">Hephaestus 是什么</h3>\n<p>名字来自希腊锻造之神。它以目标为中心：你给它 objective，而不是一步步 recipe，它负责端到端执行。&quot;The Legitimate Craftsman.&quot; Methodical、thorough、obsessive，适合深层架构推理、复杂调试和跨领域综合。</p>\n<h3 id=\"运行循环\">运行循环</h3>\n<p>Hephaestus 在每个工作单元上运行短而紧的循环：</p>\n<ol>\n<li><strong>Explore</strong> — 映射地形。用工具读代码，绝不猜测。写代码前触发 2-5 个并行 explore subagents。</li>\n<li><strong>Plan</strong> — 规划路线。通过 <code>update_plan</code> 记录要改的文件、具体改动和依赖。</li>\n<li><strong>Implement</strong> — 精确构建。做符合代码库风格的外科式编辑，包括 naming、indentation、imports 和 error handling。</li>\n<li><strong>Verify</strong> — 证明它能工作。对改动文件运行 LSP diagnostics、相关 tests 和 build，能并行就并行。</li>\n<li><strong>Manually QA</strong> — 通过真实表面驱动产物，例如 HTTP call、tmux、browser，然后再写最终回复。</li>\n</ol>\n<h3 id=\"它绝不会做什么\">它绝不会做什么</h3>\n<ul>\n<li><strong>不会相信子 agent 自报完成。</strong> 验证必须独立完成；child 说 &quot;done&quot; 不会关闭工作。</li>\n<li><strong>你要代码时不会只提方案。</strong> 除非你明确要计划或 brainstorm，否则它会实现。</li>\n<li><strong>不会猜未读过的代码。</strong> Exploration 很便宜，assumption 很昂贵。</li>\n<li><strong>不会在回合结束时留下未对齐的工作。</strong> 每个 plan step 都会被归档为 <code>completed</code>、blocked（一句原因）或 removed（一句原因）。</li>\n</ul>\n<h3 id=\"delegation不是-orchestration\">Delegation，不是 orchestration</h3>\n<p>Hephaestus 保持父会话身份。并行探索时，它会启动只读 Codex subagent roles（<code>multi_agent_v1.spawn_agent</code>），同时父会话用简短状态更新保持活跃。它不会把运行交给单独 orchestrator；它拥有目标，委派脏活，并亲自验证结果。</p>\n<h3 id=\"boulder-从哪里来\">Boulder 从哪里来</h3>\n<p>完整 OmO 有第二个主 agent：<strong>Sisyphus</strong>，负责带 <code>.omo/boulder.json</code> 会话连续性的 orchestrator。Codex 包是 Hephaestus-only light port，因此在 Codex 上，持久进度状态由 <a href=\"#start-work\"><code>$start-work</code></a> 和 Stop-hook continuation 写入 <code>.omo/boulder.json</code>，但没有 Sisyphus orchestration layer。</p>\n<h3 id=\"继续阅读\">继续阅读</h3>\n<ul>\n<li><a href=\"#ultrawork\">ultrawork 模式</a> — 把循环变成强约束 verified run 的模式。</li>\n<li><a href=\"#hooks-lifecycle\">Hooks 与生命周期</a> — Stop-hook 如何持续注入下一轮，直到计划完成。</li>\n</ul>\n",
+  "model-routing.md": "<p>Multi-model routing 会把一次运行的不同部分发送到更适合的模型，而不是所有工作都塞给同一个模型。LazyCodex 会把 OmO 的 routing defaults 安装进 Codex，让严肃仓库不被单个 context window 或 price point 卡住。</p>\n<h3 id=\"什么会被路由\">什么会被路由</h3>\n<ul>\n<li><strong>规划与探索</strong> 交给强推理模型，它能容纳更大上下文并权衡取舍。</li>\n<li><strong>实现回合</strong> 交给快速、能干的 coding model，承担大部分 edit loop。</li>\n<li><strong>验证</strong> 交给作为 oracle 使用的模型，优先看 judgment 而不是 throughput。</li>\n<li><strong>专门 skills</strong> 在某个 skill 需要特定 profile 时，可以定位到自己的模型。</li>\n</ul>\n<h3 id=\"它如何适配-harness\">它如何适配 harness</h3>\n<p>Routing 是 <code>npx lazycodex-ai install</code> 写入 Codex 的 harness setup 的一部分。它会检测可用订阅和 provider auth，然后把 roles 映射到 models，避免你手动配置每个角色。</p>\n<h3 id=\"provider-认证\">Provider 认证</h3>\n<p>认证目标是 Codex 本身，不是 LazyCodex。Codex 登录后，安装器的 subscription detection 和 provider routing 会接管。如果你让 LLM agent 运行安装，它会走同样的检测和选择流程。</p>\n<h3 id=\"自定义\">自定义</h3>\n<p>Routing 和 provider settings 存放在配置里。控制哪个模型处理哪个角色、如何按项目覆盖默认值，见 <a href=\"#configuration\">配置</a>。</p>\n",
+  "hooks-lifecycle.md": "<p>Hooks and lifecycle 让 harness 可以在不需要你每回合重新提示的情况下持续推进长任务。OmO 会向 Codex 安装 lifecycle hooks，观察每个回合并决定下一步。</p>\n<h3 id=\"核心机制\">核心机制</h3>\n<p>Stop-hook 会在一个回合结束时触发。如果计划仍在进行，hook 会自动重新注入下一轮，让 agent 从持久进度状态继续，而不是等待你说 &quot;continue&quot;。只有计划完成，或某个 gate 以需要人工介入的方式失败，运行才会停止。</p>\n<h3 id=\"进度在哪里\">进度在哪里</h3>\n<p>进度状态写入 <code>.omo/boulder.json</code>，可以跨回合、跨会话保存。这让 <a href=\"#start-work\"><code>$start-work</code></a> 能在重启后恢复计划，也让 <a href=\"#ulw-loop\"><code>$ulw-loop</code></a> 对实际推进距离保持诚实。</p>\n<h3 id=\"批准与信任\">批准与信任</h3>\n<p>Hooks 在批准前绝不会运行。安装后第一次启动时，Codex 的 startup review 会要求你批准 omo hooks。每次升级后 hooks 会显示为 <strong>Modified</strong>，这是预期行为，因为 plugin 文件变了、旧 trust hashes 不再匹配。重新批准后，下一个会话会在新版本上重新运行 bootstrap。</p>\n<h3 id=\"证据门禁\">证据门禁</h3>\n<p>执行期间，lifecycle 会在 step 关闭前强制执行五个 evidence gates：plan reread、automated verification、manual-QA、adversarial QA 和 cleanup。无论状态文本声称什么，一个不能通过 gates 的 step 都不会前进。</p>\n<h3 id=\"继续阅读\">继续阅读</h3>\n<ul>\n<li><a href=\"#ultrawork\">ultrawork 模式</a> — 把这些 gates 变成强约束循环的模式。</li>\n<li><a href=\"#configuration\">配置</a> — 如何调整 hook 行为和 lifecycle defaults。</li>\n</ul>\n",
+  "skills.md": "<p>LazyCodex 最适合作为复杂代码库的 harness：项目记忆、规划、执行、可验证完成、skills、hooks、model routing 和 diagnostics。</p>\n<h3 id=\"内置工作流\">内置工作流</h3>\n<p>当仓库太大或历史太久，无法靠记忆解释时，从 <code>$init-deep</code> 开始。它生成分层 <code>AGENTS.md</code> 上下文，让 agent 在改代码前能找到正确文件。</p>\n<p>当工作需要先做决策再实现，使用 <code>$ulw-plan</code>；当计划需要执行，使用 <code>$start-work</code>；当你希望 agent 持续推进到结果被验证，使用 <code>$ulw-loop</code>。</p>\n<h3 id=\"能力覆盖\">能力覆盖</h3>\n<p>三个命令支柱保持简单：</p>\n<ul>\n<li><code>$ulw-loop</code> 持续推进到 verified completion</li>\n<li><code>$ulw-plan</code> 把模糊工作变成 decision-complete plan</li>\n<li><code>$start-work</code> 用 durable Boulder progress 执行计划</li>\n</ul>\n<p>Skills 为这些支柱加入专业判断：</p>\n<table>\n<thead>\n<tr>\n<th>Skill</th>\n<th>用途</th>\n</tr>\n</thead>\n<tbody><tr>\n<td><code>review-work</code></td>\n<td>多角度实现后审查</td>\n</tr>\n<tr>\n<td><code>remove-ai-slops</code></td>\n<td>保持行为不变地清理 AI 痕迹代码</td>\n</tr>\n<tr>\n<td><code>frontend-ui-ux</code></td>\n<td>经过设计的 UI 工作，而不是泛泛填充布局</td>\n</tr>\n<tr>\n<td><code>programming</code></td>\n<td>严格的 TypeScript、Rust、Python 或 Go 工程纪律</td>\n</tr>\n<tr>\n<td><code>LSP</code></td>\n<td>diagnostics、definitions、references、symbols 和 renames</td>\n</tr>\n<tr>\n<td><code>AST-grep</code></td>\n<td>跨代码结构搜索与重写</td>\n</tr>\n<tr>\n<td><code>rules</code></td>\n<td>来自 AGENTS、rules 和 instruction files 的项目指令</td>\n</tr>\n<tr>\n<td><code>comment-checker</code></td>\n<td>对编辑类操作后的反馈</td>\n</tr>\n</tbody></table>\n<h3 id=\"skills-在哪里\">Skills 在哪里</h3>\n<p>OmO 可以从项目和用户位置加载 skills，例如 <code>.opencode/skills</code>、<code>~/.config/opencode/skills</code>、<code>.claude/skills</code>、<code>.agents/skills</code> 和 <code>~/.agents/skills</code>。</p>\n<p>LazyCodex 通过以下命令安装 Codex Light setup：</p>\n<pre><code class=\"language-bash\">npx lazycodex-ai install\n</code></pre>\n<p>该安装器会把 Codex marketplace plugin 注册为 <code>omo@sisyphuslabs</code>，同时保留容易记住的 public package alias。</p>\n",
+  "configuration.md": "<p>LazyCodex 是 <a href=\"https://github.com/code-yeongyu/oh-my-openagent\">OmO</a> 之上的薄发行层。安装器写入 Codex 的配置会控制 model routing、hooks、skills，以及 harness 使用的 agent roles。</p>\n<h3 id=\"配置在哪里\">配置在哪里</h3>\n<ul>\n<li>安装器连接并写入的 Codex 配置。</li>\n<li>项目级 <code>AGENTS.md</code> 和 rule files，它们按仓库塑造 agent 行为。</li>\n<li>用户级 skill 位置，例如 <code>~/.config/opencode/skills</code> 和 <code>~/.agents/skills</code>。</li>\n</ul>\n<h3 id=\"可以调整什么\">可以调整什么</h3>\n<ul>\n<li><strong>Model routing</strong> — 哪个模型负责 planning、implementation、verification 和 specialist skills。安装器会根据检测到的订阅设置合理默认值；当项目需要不同配置时，可以按角色覆盖。</li>\n<li><strong>Hooks and lifecycle</strong> — Stop-hook 是否自动继续计划、迭代上限（ultrawork 模式 500，普通模式 100），以及完成状态如何被 gate 约束。</li>\n<li><strong>Skills</strong> — 哪些 skills 处于 active 状态，以及它们从哪里加载。</li>\n<li><strong>Agent</strong> — Hephaestus autonomous deep worker 及其模型/提示词覆盖。Codex 包是 Hephaestus-only light port，不包含完整 OmO 的 Sisyphus orchestrator。</li>\n</ul>\n<h3 id=\"诊断配置\">诊断配置</h3>\n<p>如果某些状态看起来 pending 或 degraded，运行：</p>\n<pre><code class=\"language-bash\">npx lazycodex-ai doctor\n</code></pre>\n<p>它会解释哪里配置错误、为什么错误，并指出需要修复的具体字段。</p>\n<h3 id=\"重新运行安装\">重新运行安装</h3>\n<p>安装器是幂等的。重新运行 <code>npx lazycodex-ai install</code> 会在现有状态上重写配置块、agent roles 和 bin links，因此手动编辑配置后再次运行是安全的。</p>\n<p>每个命令见 <a href=\"#cli\">CLI 参考</a>。</p>\n",
+  "cli.md": "<p><code>lazycodex-ai</code> CLI 是安装和诊断 harness 的入口。它设计为通过 <code>npx</code> 运行，不要全局安装。</p>\n<h3 id=\"install\">install</h3>\n<pre><code class=\"language-bash\">npx lazycodex-ai install\n</code></pre>\n<p>一次性把 OmO agent harness 安装进 Codex：commands、skills、hooks、model routing 和 verification defaults。它完全等价于：</p>\n<pre><code class=\"language-bash\">npx --yes --package oh-my-openagent omo install --platform=codex\n</code></pre>\n<p>如果要跳过 TUI 并让安装器自主运行：</p>\n<pre><code class=\"language-bash\">npx lazycodex-ai install --no-tui --codex-autonomous\n</code></pre>\n<h3 id=\"doctor\">doctor</h3>\n<pre><code class=\"language-bash\">npx lazycodex-ai doctor\n</code></pre>\n<p>输出健康报告：哪些已经配置、哪些缺失，以及原因。当 hook 处于 pending、skill 没有加载，或 routing 看起来异常时，先运行它。</p>\n<h3 id=\"前置条件\">前置条件</h3>\n<ul>\n<li><a href=\"https://nodejs.org\">Node.js</a> — 任意仍受维护的 LTS 版本；<code>npx</code> 随 Node 一起安装。安装器不需要 Bun。</li>\n<li><a href=\"https://github.com/openai/codex\">OpenAI Codex CLI</a> 或已登录的 Codex app。</li>\n</ul>\n<blockquote>\n<p>不要使用 <code>npm install -g</code> 或 <code>bun add -g</code>。始终通过 <code>npx</code> 调用。</p>\n</blockquote>\n<h3 id=\"marketplace-替代路径\">Marketplace 替代路径</h3>\n<p>作为补充性的实验路径，你可以在 Codex 内安装：输入 <code>/plugins</code>，打开 <strong>Add Marketplace</strong> 标签页，填入 <code>https://github.com/code-yeongyu/lazycodex</code>，然后从 <code>sisyphuslabs</code> marketplace 安装 <code>omo</code>。也可以通过 CLI：</p>\n<pre><code class=\"language-bash\">codex plugin marketplace add https://github.com/code-yeongyu/lazycodex\ncodex plugin add omo@sisyphuslabs\n</code></pre>\n<p>上面的 npx 安装器仍然是主要路径。完整步骤见 <a href=\"#installation\">安装</a>。</p>\n"
 };
 
 export type DocHeading = { level: number; id: string; text: string };
@@ -21,45 +21,45 @@ export const DOC_TOC: Record<string, DocHeading[]> = {
   "overview.md": [
     {
       "level": 3,
-      "id": "where-it-comes-from",
-      "text": "Where it comes from"
+      "id": "它来自哪里",
+      "text": "它来自哪里"
     },
     {
       "level": 3,
-      "id": "what-you-get",
-      "text": "What you get"
+      "id": "你会得到什么",
+      "text": "你会得到什么"
     },
     {
       "level": 3,
-      "id": "the-harness-workflow",
-      "text": "The harness workflow"
+      "id": "harness-工作流",
+      "text": "Harness 工作流"
     },
     {
       "level": 3,
-      "id": "how-it-fits-together",
-      "text": "How it fits together"
+      "id": "如何组合在一起",
+      "text": "如何组合在一起"
     }
   ],
   "installation.md": [
     {
       "level": 3,
-      "id": "install",
-      "text": "Install"
+      "id": "安装",
+      "text": "安装"
     },
     {
       "level": 3,
-      "id": "autonomous-one-liner",
-      "text": "Autonomous one-liner"
+      "id": "自主安装一行命令",
+      "text": "自主安装一行命令"
     },
     {
       "level": 3,
-      "id": "prerequisites",
-      "text": "Prerequisites"
+      "id": "前置条件",
+      "text": "前置条件"
     },
     {
       "level": 3,
-      "id": "install-from-the-codex-marketplace-experimental",
-      "text": "Install from the Codex marketplace (experimental)"
+      "id": "从-codex-marketplace-安装实验性",
+      "text": "从 Codex marketplace 安装（实验性）"
     },
     {
       "level": 3,
@@ -68,225 +68,225 @@ export const DOC_TOC: Record<string, DocHeading[]> = {
     },
     {
       "level": 3,
-      "id": "let-an-agent-do-it",
-      "text": "Let an agent do it"
+      "id": "让-agent-替你安装",
+      "text": "让 agent 替你安装"
     }
   ],
   "getting-started.md": [
     {
       "level": 3,
-      "id": "the-four-commands",
-      "text": "The four commands"
+      "id": "四个命令",
+      "text": "四个命令"
     },
     {
       "level": 3,
-      "id": "how-to-choose",
-      "text": "How to choose"
+      "id": "如何选择",
+      "text": "如何选择"
     },
     {
       "level": 3,
-      "id": "a-typical-session",
-      "text": "A typical session"
+      "id": "一个典型会话",
+      "text": "一个典型会话"
     }
   ],
   "init-deep.md": [
     {
       "level": 3,
-      "id": "what-it-produces",
-      "text": "What it produces"
+      "id": "它会产出什么",
+      "text": "它会产出什么"
     },
     {
       "level": 3,
-      "id": "when-to-run-it",
-      "text": "When to run it"
+      "id": "什么时候运行",
+      "text": "什么时候运行"
     },
     {
       "level": 3,
-      "id": "how-to-use-it",
-      "text": "How to use it"
+      "id": "如何使用",
+      "text": "如何使用"
     },
     {
       "level": 3,
-      "id": "after-init",
-      "text": "After init"
+      "id": "初始化之后",
+      "text": "初始化之后"
     }
   ],
   "ulw-plan.md": [
     {
       "level": 3,
-      "id": "the-flow",
-      "text": "The flow"
+      "id": "流程",
+      "text": "流程"
     },
     {
       "level": 3,
-      "id": "output",
-      "text": "Output"
+      "id": "输出",
+      "text": "输出"
     }
   ],
   "start-work.md": [
     {
       "level": 3,
-      "id": "how-it-works",
-      "text": "How it works"
+      "id": "工作方式",
+      "text": "工作方式"
     },
     {
       "level": 3,
-      "id": "syntax",
-      "text": "Syntax"
+      "id": "语法",
+      "text": "语法"
     },
     {
       "level": 3,
-      "id": "done",
-      "text": "Done"
+      "id": "完成",
+      "text": "完成"
     }
   ],
   "ulw-loop.md": [
     {
       "level": 3,
-      "id": "how-it-works",
-      "text": "How it works"
+      "id": "工作方式",
+      "text": "工作方式"
     },
     {
       "level": 3,
-      "id": "syntax",
-      "text": "Syntax"
+      "id": "语法",
+      "text": "语法"
     },
     {
       "level": 3,
-      "id": "limits",
-      "text": "Limits"
+      "id": "限制",
+      "text": "限制"
     }
   ],
   "ultrawork.md": [
     {
       "level": 3,
-      "id": "usage",
-      "text": "Usage"
+      "id": "用法",
+      "text": "用法"
     },
     {
       "level": 3,
-      "id": "what-it-enforces",
-      "text": "What it enforces"
+      "id": "它会强制什么",
+      "text": "它会强制什么"
     }
   ],
   "discipline-agents.md": [
     {
       "level": 3,
-      "id": "what-hephaestus-is",
-      "text": "What Hephaestus is"
+      "id": "hephaestus-是什么",
+      "text": "Hephaestus 是什么"
     },
     {
       "level": 3,
-      "id": "the-operating-loop",
-      "text": "The operating loop"
+      "id": "运行循环",
+      "text": "运行循环"
     },
     {
       "level": 3,
-      "id": "what-it-never-does",
-      "text": "What it never does"
+      "id": "它绝不会做什么",
+      "text": "它绝不会做什么"
     },
     {
       "level": 3,
-      "id": "delegation-not-orchestration",
-      "text": "Delegation, not orchestration"
+      "id": "delegation不是-orchestration",
+      "text": "Delegation，不是 orchestration"
     },
     {
       "level": 3,
-      "id": "where-the-boulder-comes-from",
-      "text": "Where the boulder comes from"
+      "id": "boulder-从哪里来",
+      "text": "Boulder 从哪里来"
     },
     {
       "level": 3,
-      "id": "reading-more",
-      "text": "Reading more"
+      "id": "继续阅读",
+      "text": "继续阅读"
     }
   ],
   "model-routing.md": [
     {
       "level": 3,
-      "id": "what-gets-routed",
-      "text": "What gets routed"
+      "id": "什么会被路由",
+      "text": "什么会被路由"
     },
     {
       "level": 3,
-      "id": "how-it-fits-the-harness",
-      "text": "How it fits the harness"
+      "id": "它如何适配-harness",
+      "text": "它如何适配 harness"
     },
     {
       "level": 3,
-      "id": "provider-auth",
-      "text": "Provider auth"
+      "id": "provider-认证",
+      "text": "Provider 认证"
     },
     {
       "level": 3,
-      "id": "customizing-it",
-      "text": "Customizing it"
+      "id": "自定义",
+      "text": "自定义"
     }
   ],
   "hooks-lifecycle.md": [
     {
       "level": 3,
-      "id": "the-core-mechanism",
-      "text": "The core mechanism"
+      "id": "核心机制",
+      "text": "核心机制"
     },
     {
       "level": 3,
-      "id": "where-progress-lives",
-      "text": "Where progress lives"
+      "id": "进度在哪里",
+      "text": "进度在哪里"
     },
     {
       "level": 3,
-      "id": "approval-and-trust",
-      "text": "Approval and trust"
+      "id": "批准与信任",
+      "text": "批准与信任"
     },
     {
       "level": 3,
-      "id": "evidence-gates",
-      "text": "Evidence gates"
+      "id": "证据门禁",
+      "text": "证据门禁"
     },
     {
       "level": 3,
-      "id": "reading-more",
-      "text": "Reading more"
+      "id": "继续阅读",
+      "text": "继续阅读"
     }
   ],
   "skills.md": [
     {
       "level": 3,
-      "id": "built-in-workflows",
-      "text": "Built-in workflows"
+      "id": "内置工作流",
+      "text": "内置工作流"
     },
     {
       "level": 3,
-      "id": "feature-coverage",
-      "text": "Feature coverage"
+      "id": "能力覆盖",
+      "text": "能力覆盖"
     },
     {
       "level": 3,
-      "id": "where-skills-live",
-      "text": "Where skills live"
+      "id": "skills-在哪里",
+      "text": "Skills 在哪里"
     }
   ],
   "configuration.md": [
     {
       "level": 3,
-      "id": "where-config-lives",
-      "text": "Where config lives"
+      "id": "配置在哪里",
+      "text": "配置在哪里"
     },
     {
       "level": 3,
-      "id": "what-you-can-tune",
-      "text": "What you can tune"
+      "id": "可以调整什么",
+      "text": "可以调整什么"
     },
     {
       "level": 3,
-      "id": "diagnosing-config",
-      "text": "Diagnosing config"
+      "id": "诊断配置",
+      "text": "诊断配置"
     },
     {
       "level": 3,
-      "id": "re-running-setup",
-      "text": "Re-running setup"
+      "id": "重新运行安装",
+      "text": "重新运行安装"
     }
   ],
   "cli.md": [
@@ -302,13 +302,13 @@ export const DOC_TOC: Record<string, DocHeading[]> = {
     },
     {
       "level": 3,
-      "id": "prerequisites",
-      "text": "Prerequisites"
+      "id": "前置条件",
+      "text": "前置条件"
     },
     {
       "level": 3,
-      "id": "marketplace-alternative",
-      "text": "Marketplace alternative"
+      "id": "marketplace-替代路径",
+      "text": "Marketplace 替代路径"
     }
   ]
 };

@@ -1,9 +1,9 @@
-import { test, expect } from "@playwright/test"
+import { mkdirSync, writeFileSync } from "node:fs"
+import { type AddressInfo, createServer } from "node:net"
+import { join } from "node:path"
+import { expect, test } from "@playwright/test"
 import lighthouse from "lighthouse"
 import type { SharedFlagsSettings } from "lighthouse/types/lhr/settings.js"
-import { writeFileSync, mkdirSync } from "node:fs"
-import { join } from "node:path"
-import { createServer, type AddressInfo } from "node:net"
 
 /**
  * Real-Chrome Lighthouse audit attached to Playwright's Chrome via CDP.

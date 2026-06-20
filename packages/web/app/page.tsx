@@ -16,7 +16,7 @@ export default function LandingPage(): JSX.Element {
         href="#content"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-[color:var(--card-base)] focus:px-3 focus:py-2 focus:text-sm focus:text-[color:var(--text-primary)]"
       >
-        Skip to main content
+        跳到主要内容
       </a>
 
       <SiteHeader />

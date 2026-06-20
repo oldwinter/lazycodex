@@ -7,6 +7,6 @@
 export { default } from "./opengraph-image"
 
 export const runtime = "nodejs"
-export const alt = "LazyCodex - agent harness for complex codebases."
+export const alt = "LazyCodex - 面向复杂代码库的 agent harness。"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"

@@ -36,10 +36,10 @@ describe("lazycodex executor SubagentStop verifier", () => {
 		// then
 		const parsed = parseBlockOutput(output);
 		expect(parsed.decision).toBe("block");
-		expect(parsed.reason).toContain("너는 방금 작업을 완료했다고 보고했고, 그건 거짓말이다.");
+		expect(parsed.reason).toContain("你刚刚报告工作已经完成，但那是没有证据支撑的完成声明。");
 		expect(parsed.reason).toContain(".omo/evidence/");
 		expect(parsed.reason).toContain("EVIDENCE_RECORDED: <path>");
-		expect(parsed.reason).not.toContain("2번째");
+		expect(parsed.reason).not.toContain("第 2 次");
 	});
 
 	it("#given a prior blocked stop #when lazycodex executor stops again #then escalates the attempt count", () => {
@@ -52,7 +52,7 @@ describe("lazycodex executor SubagentStop verifier", () => {
 
 		// then
 		const parsed = parseBlockOutput(output);
-		expect(parsed.reason).toContain("2번째");
+		expect(parsed.reason).toContain("第 2 次");
 	});
 
 	it("#given turn_id is omitted #when lazycodex executor stops #then the hook still parses the payload", () => {

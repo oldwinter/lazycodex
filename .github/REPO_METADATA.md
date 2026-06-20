@@ -1,12 +1,12 @@
-# GitHub Repository Metadata
+# GitHub 仓库元数据
 
-Use this when creating the repo on GitHub.
+在 GitHub 上创建仓库时使用这些元数据。
 
-## Description
+## 描述
 
-> Codex for lazy people. You don't need to think, just prompt with ultrawork.
+> 给懒人的 Codex。你不用想太多，只要在 prompt 里加上 ultrawork。
 
-## Topics / Tags
+## 主题 / 标签
 
 ```
 lazycodex
@@ -25,7 +25,7 @@ cli
 lazy
 ```
 
-## Settings
+## 设置
 
-- **Website**: https://omo.dev
-- **Default branch**: main
+- **网站**: https://omo.dev
+- **默认分支**: main

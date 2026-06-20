@@ -10,10 +10,10 @@ export function DocsPrevNext({ prev, next }: DocsPrevNextProps): JSX.Element {
   if (!prev && !next) return <></>;
 
   return (
-    <nav className="docs-prev-next" aria-label="Section navigation">
+    <nav className="docs-prev-next" aria-label="章节导航">
       {prev ? (
         <a className="docs-prev-next-card prev" href={`#${prev.id}`}>
-          <span className="docs-prev-next-label" aria-hidden="true">← Previous</span>
+          <span className="docs-prev-next-label" aria-hidden="true">← 上一节</span>
           <span className="docs-prev-next-title">{prev.title}</span>
         </a>
       ) : (
@@ -21,7 +21,7 @@ export function DocsPrevNext({ prev, next }: DocsPrevNextProps): JSX.Element {
       )}
       {next ? (
         <a className="docs-prev-next-card next" href={`#${next.id}`}>
-          <span className="docs-prev-next-label" aria-hidden="true">Next →</span>
+          <span className="docs-prev-next-label" aria-hidden="true">下一节 →</span>
           <span className="docs-prev-next-title">{next.title}</span>
         </a>
       ) : (

@@ -33,7 +33,7 @@ test.describe("site SEO + metadata", () => {
     expect(description?.length).toBeLessThanOrEqual(170)
     expect(description).toMatch(/Codex/i)
     expect(description).toMatch(/agent harness/i)
-    expect(description).toMatch(/complex codebases/i)
+    expect(description).toMatch(/复杂代码库/)
     expect(description).not.toMatch(LAUNCH_GATING_PATTERN)
 
     const canonical = await page.locator('link[rel="canonical"]').getAttribute("href")
@@ -43,7 +43,7 @@ test.describe("site SEO + metadata", () => {
     expect(canonical).toMatch(/^https:\/\/lazycodex\.ai\/?$/)
 
     const lang = await page.locator("html").getAttribute("lang")
-    expect(lang).toBe("en")
+    expect(lang).toBe("zh-CN")
 
     const viewport = await page.locator('meta[name="viewport"]').getAttribute("content")
     expect(viewport).toMatch(/width=device-width/)

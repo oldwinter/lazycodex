@@ -2,39 +2,39 @@
 
 [![ci](https://img.shields.io/badge/ci-pending-lightgrey.svg)](#) [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Codex plugin scaffold for durable repo-native multi-goal orchestration with embedded success criteria and observable evidence audit.
+这是一个 Codex plugin scaffold，用于 durable repo-native multi-goal orchestration，内嵌 success criteria 和 observable evidence audit。
 
-## Behavior
+## 行为
 
-| Subcommand | Purpose |
+| 子命令 | 作用 |
 |------------|---------|
-| `omo ulw-loop create-goals` | Create repo-native goals from a brief and seed criteria. |
-| `omo ulw-loop record-evidence` | Record observable evidence for the active criterion. |
-| `omo ulw-loop criteria` | Inspect or revise goal success criteria. |
-| `omo ulw-loop complete-goals` | Complete eligible goals after criteria pass. |
-| `omo ulw-loop checkpoint` | Refuse completion until criteria and evidence gates pass. |
-| `omo ulw-loop steer` | Apply steering updates to the plan. |
-| `omo ulw-loop status` | Report active goal, criteria, and evidence state. |
+| `omo ulw-loop create-goals` | 从 brief 和 seed criteria 创建 repo-native goals。 |
+| `omo ulw-loop record-evidence` | 为当前 active criterion 记录 observable evidence。 |
+| `omo ulw-loop criteria` | 检查或修订 goal success criteria。 |
+| `omo ulw-loop complete-goals` | criteria 通过后完成 eligible goals。 |
+| `omo ulw-loop checkpoint` | criteria 与 evidence gates 通过前拒绝 completion。 |
+| `omo ulw-loop steer` | 对 plan 应用 steering updates。 |
+| `omo ulw-loop status` | 报告 active goal、criteria 和 evidence state。 |
 
-Wave 1 is scaffold only. Command behavior lands in later waves.
+Wave 1 只是 scaffold。命令行为会在后续 waves 落地。
 
-## Codex Plugin
+## Codex Plugin 插件
 
-The plugin ships:
+plugin 包含：
 
-- `.codex-plugin/plugin.json` for Codex plugin discovery.
-- `hooks/hooks.json` for the `UserPromptSubmit` hook.
-- `skills/ulw-loop/` as the future skill directory.
+- `.codex-plugin/plugin.json`，用于 Codex plugin discovery。
+- `hooks/hooks.json`，用于 `UserPromptSubmit` hook。
+- `skills/ulw-loop/`，作为未来 skill directory。
 
-The hook command is:
+hook 命令是：
 
 ```bash
 node "${PLUGIN_ROOT}/dist/cli.js" hook user-prompt-submit
 ```
 
-No MCP server or Codex tool is exposed in this scaffold.
+这个 scaffold 不暴露 MCP server 或 Codex tool。
 
-## Local Development
+## 本地开发
 
 ```bash
 npm install
@@ -44,13 +44,13 @@ npm run check
 npm pack --dry-run
 ```
 
-## Local Codex Installation
+## 本地 Codex 安装
 
 ```bash
 npx lazycodex-ai install
 ```
 
-The installer builds and copies the plugin into `~/.codex/plugins/cache/sisyphuslabs/omo/0.1.0`, registers the `sisyphuslabs` marketplace from the `lazycodex` Git repository, installs runtime dependencies there, and enables:
+安装器会构建并复制 plugin 到 `~/.codex/plugins/cache/sisyphuslabs/omo/0.1.0`，从 `lazycodex` Git 仓库注册 `sisyphuslabs` marketplace，在那里安装 runtime dependencies，并启用：
 
 ```toml
 [features]
@@ -61,14 +61,14 @@ plugin_hooks = true
 enabled = true
 ```
 
-## Privacy
+## 隐私
 
-This plugin runs locally. The scaffold does not call a network service by itself.
+此 plugin 在本地运行。scaffold 本身不会调用网络服务。
 
-## License
+## 许可证
 
 [MIT](LICENSE).
 
-## Related
+## 相关项目
 
-- [lazycodex](https://github.com/code-yeongyu/lazycodex) - Sisyphus Labs Codex marketplace repository.
+- [lazycodex](https://github.com/code-yeongyu/lazycodex) - Sisyphus Labs Codex marketplace repository。

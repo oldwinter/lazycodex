@@ -1,35 +1,35 @@
-LazyCodex ports a single discipline agent from OmO into Codex: **Hephaestus**, the autonomous deep worker. There is no Sisyphus orchestrator in the Codex package — Hephaestus is the one role, and it carries the whole run itself with read-only subagents for parallel exploration.
+LazyCodex 从 OmO 向 Codex 移植了一个 discipline agent：**Hephaestus**，自主 deep worker。Codex 包里没有 Sisyphus orchestrator；Hephaestus 是唯一主角色，它会用只读子 agent 做并行探索，并独自承担整次运行。
 
-### What Hephaestus is
+### Hephaestus 是什么
 
-Named after the Greek god of the forge. Goal-oriented: you give it objectives, not step-by-step recipes, and it executes them end-to-end. "The Legitimate Craftsman." Methodical, thorough, obsessive — built for deep architectural reasoning, complex debugging, and cross-domain synthesis.
+名字来自希腊锻造之神。它以目标为中心：你给它 objective，而不是一步步 recipe，它负责端到端执行。"The Legitimate Craftsman." Methodical、thorough、obsessive，适合深层架构推理、复杂调试和跨领域综合。
 
-### The operating loop
+### 运行循环
 
-Hephaestus runs a short, tight loop on every unit of work:
+Hephaestus 在每个工作单元上运行短而紧的循环：
 
-1. **Explore** — map the terrain. Read the code with tools, never speculate. Fire 2-5 parallel explore subagents before writing anything.
-2. **Plan** — chart the course. Record files to modify, specific changes, and dependencies via `update_plan`.
-3. **Implement** — build with precision. Surgical edits that match codebase style (naming, indentation, imports, error handling) even when a greenfield would read differently.
-4. **Verify** — prove it works. LSP diagnostics on changed files, related tests, and build — in parallel where possible.
-5. **Manually QA** — drive the artifact through its real surface (HTTP call, tmux, browser), then write the final message.
+1. **Explore** — 映射地形。用工具读代码，绝不猜测。写代码前触发 2-5 个并行 explore subagents。
+2. **Plan** — 规划路线。通过 `update_plan` 记录要改的文件、具体改动和依赖。
+3. **Implement** — 精确构建。做符合代码库风格的外科式编辑，包括 naming、indentation、imports 和 error handling。
+4. **Verify** — 证明它能工作。对改动文件运行 LSP diagnostics、相关 tests 和 build，能并行就并行。
+5. **Manually QA** — 通过真实表面驱动产物，例如 HTTP call、tmux、browser，然后再写最终回复。
 
-### What it never does
+### 它绝不会做什么
 
-- **Never trusts subagent self-reports.** Verification is independent; a child saying "done" does not close the work.
-- **Never proposes when you asked for code.** Unless you explicitly want a plan or a brainstorm, it implements.
-- **Never speculates about code it has not read.** Exploration is cheap; assumption is expensive.
-- **Never leaves work unresolved at end of turn.** Every plan step is reconciled: `completed`, blocked (one-line reason), or removed (one-line reason).
+- **不会相信子 agent 自报完成。** 验证必须独立完成；child 说 "done" 不会关闭工作。
+- **你要代码时不会只提方案。** 除非你明确要计划或 brainstorm，否则它会实现。
+- **不会猜未读过的代码。** Exploration 很便宜，assumption 很昂贵。
+- **不会在回合结束时留下未对齐的工作。** 每个 plan step 都会被归档为 `completed`、blocked（一句原因）或 removed（一句原因）。
 
-### Delegation, not orchestration
+### Delegation，不是 orchestration
 
-Hephaestus stays the parent. For parallel exploration it spawns read-only Codex subagent roles (`multi_agent_v1.spawn_agent`) and keeps the parent session live with brief status updates while children run. It does not hand the run off to a separate orchestrator — it owns the goal, delegates the grunt work, and verifies the results itself.
+Hephaestus 保持父会话身份。并行探索时，它会启动只读 Codex subagent roles（`multi_agent_v1.spawn_agent`），同时父会话用简短状态更新保持活跃。它不会把运行交给单独 orchestrator；它拥有目标，委派脏活，并亲自验证结果。
 
-### Where the boulder comes from
+### Boulder 从哪里来
 
-The full OmO has a second primary agent, **Sisyphus**, the orchestrator with `.omo/boulder.json` session continuity. The Codex package is the Hephaestus-only light port, so on Codex the durable progress state lives in `.omo/boulder.json` as written by [`$start-work`](./start-work.md) and the Stop-hook continuation — without the Sisyphus orchestration layer.
+完整 OmO 有第二个主 agent：**Sisyphus**，负责带 `.omo/boulder.json` 会话连续性的 orchestrator。Codex 包是 Hephaestus-only light port，因此在 Codex 上，持久进度状态由 [`$start-work`](./start-work.md) 和 Stop-hook continuation 写入 `.omo/boulder.json`，但没有 Sisyphus orchestration layer。
 
-### Reading more
+### 继续阅读
 
-- [ultrawork mode](./ultrawork.md) — the mode that turns the loop into a binding verified run.
-- [Hooks & Lifecycle](./hooks-lifecycle.md) — how the Stop-hook re-injects the next turn until the plan is complete.
+- [ultrawork 模式](./ultrawork.md) — 把循环变成强约束 verified run 的模式。
+- [Hooks 与生命周期](./hooks-lifecycle.md) — Stop-hook 如何持续注入下一轮，直到计划完成。

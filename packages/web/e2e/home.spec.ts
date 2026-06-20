@@ -51,7 +51,7 @@ test.describe("home page — content", () => {
 
   test("skip-link is hidden until focused", async ({ page }) => {
     await page.goto("/")
-    const skip = page.getByRole("link", { name: "Skip to main content" })
+    const skip = page.getByRole("link", { name: "跳到主要内容" })
     await expect(skip).toHaveClass(/sr-only/)
     await skip.focus()
     await expect(skip).toBeFocused()

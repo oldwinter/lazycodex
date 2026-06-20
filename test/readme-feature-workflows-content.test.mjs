@@ -7,9 +7,9 @@ const HANGUL_PATTERN = /[\u1100-\u11ff\u3130-\u318f\uac00-\ud7af]/u
 
 test("README documents built-in LazyCodex workflows without Hangul", () => {
   const requiredSnippets = [
-    "Use the built-in workflows",
+    "使用内置工作流",
     "$init-deep",
-    "project memory",
+    "项目记忆",
     "$ulw-plan",
     "$start-work",
     "$ulw-loop",

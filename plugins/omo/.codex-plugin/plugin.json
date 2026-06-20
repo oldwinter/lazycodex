@@ -1,7 +1,7 @@
 {
 	"name": "omo",
 	"version": "4.12.0",
-	"description": "One Codex plugin namespace for Yeongyu's local Codex components.",
+	"description": "Yeongyu 本地 Codex 组件的统一 Codex plugin namespace。",
 	"author": {
 		"name": "Yeongyu Kim",
 		"email": "yeongyu@users.noreply.github.com",
@@ -43,8 +43,8 @@
 	"mcpServers": "./.mcp.json",
 	"interface": {
 		"displayName": "OMO",
-		"shortDescription": "Unified local Codex components",
-		"longDescription": "OMO exposes local Codex Rules, Comment Checker, Git Bash, LSP, Ultrawork, ulw-loop, start-work continuation, and telemetry components as one plugin namespace while keeping each component isolated under components/ for maintenance.",
+		"shortDescription": "统一的本地 Codex 组件",
+		"longDescription": "OMO 以一个 plugin namespace 暴露本地 Codex Rules、Comment Checker、Git Bash、LSP、Ultrawork、ulw-loop、start-work continuation 和 telemetry 组件，同时把每个组件隔离在 components/ 下便于维护。",
 		"developerName": "Yeongyu Kim",
 		"category": "Developer Tools",
 		"capabilities": [

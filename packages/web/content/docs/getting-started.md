@@ -1,25 +1,25 @@
-LazyCodex is most useful as a harness for complex codebases: project memory, planning, execution, verified completion, skills, hooks, model routing, and diagnostics. This page walks through the four commands you will reach for most often and when to pick each.
+LazyCodex 最适合作为复杂代码库的 harness：项目记忆、规划、执行、可验证完成、skills、hooks、model routing 和 diagnostics。本页说明最常用的四个命令，以及什么时候选择它们。
 
-### The four commands
+### 四个命令
 
-| Command | Use it when |
+| Command | 适用场景 |
 | --- | --- |
-| `$init-deep` | The repository is too large or too old to explain from memory. |
-| `$ulw-plan` | The work needs decisions before any code is written. |
-| `$start-work` | A plan exists and should be executed to completion. |
-| `$ulw-loop` | You want the agent to keep going until the result is verified. |
+| `$init-deep` | 仓库太大或历史太久，无法靠记忆解释。 |
+| `$ulw-plan` | 写代码前需要先做决策。 |
+| `$start-work` | 已有计划，需要执行到完成。 |
+| `$ulw-loop` | 希望 agent 持续推进，直到结果被验证。 |
 
-### How to choose
+### 如何选择
 
-Start with `$init-deep` once per repository so agents have hierarchical `AGENTS.md` context to work from.
+每个仓库先运行一次 `$init-deep`，让 agent 有分层 `AGENTS.md` 上下文可用。
 
-For anything ambiguous, run `$ulw-plan` first. It interviews you, explores the codebase in parallel, and writes a decision-complete plan to `plans/<slug>.md` without touching product code.
+只要任务有歧义，先运行 `$ulw-plan`。它会访谈你、并行探索代码库，并把 decision-complete 计划写入 `plans/<slug>.md`，不会触碰产品代码。
 
-Hand that plan to `$start-work` to execute it: durable Boulder state, parallel subagents, strict TDD, and five evidence gates. It prints `ORCHESTRATION COMPLETE` when every checkbox is done.
+把该计划交给 `$start-work` 执行：durable Boulder state、parallel subagents、strict TDD 和五个 evidence gates。所有 checkbox 完成后，它会打印 `ORCHESTRATION COMPLETE`。
 
-`$ulw-loop` is the tightest loop — use it for a single task that must run until an oracle verifies completion. It does not plan; it executes and verifies.
+`$ulw-loop` 是最紧的循环。适合单个任务必须运行到 oracle 验证完成的情况。它不规划，只执行和验证。
 
-### A typical session
+### 一个典型会话
 
 ```text
 $init-deep
@@ -27,10 +27,10 @@ $ulw-plan "add rate limiting to the api gateway"
 $start-work plans/add-rate-limiting.md
 ```
 
-If the job is small and well-understood, skip the plan and loop directly:
+如果工作很小且已经清楚，可以跳过计划，直接进入 loop：
 
 ```text
 ulw fix the flaky checkout test
 ```
 
-See [Feature coverage](./skills.md) for the skills that add specialist judgment around these commands.
+为这些命令补充专业判断的 skills 见 [能力覆盖](./skills.md)。

@@ -1,45 +1,45 @@
 # codex-ultrawork
 
-Codex plugin that injects a compact orchestration directive (the **ultrawork** prompt) when the user prompt contains `ultrawork` or `ulw` (word-bounded, case-insensitive).
+这个 Codex plugin 会在用户 prompt 包含 `ultrawork` 或 `ulw`（word-bounded、case-insensitive）时，注入一段紧凑 orchestration directive（**ultrawork** prompt）。
 
-Bundled Codex agent role TOMLs in `agents/` are installed into `CODEX_HOME/agents/` by the omo-codex installer (`linkCachedPluginAgents`, in `src/cli/install-codex/link-cached-plugin-agents.ts`). Install-time writes regular file copies on every platform. For the public `sisyphuslabs` marketplace, those files are copied from Codex's local installed-marketplace snapshot so they keep resolving after Codex prunes old plugin-cache versions or temporary marketplace state. There is no runtime Python hook.
+`agents/` 中 bundled Codex agent role TOMLs 会由 omo-codex installer 安装到 `CODEX_HOME/agents/`（`linkCachedPluginAgents`，位于 `src/cli/install-codex/link-cached-plugin-agents.ts`）。安装时在每个平台写入普通文件副本。对于 public `sisyphuslabs` marketplace，这些文件从 Codex 的本地 installed-marketplace snapshot 复制，因此即使 Codex 清理旧 plugin-cache versions 或临时 marketplace state，它们仍能解析。没有 runtime Python hook。
 
-## What the injected directive enforces
+## 注入 directive 强制什么
 
-| Mandate | Behavior |
+| 要求 | 行为 |
 |---|---|
-| Goal + binding success criteria | Call `create_goal` (or open with a `# Goal` block) listing the deliverable + **3+ realistic QA scenarios** (happy path, edge cases, adjacent-surface regression). Each scenario MUST name which **Manual-QA channel** it will use. "Tests pass" is supporting signal, NEVER completion proof. |
-| Manual-QA channels (TESTS ALONE NEVER PROVE DONE) | A dedicated top-level section enumerates the **four** channels you can use to verify a criterion in reality: **(1) HTTP call** (`curl -i` / Playwright APIRequestContext), **(2) tmux** (`tmux new-session` + `send-keys` + `capture-pane`), **(3) Browser use** (Playwright / puppeteer / Chromium driving the real page), **(4) Computer use** (OS-level GUI automation against the running app). Every criterion picks one channel, builds a real-usage scenario, runs it, and captures the artifact — every time. Aux surfaces (CLI stdout / DB diff / parsed config) only count for genuinely CLI- or data-shaped criteria. |
-| Surface + paired cleanup | Execution loop step 4 (**SURFACE-AS-SCENARIO**) runs the chosen channel scenario end-to-end. Step 5 (**CLEANUP, PAIRED**) tears down every QA-spawned process / tmux session / browser context / container / port / temp dir, with a one-line receipt appended to the notepad. Leftover state → NOT done. |
-| Durable /tmp notepad | `mktemp -t ulw-$(date +%Y%m%d-%H%M%S).XXXXXX.md` with sections `Plan`, `Success criteria + QA scenarios`, `Now`, `Todo`, `Findings`, `Learnings`. **Append**, never rewrite. |
-| Obsessive atomic todos | Every action — even one-line edits, `ls`, single test runs — becomes a todo. Format: `path: <action> for <criterion> — verify by <check>`. One in_progress at a time, mark completed immediately. |
-| ChatGPT-compatible high-reasoning verification gate | Triggered automatically on user-requested rigor, 3+ files, 20+ turns, 30+ minutes, or refactor/migration/perf/security work. Use `lazycodex-code-reviewer`, `lazycodex-qa-executor`, and `lazycodex-gate-reviewer` when selectable roles are available. Reviewer verdict is **binding**: no "false positive", no minimising, no arguing. Loop until **unconditional** approval. "Looks good but..." = REJECTION. |
+| Goal + binding success criteria | 调用 `create_goal`（或用 `# Goal` block 开场），列出 deliverable + **3+ realistic QA scenarios**（happy path、edge cases、adjacent-surface regression）。每个 scenario 必须说明使用哪个 **Manual-QA channel**。"Tests pass" 只是 supporting signal，绝不是 completion proof。 |
+| Manual-QA channels (TESTS ALONE NEVER PROVE DONE) | 专门的顶层 section 枚举 **四种**可在现实中验证 criterion 的 channel：**(1) HTTP call**（`curl -i` / Playwright APIRequestContext）、**(2) tmux**（`tmux new-session` + `send-keys` + `capture-pane`）、**(3) Browser use**（Playwright / puppeteer / Chromium 驱动真实页面）、**(4) Computer use**（针对运行中 app 的 OS-level GUI automation）。每个 criterion 选择一个 channel，构建真实使用 scenario，运行并捕获 artifact。Aux surfaces（CLI stdout / DB diff / parsed config）只在 criterion 本身确实是 CLI 或 data 形态时才算数。 |
+| Surface + paired cleanup | Execution loop step 4（**SURFACE-AS-SCENARIO**）端到端运行所选 channel scenario。Step 5（**CLEANUP, PAIRED**）清理每个 QA-spawned process / tmux session / browser context / container / port / temp dir，并向 notepad 追加一行 receipt。残留状态 => NOT done。 |
+| Durable /tmp notepad | `mktemp -t ulw-$(date +%Y%m%d-%H%M%S).XXXXXX.md`，包含 `Plan`、`Success criteria + QA scenarios`、`Now`、`Todo`、`Findings`、`Learnings` sections。**Append**，不要 rewrite。 |
+| Obsessive atomic todos | 每个动作，包括一行编辑、`ls`、单次 test run，都成为 todo。格式：`path: <action> for <criterion> — verify by <check>`。一次只允许一个 in_progress，并立即标记 completed。 |
+| ChatGPT-compatible high-reasoning verification gate | 在用户要求 rigor、3+ files、20+ turns、30+ minutes，或 refactor/migration/perf/security work 时自动触发。可选角色可用时，使用 `lazycodex-code-reviewer`、`lazycodex-qa-executor` 和 `lazycodex-gate-reviewer`。Reviewer verdict 具有**约束力**：不能说 "false positive"，不能弱化，不能争辩。循环直到 **unconditional** approval。"Looks good but..." = REJECTION。 |
 
-The directive is currently 10,951 chars / 231 lines and follows the GPT-5.5 prompting structure (Role / Goal / Manual-QA channels / Bootstrap / Execution loop / Verification gate / Commits / Constraints / Output / Stop rules).
+directive 当前为 10,951 chars / 231 lines，并遵循 GPT-5.5 prompting structure（Role / Goal / Manual-QA channels / Bootstrap / Execution loop / Verification gate / Commits / Constraints / Output / Stop rules）。
 
-## Install (via this marketplace)
+## 安装（通过此 marketplace）
 
 ```bash
 npx lazycodex-ai install
 ```
 
-The installer copies the plugin into `~/.codex/plugins/cache/sisyphuslabs/omo/0.1.0`, writes the Codex marketplace snapshot at `~/.codex/.tmp/marketplaces/sisyphuslabs/`, registers the `sisyphuslabs` marketplace from the `lazycodex` Git repository, enables `omo@sisyphuslabs` in `~/.codex/config.toml`, registers the `UserPromptSubmit` hook, and installs the bundled agent TOMLs as regular files under `~/.codex/agents/`. A `.installed-agents.json` manifest is written next to the bundled TOMLs' source root for clean uninstall tracking.
+安装器会把 plugin 复制到 `~/.codex/plugins/cache/sisyphuslabs/omo/0.1.0`，在 `~/.codex/.tmp/marketplaces/sisyphuslabs/` 写入 Codex marketplace snapshot，从 `lazycodex` Git 仓库注册 `sisyphuslabs` marketplace，在 `~/.codex/config.toml` 中启用 `omo@sisyphuslabs`，注册 `UserPromptSubmit` hook，并把 bundled agent TOMLs 作为普通文件安装到 `~/.codex/agents/`。`.installed-agents.json` manifest 会写到 bundled TOMLs source root 旁，用于干净卸载 tracking。
 
-## How it works
+## 工作方式
 
-`hooks/hooks.json` registers a `UserPromptSubmit` hook running:
+`hooks/hooks.json` 注册一个 `UserPromptSubmit` hook：
 
-```
+```text
 node ${PLUGIN_ROOT}/dist/cli.js hook user-prompt-submit
 ```
 
-Codex passes the prompt payload on stdin. When the pattern `\b(?:ultrawork|ulw)\b` (case-insensitive) matches, the hook writes the directive to stdout — Codex injects non-JSON stdout as `additional_context` for the next turn. Otherwise the hook writes nothing and exits 0. Malformed input also exits 0 to never block the turn.
+Codex 通过 stdin 传入 prompt payload。当 pattern `\b(?:ultrawork|ulw)\b`（case-insensitive）匹配时，hook 把 directive 写到 stdout，Codex 会把非 JSON stdout 作为下一轮的 `additional_context` 注入。否则 hook 不输出并 exit 0。Malformed input 也 exit 0，避免阻塞回合。
 
-If a prior `UserPromptSubmit` hook output in transcript JSONL already contains `<ultrawork-mode>`, the hook suppresses itself so the same directive is not injected repeatedly. Plain transcript text containing `<ultrawork-mode>` is ignored unless it comes from hook output.
+如果 transcript JSONL 中之前的 `UserPromptSubmit` hook output 已包含 `<ultrawork-mode>`，hook 会抑制自己，避免重复注入同一 directive。普通 transcript text 中的 `<ultrawork-mode>` 会被忽略，除非它来自 hook output。
 
-Bundled agent role TOMLs in `agents/` ship to `CODEX_HOME/agents/` at install time, not via a runtime hook. The installer writes regular file copies on Linux, macOS, and Windows. For the public marketplace, the source is the installed-marketplace snapshot, not the versioned plugin cache, so agent role configs remain valid when Codex replaces `~/.codex/plugins/cache/sisyphuslabs/omo/<version>/` during auto-update or removes temporary marketplace state. Both code paths overwrite stale files and write a `.installed-agents.json` manifest next to the source root for clean uninstall tracking.
+`agents/` 中 bundled agent role TOMLs 在安装时发布到 `CODEX_HOME/agents/`，不是 runtime hook。安装器在 Linux、macOS 和 Windows 上写入普通文件副本。对于 public marketplace，source 是 installed-marketplace snapshot，而不是 versioned plugin cache，因此当 Codex auto-update 替换 `~/.codex/plugins/cache/sisyphuslabs/omo/<version>/` 或移除临时 marketplace state 时，agent role configs 仍然有效。两条 code paths 都会覆盖 stale files，并在 source root 旁写入 `.installed-agents.json` manifest 用于 clean uninstall tracking。
 
-## Smoke test
+## Smoke test 烟雾测试
 
 ```bash
 PAYLOAD='{"cwd":"/tmp","hook_event_name":"UserPromptSubmit","model":"gpt-5.5","permission_mode":"default","session_id":"x","transcript_path":"","turn_id":"y","prompt":"please ultrawork"}'
@@ -47,16 +47,16 @@ npm run build
 echo "$PAYLOAD" | node dist/cli.js hook user-prompt-submit | head -3
 ```
 
-Expect `<ultrawork-mode>` ... directive body.
+预期输出 `<ultrawork-mode>` ... directive body。
 
-## Agent role smoke test
+## Agent role 烟雾测试
 
-Run `npx lazycodex-ai install`, then inspect `~/.codex/agents/`. On every platform you should see regular `.toml` files. Each TOML should declare a non-empty `name`, `description`, and `developer_instructions`.
+运行 `npx lazycodex-ai install`，然后检查 `~/.codex/agents/`。每个平台都应看到普通 `.toml` 文件。每个 TOML 都应声明非空 `name`、`description` 和 `developer_instructions`。
 
-## License
+## 许可证
 
 MIT. See `LICENSE`.
 
-## Privacy
+## 隐私
 
-This plugin only reads local hook payloads and emits the bundled directive text on keyword match. Bundled agent TOML files ship to `CODEX_HOME/agents/` at install time. No network calls and no telemetry from this component.
+此 plugin 只读取本地 hook payloads，并在 keyword match 时输出 bundled directive text。Bundled agent TOML files 会在安装时发布到 `CODEX_HOME/agents/`。该组件不发起网络调用，也没有 telemetry。

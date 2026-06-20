@@ -1,28 +1,28 @@
-LazyCodex is a light port of [OmO](https://github.com/code-yeongyu/oh-my-openagent) into Codex. It does not ship the full harness — it ports one role, **Hephaestus**, the autonomous deep worker, and the workflows that keep its runs honest. Think [LazyVim](https://github.com/LazyVim/LazyVim) for [lazy.nvim](https://github.com/folke/lazy.nvim), but for Codex.
+LazyCodex 是把 [OmO](https://github.com/code-yeongyu/oh-my-openagent) 移植到 Codex 的轻量版本。它不交付完整 harness；它移植一个角色：**Hephaestus**，自主 deep worker，以及让它的运行保持诚实的 workflows。可以把它理解成 Codex 版 [LazyVim](https://github.com/LazyVim/LazyVim)。
 
-### Where it comes from
+### 它来自哪里
 
-OmO is the full agent harness: a primary orchestrator (Sisyphus) with `.omo/boulder.json` session continuity, a deep worker (Hephaestus), specialist agents, multi-model routing, 54+ lifecycle hooks, and team mode. That is a lot. LazyCodex takes only the piece that matters for a focused Codex setup and packages it as a repeatable install.
+OmO 是完整 agent harness：主 orchestrator（Sisyphus）通过 `.omo/boulder.json` 提供 session continuity，deep worker（Hephaestus）、specialist agents、multi-model routing、54+ lifecycle hooks 和 team mode。规模很大。LazyCodex 只取 focused Codex setup 最需要的部分，并把它打包成可重复安装。
 
-### What you get
+### 你会得到什么
 
-The Hephaestus deep worker, ported into Codex with:
+移植到 Codex 的 Hephaestus deep worker，包括：
 
-- Goal-oriented execution — you give it objectives, not step-by-step recipes.
-- A tight operating loop: **Explore → Plan → Implement → Verify → Manually QA**.
-- Parallel explore subagents so it maps the terrain before writing anything.
-- The `$ulw-plan`, `$start-work`, and `$ulw-loop` workflows that keep complex work moving until it is verified.
-- Skills, hooks, model routing, and verification defaults wired into Codex in one pass.
+- Goal-oriented execution — 你给 objective，而不是 step-by-step recipes。
+- 紧凑运行循环：**Explore -> Plan -> Implement -> Verify -> Manually QA**。
+- 并行 explore subagents，让它写代码前先映射地形。
+- `$ulw-plan`、`$start-work` 和 `$ulw-loop` workflows，让复杂工作持续推进直到被验证。
+- 一次性写入 Codex 的 skills、hooks、model routing 和 verification defaults。
 
-### The harness workflow
+### Harness 工作流
 
-Use `{your prompt} ultrawork` when the job needs the deep worker to run as one coordinated, evidence-bound loop instead of a single turn.
+当任务需要 deep worker 作为一个协调一致、受证据约束的循环运行，而不是单个回合时，使用 `{your prompt} ultrawork`。
 
-### How it fits together
+### 如何组合在一起
 
-LazyCodex is a thin distribution layer over [OmO](https://github.com/code-yeongyu/oh-my-openagent). The core engine is OmO; LazyCodex packages OmO's Hephaestus for Codex.
+LazyCodex 是 [OmO](https://github.com/code-yeongyu/oh-my-openagent) 之上的薄发行层。核心引擎是 OmO；LazyCodex 把 OmO 的 Hephaestus 打包给 Codex。
 
-Credit: The LazyCodex name idea is inspired by [LazyVim](https://github.com/LazyVim/LazyVim). The Ultragoal and UltraQA ideas are inspired by [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex), reimplemented from concept for this Codex setup.
+鸣谢：LazyCodex 这个名字受到 [LazyVim](https://github.com/LazyVim/LazyVim) 启发。Ultragoal 和 UltraQA 的想法受到 [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) 启发，并为这个 Codex setup 重新实现。
 
-- [LazyCodex on GitHub](https://github.com/code-yeongyu/lazycodex)
-- [OmO on GitHub](https://github.com/code-yeongyu/oh-my-openagent)
+- [GitHub 上的 LazyCodex](https://github.com/code-yeongyu/lazycodex)
+- [GitHub 上的 OmO](https://github.com/code-yeongyu/oh-my-openagent)

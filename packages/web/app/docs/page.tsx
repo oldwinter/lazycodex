@@ -8,9 +8,9 @@ import { SITE_CONFIG } from "@/lib/site-config";
 import "@/app/styles/docs.css";
 
 export const metadata: Metadata = {
-  title: "Documentation",
+  title: "文档",
   description:
-    "LazyCodex documentation for the OmO agent harness: install, getting started, commands, concepts, skills, and reference.",
+    "LazyCodex 文档：OmO agent harness 的安装、快速开始、命令、概念、skills 和参考。",
   alternates: {
     canonical: "/docs",
   },
@@ -33,7 +33,7 @@ export default function DocsPage() {
   return (
     <>
       <a href="#content" className="skip-link">
-        Skip to main content
+        跳到主要内容
       </a>
       <SiteHeader />
       <main id="content" className="docs-page">
@@ -42,10 +42,9 @@ export default function DocsPage() {
             <span className="docs-hero-dot" aria-hidden="true" />
             {SITE_CONFIG.version}
           </div>
-          <h1 className="docs-hero-title">Documentation</h1>
+          <h1 className="docs-hero-title">文档</h1>
           <p className="docs-hero-tagline">
-            Install and run the OmO harness inside Codex for complex codebases —
-            project memory, planning, execution, and verified completion.
+            在 Codex 中安装并运行面向复杂代码库的 OmO harness：项目记忆、规划、执行与可验证完成。
           </p>
         </div>
         <DocsShell sections={sections} />

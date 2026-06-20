@@ -45,7 +45,7 @@ test.describe("landing page — install + commands", () => {
     ).toBeVisible()
     await expect(page.getByText("npx lazycodex-ai install", { exact: false }).first()).toBeVisible()
     await expect(page.getByText(SITE_CONFIG.installEquivalent, { exact: false }).first()).toBeVisible()
-    await expect(page.getByRole("button", { name: /copy/i }).first()).toBeVisible()
+    await expect(page.getByRole("button", { name: /复制安装命令/ }).first()).toBeVisible()
   })
 
   test("renders every command with its name and syntax", async ({ page }) => {
@@ -60,11 +60,11 @@ test.describe("landing page — install + commands", () => {
     await page.goto("/")
 
     await expect(page.locator("article h2")).toHaveText(COMMANDS.map((command) => command.name))
-    await expect(page.getByText("Harness the whole codebase", { exact: false })).toBeVisible()
-    await expect(page.getByText("Context that survives", { exact: false }).first()).toBeVisible()
-    await expect(page.getByText("Plans before edits", { exact: false }).first()).toBeVisible()
-    await expect(page.getByText("Evidence at the end", { exact: false }).first()).toBeVisible()
-    await expect(page.getByText("Built-in skill coverage", { exact: false }).first()).toBeVisible()
+    await expect(page.getByText("驾驭整个代码库", { exact: false })).toBeVisible()
+    await expect(page.getByText("可持续的上下文", { exact: false }).first()).toBeVisible()
+    await expect(page.getByText("先计划再编辑", { exact: false }).first()).toBeVisible()
+    await expect(page.getByText("最后要有证据", { exact: false }).first()).toBeVisible()
+    await expect(page.getByText("内置 skill 覆盖面", { exact: false }).first()).toBeVisible()
   })
 })
 
@@ -82,12 +82,12 @@ test.describe("landing page — links + footer", () => {
 
     const stars = page.locator(`a[href="${SITE_CONFIG.githubStarsUrl}"]`).first()
     await expect(stars).toContainText(/^\d+(?:\.\d+[kM])?\sstars$/)
-    await expect(stars).toHaveAttribute("aria-label", /\d+(?:\.\d+[kM])?\sstars on GitHub/)
+    await expect(stars).toHaveAttribute("aria-label", /GitHub 上 \d+(?:\.\d+[kM])?\sstars/)
   })
 
   test("has a Docs link pointing at /docs", async ({ page }) => {
     await page.goto("/")
-    const docs = page.getByRole("link", { name: /docs/i }).first()
+    const docs = page.getByRole("link", { name: /文档/ }).first()
     await expect(docs).toBeVisible()
     await expect(docs).toHaveAttribute("href", SITE_CONFIG.docsPath)
   })

@@ -4,9 +4,9 @@ import type { JSX } from "react";
 import { useEffect, useRef, useState } from "react";
 import type { DocHeading } from "@/lib/docs-content.generated";
 import type { DocSection } from "@/lib/docs-sections";
+import { DocsPrevNext } from "./docs-prev-next";
 import { DocsSidebar } from "./docs-sidebar";
 import { DocsToc } from "./docs-toc";
-import { DocsPrevNext } from "./docs-prev-next";
 
 export type SectionView = {
   readonly id: string;
@@ -103,7 +103,7 @@ export function DocsShell({ sections }: DocsShellProps): JSX.Element {
         aria-expanded={isMobileMenuOpen}
         aria-controls="docs-sidebar"
       >
-        {isMobileMenuOpen ? "Close Menu" : "Menu"}
+        {isMobileMenuOpen ? "关闭菜单" : "菜单"}
       </button>
 
       <aside

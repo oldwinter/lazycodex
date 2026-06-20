@@ -1,21 +1,21 @@
 # codex-rules
 
-Codex plugin that injects local project rule files into model context through lifecycle hooks.
+这个 Codex plugin 通过 lifecycle hooks 把本地项目 rule files 注入模型上下文。
 
-It ports the `pi-rules` rule injector to Codex:
+它把 `pi-rules` rule injector 移植到 Codex：
 
-- `SessionStart` and `UserPromptSubmit` load static project instructions once per session.
-- `PostToolUse` watches Codex `apply_patch` by default, then injects matching file-specific rules as additional context.
-- `PostCompact` clears the per-session injection cache after manual or automatic compaction so relevant rules can be reintroduced into the compacted conversation.
-- Session-level deduplication prevents the same rule from being repeated after it has been injected.
+- `SessionStart` 和 `UserPromptSubmit` 每个会话加载一次 static project instructions。
+- `PostToolUse` 默认监听 Codex `apply_patch`，然后把匹配的 file-specific rules 作为 additional context 注入。
+- `PostCompact` 在手动或自动 compact 后清空 per-session injection cache，让相关 rules 可以重新注入 compacted conversation。
+- Session-level deduplication 防止同一条 rule 在已经注入后重复出现。
 
-`PostToolUse` output is context-only: it emits `hookSpecificOutput.additionalContext` and does not rewrite tool output.
+`PostToolUse` output 仅提供 context：它输出 `hookSpecificOutput.additionalContext`，不会重写 tool output。
 
-The runtime has no npm production dependencies, so a clean Codex marketplace copy can run without a follow-up `npm install`.
+runtime 没有 npm production dependencies，因此干净的 Codex marketplace copy 不需要后续 `npm install` 也能运行。
 
-## Rule Sources
+## Rule Sources 来源
 
-Project-level sources:
+项目级 sources：
 
 - `CONTEXT.md`
 - `.omo/rules/**/*.md`
@@ -24,9 +24,9 @@ Project-level sources:
 - `.github/instructions/**/*.md`
 - `.github/copilot-instructions.md`
 
-User-home sources are also supported by the ported engine when available. `AGENTS.md` is not part of `auto` source selection because Codex already loads it as native project instructions, so re-injecting it through hooks duplicates context; opt into it explicitly with `CODEX_RULES_ENABLED_SOURCES` if you need hook-level migration behavior. Claude user-home sources (`~/.claude/rules`, `~/.claude/CLAUDE.md`) are also excluded from `auto` because they usually contain Claude Code runtime instructions rather than Codex rules; opt into them explicitly when you want that migration behavior.
+ported engine 可用时也支持 user-home sources。`AGENTS.md` 不属于 `auto` source selection，因为 Codex 已经把它作为 native project instructions 加载；通过 hooks 再注入会重复上下文。如果确实需要 hook-level migration behavior，可用 `CODEX_RULES_ENABLED_SOURCES` 显式开启。Claude user-home sources（`~/.claude/rules`、`~/.claude/CLAUDE.md`）也从 `auto` 中排除，因为它们通常包含 Claude Code runtime instructions，而不是 Codex rules；需要迁移行为时再显式开启。
 
-Markdown rule files may use frontmatter such as:
+Markdown rule files 可以使用 frontmatter，例如：
 
 ```md
 ---
@@ -38,19 +38,19 @@ alwaysApply: false
 Prefer strict TypeScript and keep runtime imports ESM-compatible.
 ```
 
-## Install Locally
+## 本地安装
 
 ```bash
 npx lazycodex-ai install
 ```
 
-The local installer builds the plugin and copies a clean cache entry to:
+本地安装器会构建 plugin，并把干净 cache entry 复制到：
 
 ```text
 ~/.codex/plugins/cache/sisyphuslabs/omo/0.1.0
 ```
 
-It also enables:
+同时启用：
 
 ```toml
 [features]
@@ -63,11 +63,11 @@ child_agents_md = true
 enabled = true
 ```
 
-## Configuration
+## 配置
 
-Use `CODEX_RULES_*` environment variables:
+使用 `CODEX_RULES_*` 环境变量：
 
-| Variable | Values | Default |
+| 变量 | 取值 | 默认值 |
 | --- | --- | --- |
 | `CODEX_RULES_DISABLED` | `1`, `true`, `yes`, `on` | unset |
 | `CODEX_RULES_MODE` | `both`, `static`, `dynamic`, `off` | `both` |
@@ -75,21 +75,21 @@ Use `CODEX_RULES_*` environment variables:
 | `CODEX_RULES_MAX_RESULT_CHARS` | positive integer | `40000` |
 | `CODEX_RULES_ENABLED_SOURCES` | comma-separated source names or `auto` | `auto` (excludes `AGENTS.md`, `~/.claude/rules`, `~/.claude/CLAUDE.md`) |
 
-For migration from `pi-rules`, equivalent `PI_RULES_*` variables are accepted as fallbacks.
+从 `pi-rules` 迁移时，等价的 `PI_RULES_*` variables 会作为 fallback 被接受。
 
-## Debugging
+## 调试
 
-Enable hook phase timing with `NODE_DEBUG=codex-rules`:
+用 `NODE_DEBUG=codex-rules` 开启 hook phase timing：
 
 ```bash
 NODE_DEBUG=codex-rules node dist/cli.js hook post-tool-use < fixture.json
 ```
 
-Debug lines go to stderr and hook JSON stays on stdout. The log includes `PostToolUse` phases such as `extract`, `fingerprint`, `load`, `persist`, elapsed `ms`, target counts, pending counts, rule counts, and output bytes. It does not log rule bodies or tool response contents.
+debug 行输出到 stderr，hook JSON 保持在 stdout。日志包含 `PostToolUse` phases，例如 `extract`、`fingerprint`、`load`、`persist`、elapsed `ms`、target counts、pending counts、rule counts 和 output bytes。它不会记录 rule bodies 或 tool response contents。
 
-The default `PostToolUse` hook matcher is intentionally strict: it matches only Codex's canonical `apply_patch` hook tool name. Read tools, MCP filesystem tools, shell commands, and Claude-style `Write`/`Edit` aliases are not registered by default.
+默认 `PostToolUse` hook matcher 故意严格：只匹配 Codex canonical `apply_patch` hook tool name。Read tools、MCP filesystem tools、shell commands 和 Claude-style `Write`/`Edit` aliases 默认没有注册。
 
-## Development
+## 开发
 
 ```bash
 npm install
@@ -99,15 +99,15 @@ npm run typecheck
 npm pack --dry-run
 ```
 
-Performance smoke test:
+Performance smoke test：
 
 ```bash
 npm run bench
 ```
 
-Benchmark timings depend on the local machine. Use the relative counters and repeat-output checks when comparing runs.
+Benchmark timings 取决于本地机器。比较运行时使用 relative counters 和 repeat-output checks。
 
-Hook smoke test:
+Hook smoke test：
 
 ```bash
 npm run build
@@ -115,10 +115,10 @@ printf '%s\n' '{"session_id":"s","transcript_path":null,"cwd":"/path/to/project"
   | PLUGIN_DATA=/tmp/codex-rules-data node dist/cli.js hook session-start
 ```
 
-## Privacy
+## 隐私
 
-`codex-rules` runs locally. It reads local rule files and Codex hook payloads, writes per-session deduplication state under the Codex plugin data directory, and does not make network requests.
+`codex-rules` 在本地运行。它读取本地 rule files 和 Codex hook payloads，在 Codex plugin data directory 下写入 per-session deduplication state，并且不会发起网络请求。
 
-## License
+## 许可证
 
 MIT. See [LICENSE](LICENSE) and [NOTICE](NOTICE).

@@ -1,7 +1,7 @@
 "use client"
 
 import type { JSX } from "react"
-import { useState, useCallback } from "react"
+import { useCallback, useState } from "react"
 
 interface CopyButtonProps {
   readonly value: string
@@ -23,10 +23,10 @@ export function CopyButton({ value, className = "" }: CopyButtonProps): JSX.Elem
       type="button"
       onClick={handleCopy}
       className={`group relative flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-[color:var(--surface-panel)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] ${className}`}
-      aria-label="Copy install command"
+      aria-label="复制安装命令"
     >
       <span className="sr-only" aria-live="polite">
-        {copied ? "Copied" : ""}
+        {copied ? "已复制" : ""}
       </span>
       {copied ? (
         <svg

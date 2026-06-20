@@ -1,13 +1,13 @@
-`$ulw-plan` is the strategic planning consultant (Prometheus). It turns an idea into a decision-complete work plan. It is a planner, NOT an implementer. When you say "do X" it produces a plan for X and never writes product code.
+`$ulw-plan` 是战略规划顾问（Prometheus）。它会把想法转成 decision-complete work plan。它是 planner，**不是** implementer。当你说 "do X" 时，它会为 X 产出计划，绝不写产品代码。
 
-### The flow
+### 流程
 
-1. Socratic interview
-2. Parallel codebase exploration
-3. Metis gap analysis
-4. Writes the plan to `plans/<slug>.md`
-5. Optional Momus high-accuracy review
+1. Socratic 访谈
+2. 并行代码库探索
+3. Metis 差距分析
+4. 把计划写入 `plans/<slug>.md`
+5. 可选 Momus high-accuracy review
 
-### Output
+### 输出
 
-Questions, research, and a work plan you can hand to [`$start-work`](./start-work.md).
+问题、研究结果，以及可以交给 [`$start-work`](./start-work.md) 的工作计划。

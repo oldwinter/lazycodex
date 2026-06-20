@@ -5,9 +5,9 @@ import "./globals.css"
 
 const SITE_URL = "https://lazycodex.ai"
 const SITE_NAME = "LazyCodex"
-const TAGLINE = "Codex agent harness for complex codebases"
+const TAGLINE = "面向复杂代码库的 Codex agent harness"
 const DESCRIPTION =
-  "LazyCodex installs the OmO agent harness inside Codex: project memory, planning, parallel agents, skills, hooks, routing, and verified completion for complex codebases."
+  "LazyCodex 把 OmO agent harness 安装进 Codex，为复杂代码库提供项目记忆、规划、并行 agents、skills、hooks、路由和可验证完成。"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "zh_CN",
     url: SITE_URL,
     siteName: SITE_NAME,
     title: `${SITE_NAME} — ${TAGLINE}`,
@@ -109,7 +109,7 @@ export default function RootLayout({
   readonly children: ReactNode
 }): JSX.Element {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <body className="min-h-[100dvh] font-sans antialiased">
         <script
           type="application/ld+json"

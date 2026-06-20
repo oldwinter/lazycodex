@@ -6,23 +6,22 @@ import path from "node:path";
 import { Marked } from "marked";
 
 // Fixed, ordered section list. Key = output map key (the markdown file name).
-// Grouped for the sidebar: Install / Getting started / Commands / Concepts /
-// Skills / Reference.
+// Grouped for the sidebar: 安装 / 入门 / 命令 / 概念 / Skills / 参考.
 const SECTIONS = [
-  { id: "overview", file: "overview.md", group: "Getting started", title: "Overview" },
-  { id: "installation", file: "installation.md", group: "Install", title: "Installation" },
-  { id: "getting-started", file: "getting-started.md", group: "Getting started", title: "Getting started" },
-  { id: "init-deep", file: "init-deep.md", group: "Commands", title: "$init-deep" },
-  { id: "ulw-plan", file: "ulw-plan.md", group: "Commands", title: "$ulw-plan" },
-  { id: "start-work", file: "start-work.md", group: "Commands", title: "$start-work" },
-  { id: "ulw-loop", file: "ulw-loop.md", group: "Commands", title: "$ulw-loop" },
-  { id: "ultrawork", file: "ultrawork.md", group: "Concepts", title: "ultrawork mode" },
-  { id: "discipline-agents", file: "discipline-agents.md", group: "Concepts", title: "Hephaestus" },
-  { id: "model-routing", file: "model-routing.md", group: "Concepts", title: "Multi-model routing" },
-  { id: "hooks-lifecycle", file: "hooks-lifecycle.md", group: "Concepts", title: "Hooks & Lifecycle" },
-  { id: "skills", file: "skills.md", group: "Skills", title: "Feature coverage" },
-  { id: "configuration", file: "configuration.md", group: "Reference", title: "Configuration" },
-  { id: "cli", file: "cli.md", group: "Reference", title: "CLI" },
+  { id: "overview", file: "overview.md", group: "入门", title: "概览" },
+  { id: "installation", file: "installation.md", group: "安装", title: "安装" },
+  { id: "getting-started", file: "getting-started.md", group: "入门", title: "快速开始" },
+  { id: "init-deep", file: "init-deep.md", group: "命令", title: "$init-deep" },
+  { id: "ulw-plan", file: "ulw-plan.md", group: "命令", title: "$ulw-plan" },
+  { id: "start-work", file: "start-work.md", group: "命令", title: "$start-work" },
+  { id: "ulw-loop", file: "ulw-loop.md", group: "命令", title: "$ulw-loop" },
+  { id: "ultrawork", file: "ultrawork.md", group: "概念", title: "ultrawork 模式" },
+  { id: "discipline-agents", file: "discipline-agents.md", group: "概念", title: "Hephaestus" },
+  { id: "model-routing", file: "model-routing.md", group: "概念", title: "多模型路由" },
+  { id: "hooks-lifecycle", file: "hooks-lifecycle.md", group: "概念", title: "Hooks 与生命周期" },
+  { id: "skills", file: "skills.md", group: "Skills", title: "能力覆盖" },
+  { id: "configuration", file: "configuration.md", group: "参考", title: "配置" },
+  { id: "cli", file: "cli.md", group: "参考", title: "CLI" },
 ];
 
 const DOCS_ROOT = path.resolve(process.cwd(), "content", "docs");
@@ -31,14 +30,14 @@ const BANNER =
   "// AUTO-GENERATED — do not edit. Run: node ./scripts/generate-docs-content.mjs\n";
 
 // Heading/anchor slug: lowercase, spaces to "-", drop everything that is not
-// an alphanumeric or hyphen, then collapse/trim hyphens. Hyphens survive so
-// multi-word section ids (ulw-loop, start-work) keep their anchors.
+// a Unicode letter, number, or hyphen, then collapse/trim hyphens. Hyphens
+// survive so multi-word section ids (ulw-loop, start-work) keep their anchors.
 function slugify(value) {
   return value
     .toLowerCase()
     .trim()
     .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "")
+    .replace(/[^\p{Letter}\p{Number}-]/gu, "")
     .replace(/-+/g, "-")
     .replace(/^-+|-+$/g, "");
 }

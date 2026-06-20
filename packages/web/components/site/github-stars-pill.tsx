@@ -52,7 +52,7 @@ export function GithubStarsPill(): JSX.Element {
       target="_blank"
       rel="noopener noreferrer"
       className="group flex h-8 items-center gap-1.5 rounded-full border border-[color:var(--accent-primary-border)] bg-[color:var(--accent-primary-soft)] px-3 text-sm font-medium text-[color:var(--accent-primary)] transition-colors hover:border-[color:var(--accent-primary)] hover:bg-[color:var(--accent-primary-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)]"
-      aria-label={`${starsLabel} stars on GitHub`}
+      aria-label={`GitHub 上 ${starsLabel} stars`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

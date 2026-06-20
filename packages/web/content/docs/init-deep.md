@@ -1,25 +1,25 @@
-`$init-deep` generates hierarchical `AGENTS.md` context so agents start from local guidance before touching a large repository. Run it once per project, and again whenever the architecture shifts enough that the existing context no longer reflects reality.
+`$init-deep` 会生成分层 `AGENTS.md` 上下文，让 agent 在触碰大型仓库前先读取局部指导。每个项目运行一次；当架构变化到现有上下文不再反映现实，也要再次运行。
 
-### What it produces
+### 它会产出什么
 
-- A root `AGENTS.md` that orients agents to the project: stack, layout, conventions, and where to look first.
-- Nested `AGENTS.md` files in the directories that matter most, so an agent descending into a package gets scoped guidance instead of guessing.
-- References to project rules, skills, and instruction files the harness should respect.
+- 根级 `AGENTS.md`，说明项目 stack、layout、conventions，以及优先查看的位置。
+- 关键目录中的嵌套 `AGENTS.md`，让 agent 进入某个 package 时获得作用域内指导，而不是猜测。
+- 指向 harness 应遵守的 project rules、skills 和 instruction files。
 
-### When to run it
+### 什么时候运行
 
-- Onboarding a repository that is too large or too old to explain from memory.
-- After a major refactor, migration, or layout change.
-- When agents keep picking the wrong files or ignoring local conventions.
+- 接手一个太大或太旧、无法靠记忆说明的仓库。
+- 完成一次大型重构、迁移或布局变化后。
+- 当 agent 反复选错文件或忽略局部约定时。
 
-### How to use it
+### 如何使用
 
 ```text
 $init-deep
 ```
 
-The command walks the tree, reads the files that define how the project actually works, and writes the context. Review the generated `AGENTS.md` files, trim anything stale, and commit them. Agents in later turns read that context before they edit, so the first session pays for every session after it.
+该命令会遍历目录树，读取定义项目实际工作方式的文件，并写入上下文。审查生成的 `AGENTS.md` 文件，删掉陈旧内容，然后提交。后续回合中的 agent 会在编辑前读取这些上下文，因此第一次会话的成本会回报给之后每个会话。
 
-### After init
+### 初始化之后
 
-With context in place, move to [`$ulw-plan`](./ulw-plan.md) when the work needs a plan, or [`$ulw-loop`](./ulw-loop.md) for a single verified task.
+上下文就位后，如果工作需要计划，进入 [`$ulw-plan`](./ulw-plan.md)；如果是单个可验证任务，进入 [`$ulw-loop`](./ulw-loop.md)。

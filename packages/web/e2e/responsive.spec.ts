@@ -1,6 +1,6 @@
-import { test, expect, devices } from "@playwright/test"
-import { SITE_CONFIG } from "../lib/site-config"
+import { devices, expect, test } from "@playwright/test"
 import { COMMANDS } from "../lib/commands"
+import { SITE_CONFIG } from "../lib/site-config"
 
 /**
  * Responsive contract: the page MUST render perfectly across the device

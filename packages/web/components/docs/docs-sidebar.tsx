@@ -32,7 +32,7 @@ export function DocsSidebar({
     <div className="docs-sidebar-inner">
       <div className="docs-search">
         <label htmlFor="docs-search-input" className="sr-only">
-          Search documentation
+          搜索文档
         </label>
         <div className="docs-search-field">
           <SearchGlyph />
@@ -40,7 +40,7 @@ export function DocsSidebar({
             id="docs-search-input"
             ref={searchRef}
             type="search"
-            placeholder="Search docs..."
+            placeholder="搜索文档..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             className="docs-search-input"
@@ -49,7 +49,7 @@ export function DocsSidebar({
         </div>
       </div>
 
-      <nav aria-label="Documentation" className="docs-nav">
+      <nav aria-label="文档" className="docs-nav">
         {DOC_GROUPS.map((group) => {
           const groupSections = sections.filter((s) => s.group === group);
           const visible = groupSections.filter((s) =>
@@ -77,7 +77,7 @@ export function DocsSidebar({
           );
         })}
         {query && sections.every((s) => !s.title.toLowerCase().includes(query)) && (
-          <p className="docs-nav-empty">No matches.</p>
+          <p className="docs-nav-empty">没有匹配项。</p>
         )}
       </nav>
     </div>

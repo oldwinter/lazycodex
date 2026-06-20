@@ -1,27 +1,27 @@
 # codex-start-work-continuation
 
-Codex Stop-hook continuation injector for the omo-codex `start-work` skill.
+面向 omo-codex `start-work` skill 的 Codex Stop-hook continuation injector。
 
-It reads `.omo/boulder.json` in the hook payload `cwd`, resolves the active work, inspects the active plan for incomplete top-level checkboxes, and emits Codex Stop-hook JSON when the plan still has work:
+它会读取 hook payload `cwd` 中的 `.omo/boulder.json`，解析 active work，检查 active plan 中未完成的 top-level checkboxes，并在计划仍有工作时输出 Codex Stop-hook JSON：
 
 ```json
 {"decision":"block","reason":"<directive>"}
 ```
 
-The `reason` is loaded from `directive.md` on every invocation and filled with current plan state. The hook returns no output when `stop_hook_active` is `true`, when no active Boulder work exists, when the work is completed, when the active work is not tied to `codex:<session_id>`, or when all top-level plan checkboxes are complete.
+`reason` 每次调用都从 `directive.md` 加载，并填入当前 plan state。当 `stop_hook_active` 为 `true`、没有 active Boulder work、work 已完成、active work 没有绑定到 `codex:<session_id>`，或所有 top-level plan checkboxes 都已完成时，hook 不输出内容。
 
-This pairs with the `start-work` skill at `plugin/skills/start-work/SKILL.md`. That skill writes `.omo/boulder.json` with Codex session ids prefixed as `codex:` so the hook can continue only its own active Codex session.
+它与 `plugin/skills/start-work/SKILL.md` 中的 `start-work` skill 配套使用。该 skill 会把带 `codex:` 前缀的 Codex session ids 写入 `.omo/boulder.json`，这样 hook 只能继续自己的 active Codex session。
 
-## Counted plan checkboxes
+## 计数的 plan checkboxes
 
-Only column-0 checkboxes under these sections are counted:
+只统计这些 sections 下 column-0 的 checkboxes：
 
 - `## TODOs`
 - `## Final Verification Wave`
 
-Nested checkboxes under `### Acceptance Criteria`, `### Evidence`, and `### Definition of Done` are ignored.
+`### Acceptance Criteria`、`### Evidence` 和 `### Definition of Done` 下的嵌套 checkboxes 会被忽略。
 
-## Smoke test
+## Smoke test 烟雾测试
 
 ```bash
 TMP=$(mktemp -d)
@@ -44,12 +44,12 @@ echo "$PAYLOAD_LOOP" | node dist/cli.js hook stop
 rm -rf "$TMP"
 ```
 
-Expect the first command to print JSON containing `"decision":"block"`; expect the anti-loop command to print nothing.
+第一条命令应打印包含 `"decision":"block"` 的 JSON；anti-loop 命令应不输出任何内容。
 
-## License
+## 许可证
 
 MIT. See `LICENSE`.
 
-## Privacy
+## 隐私
 
-This plugin only reads local hook payloads, `.omo/boulder.json`, the active plan, and the bundled directive. It makes no network calls and stores no telemetry.
+此 plugin 只读取本地 hook payloads、`.omo/boulder.json`、active plan 和 bundled directive。它不发起网络请求，也不存储 telemetry。

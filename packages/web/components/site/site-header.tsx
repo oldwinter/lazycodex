@@ -1,5 +1,5 @@
-import type { JSX } from "react"
 import Link from "next/link"
+import type { JSX } from "react"
 import { SITE_CONFIG } from "../../lib/site-config"
 import { GithubStarsPill } from "./github-stars-pill"
 
@@ -11,7 +11,7 @@ export function SiteHeader(): JSX.Element {
           <Link
             href="/"
             className="flex items-center gap-2 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)]"
-            aria-label="LazyCodex home"
+            aria-label="LazyCodex 首页"
           >
             {/* Inline SVG mark: zero network bytes (a real <img> of the 512px
                 icon would download ~200KB above the fold and starve the LCP
@@ -56,7 +56,7 @@ export function SiteHeader(): JSX.Element {
             prefetch={false}
             className="text-sm font-medium text-[color:var(--text-secondary)] transition-colors hover:text-[color:var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)]"
           >
-            Docs
+            文档
           </Link>
           <GithubStarsPill />
         </nav>

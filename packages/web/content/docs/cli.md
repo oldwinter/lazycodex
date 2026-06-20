@@ -1,4 +1,4 @@
-The `lazycodex-ai` CLI is the entry point for installing and diagnosing the harness. It is meant to be run through `npx` — never install it globally.
+`lazycodex-ai` CLI 是安装和诊断 harness 的入口。它设计为通过 `npx` 运行，不要全局安装。
 
 ### install
 
@@ -6,13 +6,13 @@ The `lazycodex-ai` CLI is the entry point for installing and diagnosing the harn
 npx lazycodex-ai install
 ```
 
-Installs the OmO agent harness into Codex: commands, skills, hooks, model routing, and verification defaults in one pass. This is exactly equivalent to:
+一次性把 OmO agent harness 安装进 Codex：commands、skills、hooks、model routing 和 verification defaults。它完全等价于：
 
 ```bash
 npx --yes --package oh-my-openagent omo install --platform=codex
 ```
 
-To skip the TUI and let the installer run autonomously:
+如果要跳过 TUI 并让安装器自主运行：
 
 ```bash
 npx lazycodex-ai install --no-tui --codex-autonomous
@@ -24,22 +24,22 @@ npx lazycodex-ai install --no-tui --codex-autonomous
 npx lazycodex-ai doctor
 ```
 
-Prints a health report: what is configured, what is missing, and why. Run this first when a hook is pending, a skill is not loading, or routing looks wrong.
+输出健康报告：哪些已经配置、哪些缺失，以及原因。当 hook 处于 pending、skill 没有加载，或 routing 看起来异常时，先运行它。
 
-### Prerequisites
+### 前置条件
 
-- [Node.js](https://nodejs.org) — any maintained LTS; `npx` ships with it. Bun is **not** required for the installer.
-- The [OpenAI Codex CLI](https://github.com/openai/codex) or the Codex app, logged in.
+- [Node.js](https://nodejs.org) — 任意仍受维护的 LTS 版本；`npx` 随 Node 一起安装。安装器不需要 Bun。
+- [OpenAI Codex CLI](https://github.com/openai/codex) 或已登录的 Codex app。
 
-> Do not use `npm install -g` or `bun add -g`. Always invoke via `npx`.
+> 不要使用 `npm install -g` 或 `bun add -g`。始终通过 `npx` 调用。
 
-### Marketplace alternative
+### Marketplace 替代路径
 
-As an additive, experimental path you can install from inside Codex: type `/plugins`, open the **Add Marketplace** tab, and enter `https://github.com/code-yeongyu/lazycodex`, then install `omo` from the `sisyphuslabs` marketplace. Or from the CLI:
+作为补充性的实验路径，你可以在 Codex 内安装：输入 `/plugins`，打开 **Add Marketplace** 标签页，填入 `https://github.com/code-yeongyu/lazycodex`，然后从 `sisyphuslabs` marketplace 安装 `omo`。也可以通过 CLI：
 
 ```bash
 codex plugin marketplace add https://github.com/code-yeongyu/lazycodex
 codex plugin add omo@sisyphuslabs
 ```
 
-The npx installer above stays the primary path. See [Installation](./installation.md) for the full walkthrough.
+上面的 npx 安装器仍然是主要路径。完整步骤见 [安装](./installation.md)。

@@ -13,8 +13,8 @@ export function DocsToc({ headings, activeHeadingId }: DocsTocProps): JSX.Elemen
   if (items.length === 0) return <aside className="docs-toc" aria-hidden="true" />;
 
   return (
-    <aside className="docs-toc" aria-label="On this section">
-      <p className="docs-toc-heading">On this section</p>
+    <aside className="docs-toc" aria-label="本节目录">
+      <p className="docs-toc-heading">本节目录</p>
       <ul className="docs-toc-list">
         {items.map((h) => (
           <li

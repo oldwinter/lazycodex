@@ -4,7 +4,7 @@ import { OgBrandMark } from "./og-brand-mark"
 import { OG_GRADIENTS, OG_PALETTE, OG_SIZE } from "./og-image-theme"
 
 export const runtime = "nodejs"
-export const alt = "LazyCodex - agent harness for complex codebases."
+export const alt = "LazyCodex - 面向复杂代码库的 agent harness。"
 export const size = OG_SIZE
 export const contentType = "image/png"
 

@@ -1,19 +1,19 @@
-`$start-work` executes a Prometheus work plan until every top-level checkbox is done.
+`$start-work` 会执行 Prometheus work plan，直到每个 top-level checkbox 都完成。
 
-### How it works
+### 工作方式
 
-- Durable Boulder state in `.omo/boulder.json` survives across turns and sessions
-- A Stop-hook re-injects the next turn until the plan is complete
-- Independent sub-tasks fan out to parallel subagents
-- Strict TDD plus five evidence gates: plan reread, automated verification, manual-QA, adversarial QA, cleanup
-- Progress is recorded to a ledger
+- `.omo/boulder.json` 中的 durable Boulder state 可跨回合和会话保存
+- Stop-hook 会重新注入下一轮，直到计划完成
+- 独立 sub-tasks 会扇出到并行 subagents
+- Strict TDD 加五个 evidence gates：plan reread、automated verification、manual-QA、adversarial QA、cleanup
+- 进度会记录到 ledger
 
-### Syntax
+### 语法
 
 ```bash
 $start-work [plan-name] [--worktree <absolute-path>]
 ```
 
-### Done
+### 完成
 
-It prints an `ORCHESTRATION COMPLETE` block when every checkbox is checked.
+当每个 checkbox 都被勾选后，它会打印 `ORCHESTRATION COMPLETE` block。

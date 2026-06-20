@@ -64,9 +64,9 @@ test.describe("docs page — structure", () => {
     await page.goto("/docs")
 
     const body = page.locator("body")
-    await expect(body).toContainText("Built-in workflows")
+    await expect(body).toContainText("内置工作流")
     await expect(body).toContainText("$init-deep")
-    await expect(body).toContainText("Feature coverage")
+    await expect(body).toContainText("能力覆盖")
     await expect(body).toContainText("review-work")
     await expect(body).toContainText("remove-ai-slops")
     await expect(body).toContainText("frontend-ui-ux")
