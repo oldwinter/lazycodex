@@ -13,7 +13,7 @@
 - `components/ulw-loop`
 - `components/telemetry`
 
-根 plugin manifest 导出一个名为 `omo` 的 Codex plugin，聚合 hooks、skills，以及 plugin-scoped MCP servers：`grep_app`、`context7`、`git_bash` 和 `lsp`。AST-aware search 作为 `ast-grep` skill 发布，不作为 MCP server 发布。
+根 plugin manifest 导出一个名为 `omo` 的 Codex plugin，聚合 hooks、skills，以及 plugin-scoped MCP servers：`grep_app`、`context7`、`codegraph`、`git_bash` 和 `lsp`。AST-aware search 作为 `ast-grep` skill 发布，不作为 MCP server 发布。
 
 ## Telemetry 遥测
 
