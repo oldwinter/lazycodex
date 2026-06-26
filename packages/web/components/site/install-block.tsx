@@ -1,4 +1,5 @@
 import type { JSX } from "react"
+import { InlineCode } from "../design-system/typography"
 import { SITE_CONFIG } from "../../lib/site-config"
 import { CopyButton } from "./copy-button"
 
@@ -10,9 +11,9 @@ export function InstallBlock(): JSX.Element {
           <span className="select-none font-mono text-[color:var(--text-tertiary)]" aria-hidden="true">
             $
           </span>
-          <code className="whitespace-nowrap font-mono text-sm font-medium text-[color:var(--text-primary)] md:text-base">
+          <InlineCode className="whitespace-nowrap text-sm text-[color:var(--text-primary)] md:text-base">
             {SITE_CONFIG.installCommand}
-          </code>
+          </InlineCode>
         </div>
         <CopyButton value={SITE_CONFIG.installCommand} className="ml-4 shrink-0" />
       </div>

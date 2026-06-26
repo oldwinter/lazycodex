@@ -1,10 +1,11 @@
 import type { JSX } from "react"
+import { MarketingContainer } from "../design-system/layout"
 import { SITE_CONFIG } from "../../lib/site-config"
 
 export function SiteFooter(): JSX.Element {
   return (
     <footer className="w-full border-t border-white/5 bg-[color:var(--surface-night)] py-8">
-      <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 px-4 text-sm text-[color:var(--text-tertiary)] md:flex-row md:px-8">
+      <MarketingContainer className="flex flex-col items-center justify-between gap-4 text-sm text-[color:var(--text-tertiary)] md:flex-row">
         <div className="flex items-center gap-2">
           <span className="font-mono font-medium text-[color:var(--text-secondary)]">
             lazycodex.ai
@@ -31,7 +32,7 @@ export function SiteFooter(): JSX.Element {
             GitHub
           </a>
         </div>
-      </div>
+      </MarketingContainer>
     </footer>
   )
 }

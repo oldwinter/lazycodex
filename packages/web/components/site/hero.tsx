@@ -1,4 +1,5 @@
 import type { JSX } from "react"
+import { HeroBrandMark } from "../design-system/brand-mark"
 import { SITE_CONFIG } from "../../lib/site-config"
 
 export function Hero(): JSX.Element {
@@ -50,49 +51,9 @@ export function Hero(): JSX.Element {
 
         {/* Right-anchored brand mark — a composed visual anchor. */}
         <div className="hidden shrink-0 items-center justify-end md:flex">
-          <HeroMark />
+          <HeroBrandMark />
         </div>
       </div>
     </section>
-  )
-}
-
-function HeroMark(): JSX.Element {
-  return (
-    <div className="relative flex h-[180px] w-[180px] items-center justify-center md:h-[220px] md:w-[220px]">
-      <div
-        className="absolute inset-0 rounded-[28px] opacity-60 blur-2xl"
-        style={{ background: "radial-gradient(circle at 50% 50%, rgba(74,222,128,0.45) 0%, transparent 70%)" }}
-        aria-hidden="true"
-      />
-      <svg
-        width="160"
-        height="160"
-        viewBox="0 0 24 24"
-        fill="none"
-        aria-hidden="true"
-        className="relative h-[140px] w-[140px] md:h-[160px] md:w-[160px]"
-      >
-        <rect
-          x="2.4"
-          y="2.4"
-          width="19.2"
-          height="19.2"
-          rx="4.8"
-          fill="var(--card-base)"
-          stroke="var(--accent-primary)"
-          strokeWidth="1"
-        />
-        <path
-          d="M7 8 V16 H14.5"
-          fill="none"
-          stroke="var(--accent-mint)"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <circle cx="15.8" cy="8" r="1.4" fill="var(--accent-primary)" />
-      </svg>
-    </div>
   )
 }

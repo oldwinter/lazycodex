@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test"
-import { DOC_SECTIONS } from "../lib/docs-sections"
+import { DOC_GROUPS, DOC_SECTIONS } from "../lib/docs-sections"
 
 /**
  * Docs `/docs` contract (TDD target state).
@@ -64,15 +64,26 @@ test.describe("docs page — structure", () => {
     await page.goto("/docs")
 
     const body = page.locator("body")
-    await expect(body).toContainText("内置工作流")
+    await expect(body).toContainText("Skills 是 LazyCodex 加在 command pillars 之上的 specialist playbooks")
     await expect(body).toContainText("$init-deep")
     await expect(body).toContainText("能力覆盖")
     await expect(body).toContainText("review-work")
     await expect(body).toContainText("remove-ai-slops")
-    await expect(body).toContainText("frontend-ui-ux")
+    await expect(body).toContainText("frontend")
+    await expect(body).toContainText("它们会自动激活")
+    await expect(body).toContainText("Maximum-saturation research")
     await expect(body).toContainText("LSP")
     await expect(body).toContainText("AST-grep")
     await expect(body).toContainText("comment-checker")
+  })
+
+  test("orders Skills immediately after Commands and before Concepts", () => {
+    const sectionIds = DOC_SECTIONS.map((section) => section.id)
+
+    expect(DOC_GROUPS.indexOf("命令")).toBeLessThan(DOC_GROUPS.indexOf("Skills"))
+    expect(DOC_GROUPS.indexOf("Skills")).toBeLessThan(DOC_GROUPS.indexOf("概念"))
+    expect(sectionIds.indexOf("ulw-loop")).toBeLessThan(sectionIds.indexOf("skills"))
+    expect(sectionIds.indexOf("skills")).toBeLessThan(sectionIds.indexOf("ultrawork"))
   })
 })
 

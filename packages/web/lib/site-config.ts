@@ -76,8 +76,8 @@ export const SITE_CONFIG = {
   builtInSkills: {
     title: "内置 skill 覆盖面",
     summary:
-      "Skills 为 harness 提供专业判断：review、cleanup、UI、严格语言工作、LSP diagnostics、AST-grep rewrites、project rules 和 comment-checker feedback。",
-    skills: ["review-work", "remove-ai-slops", "frontend-ui-ux", "programming", "LSP", "AST-grep", "rules", "comment-checker"],
+      "Skills 会在任务匹配领域时自动激活，因此不需要先逐个学习。想显式调用时，把 skill 名称写进 prompt；ulw-research 是面向代码库、网页、官方文档和开源仓库深度研究的最大饱和模式。",
+    skills: ["ulw-research", "review-work", "remove-ai-slops", "frontend", "programming", "visual-qa", "LSP", "AST-grep"],
   },
 } as const;
 

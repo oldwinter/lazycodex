@@ -1,69 +1,170 @@
 # LazyCodex Design System
 
-## 1. Core Philosophy
-- **Complex-Codebase Harness Tone**: A near-black canvas with a faint cool-green undertone, centered on a glowing emerald card that presents LazyCodex as the Codex agent harness for serious repositories. The brand color is green — emerald/mint — not the earlier teal.
-- **Card-in-Canvas Architecture**: The hero content lives inside a 1200x630px card with a complex radial gradient; the OpenGraph image mirrors that HTML card instead of using a separate visual language.
-- **Typography**: A native system grotesk (`ui-sans-serif, system-ui, …`) for the wordmark and body so the LCP paint has zero webfont dependency and lands at FCP; monospace (`ui-monospace, …`) for eyebrows, code, labels, and kbd hints.
+Implementation sources:
+- Browser CSS tokens and shared utility layers live in `app/styles/design-system.css`, imported before page-specific styles by `app/globals.css`.
+- Reusable React primitives live in `components/design-system/`; landing and docs components compose from those primitives.
+- Social preview tokens live in `app/og-image-theme.ts` and intentionally mirror the browser palette.
+- Page-specific composition styles live in `app/styles/landing.css` and `app/styles/docs.css`.
 
-## 2. Color Palette
-Surfaces (near-black, cool-green undertone):
-- `--surface-base` / `--surface-night` / `--surface-0`: `#0a0c0b`
-- `--surface-1`: `rgba(255,255,255,0.018)` · `--surface-2`: `rgba(255,255,255,0.035)` · `--surface-3`: `rgba(255,255,255,0.055)`
-- `--card-base` / `--surface-panel`: `#0E1411` · `--surface-panel-alt`: `#0C1310` · `--surface-panel-deep`: `#0D1310`
+## 1. Atmosphere & Identity
 
-Brand (emerald core):
-- `--brand-core`: `#10b981` · `--brand-mid`: `#059669` · `--brand-outer`: `#065f46`
+LazyCodex feels like a serious command surface for complex codebases: near-black, quiet, technical, and lit by an emerald signal. The signature is a glowing green card-in-canvas composition with a geometric rounded-square `L` mark. The brand color is green, not teal, cyan, purple, or blue.
 
-Accent (the live-wire green):
-- `--accent-primary`: `#34d399` · `--accent-primary-soft`: `rgba(52,211,153,0.1)` · `--accent-primary-border`: `rgba(52,211,153,0.22)`
-- `--accent-mint`: `#6ee7b7` · `--accent-glow`: `#6ee7b7`
-- Legacy aliases `--accent-cyan` / `--accent-teal` are mapped to the green values for compatibility; new code uses `--accent-primary` / `--accent-mint`.
+## 2. Color
 
-Text:
-- `--text-primary`: `#ffffff` · `--text-secondary`: `#9aa6a0` · `--text-tertiary`: `#7a857f`
-- `--text-muted`: `rgba(255,255,255,0.72)` · `--text-soft`: `#d1fae5` (mint-tinted)
+### Palette
 
-Borders / status:
-- `--border-subtle`: `rgba(255,255,255,0.06)` · `--border-default`: `rgba(255,255,255,0.1)`
-- `--status-success`: `#10b981` · `--status-warning`: `#f59e0b` · `--status-error`: `#ef4444`
+| Role | Token | Value | Usage |
+| --- | --- | --- | --- |
+| Surface/base | `--surface-base`, `--surface-night`, `--surface-0` | `#0a0c0b` | Page canvas and footer |
+| Surface/subtle | `--surface-1` | `rgba(255,255,255,0.018)` | Hover and quiet fills |
+| Surface/raised | `--surface-2` | `rgba(255,255,255,0.035)` | Secondary tonal layer |
+| Surface/strong | `--surface-3` | `rgba(255,255,255,0.055)` | Stronger tonal layer |
+| Surface/card | `--card-base`, `--surface-panel` | `#0E1411` | Hero card, command surfaces |
+| Surface/alt | `--surface-panel-alt` | `#0C1310` | Alternate panel |
+| Surface/deep | `--surface-panel-deep` | `#0D1310` | Deep panel |
+| Brand/core | `--brand-core` | `#22c55e` | Green brand center |
+| Brand/mid | `--brand-mid` | `#16a34a` | Green gradient middle |
+| Brand/outer | `--brand-outer` | `#15803d` | Selection and gradient edge |
+| Accent/primary | `--accent-primary` | `#4ade80` | CTAs, focus, active docs links |
+| Accent/soft | `--accent-primary-soft` | `rgba(74,222,128,0.1)` | Soft green fills |
+| Accent/border | `--accent-primary-border` | `rgba(74,222,128,0.24)` | Soft green outlines |
+| Accent/mint | `--accent-mint`, `--accent-glow` | `#86efac` | Highlights, glow text |
+| Text/primary | `--text-primary` | `#ffffff` | Main text and headings |
+| Text/secondary | `--text-secondary` | `#b8c2bc` | Supporting text |
+| Text/tertiary | `--text-tertiary` | `#8b9690` | Labels, metadata |
+| Text/muted | `--text-muted` | `rgba(255,255,255,0.74)` | Body copy on dark surfaces |
+| Text/soft | `--text-soft` | `#dcfce7` | Mint-tinted text |
+| Border/subtle | `--border-subtle` | `rgba(255,255,255,0.06)` | Dividers and quiet controls |
+| Border/default | `--border-default` | `rgba(255,255,255,0.1)` | Panels and cards |
+| Status/success | `--status-success` | `#22c55e` | Positive status |
+| Status/warning | `--status-warning` | `#f59e0b` | Warnings |
+| Status/error | `--status-error` | `#ef4444` | Errors |
 
-## 3. Brand Mark
-- A rounded-square emerald mark with an "L" stroke and a mint dot — a clean geometric identity replacing the earlier boulder. Inline SVG in the header (zero network bytes), mirrored in the favicon and OG image.
-- `app/icon.svg` is the canonical scalable favicon; `app/apple-icon.png` at 180x180 for Apple touch surfaces.
+### Rules
 
-## 4. Layout & Spacing
-- **Landing canvas**: Full viewport (`min-h-[100dvh]`), flex column, centered. Hero card max width 1200px, aspect ratio 1200/630 on large screens, `16px` radius.
-- **Docs**: three-column grid on desktop — `260px` sidebar | fluid content | `220px` right ToC. Collapses to two columns (hide ToC) under 1100px and to a single column with a mobile menu toggle under 768px. Every container uses `min-h-[100dvh]` (never `h-screen`) and `dvh` for iOS Safari stability. No flexbox percentage math; CSS Grid for multi-column.
+- New UI uses `--accent-primary` and `--accent-mint`; `--accent-cyan` and `--accent-teal` remain green aliases only for compatibility.
+- Accent is reserved for interactivity, code emphasis, focus, and brand signal.
+- Raw colors belong in this file, `design-system.css`, or OG theme tokens. Component code should reference tokens or shared primitives.
 
-## 5. Gradients & Effects
-- **Base Gradient**: radial from `#10b981` through `#059669` and `#065f46` into `#0a0c0b`.
-- **Beam**: screen blend mode, soft mint light pouring from top-left.
-- **Sheen**: screen blend mode, diagonal linear gradients with blur.
-- **Pools**: screen blend mode, subtle emerald/mint pools at bottom-left and top-right.
+## 3. Typography
 
-## 6. Docs Information Architecture (vibetip-inspired)
-The docs are a single richly-sectioned page with a grouped sidebar, ⌘K search, a per-section right-side table of contents, and prev/next navigation cards — inspired by the lzx.vibetip.help docs layout.
+### Scale
 
-- **Sidebar groups** (ordered): Install · Getting started · Commands · Concepts · Skills · Reference.
-- **⌘K / Ctrl-K** focuses the search field from anywhere; typing filters sidebar entries by title.
-- **Right ToC ("On this section")** lists the active section's `h2`/`h3` headings with scroll-spy highlighting.
-- **Prev/next cards** at the end of every section link to the neighboring section.
-- **Docs hero** carries a version badge (`SITE_CONFIG.version`), title, and tagline.
-- Content is authored as `content/docs/*.md`, compiled to HTML at build time by `scripts/generate-docs-content.mjs`, which also injects heading ids and emits a per-section TOC (`DOC_TOC`) alongside `DOC_SOURCES`.
+| Level | Size | Weight | Line height | Tracking | Usage |
+| --- | --- | --- | --- | --- | --- |
+| Display | `clamp(44px,7vw,104px)` | 600 | 0.95 | -0.03em | Landing wordmark |
+| Hero lead | `clamp(18px,2.2vw,26px)` | 400 | 1.4 | -0.005em | Landing lead |
+| Section XL | `clamp(32px,5vw,56px)` | 500-600 | tight | 0 to tight | Large marketing sections |
+| Section L | `clamp(28px,4vw,48px)` | 500-600 | tight | tight | Showcase titles |
+| Docs H1 | `clamp(2rem,3.5vw,2.6rem)` | 700 | tight | -0.02em | Docs page title |
+| Docs H2 | `1.75rem` | 700 | normal | -0.02em | Docs section title |
+| Body | `1rem` | 400 | 1.55-1.7 | 0 | Default prose |
+| Body small | `0.875rem` | 400-500 | 1.4-1.5 | 0 | Cards, docs nav |
+| Caption | `0.75rem` | 500-600 | 1.3-1.4 | uppercase | Badges, labels |
 
-## 7. Motion
-- Hero uses a `splash-reveal` keyframe (opacity + translate) gated by `prefers-reduced-motion`.
-- All interactive transitions (nav links, ToC links, prev/next cards, buttons) are short color/transform tweens, disabled under `prefers-reduced-motion`. No layout-property animation; no full `framer-motion` import.
+### Font Stack
 
-## 8. Performance & SEO Posture
-- System font stack for the LCP wordmark so the largest paint has no webfont download and lands at FCP under any throttle.
-- Image-free hero (pure CSS gradients) keeps the hero text as the LCP element.
-- Explicit `width`/`height` on every `<img>` to prevent CLS; `loading`/`fetchPriority`/`decoding` driven by `priority`.
-- Per-route `metadata`, JSON-LD `SoftwareApplication`, `sitemap.ts`, `robots.ts`, and OG/Twitter image routes.
+- Primary: `ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`
+- Mono: `ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace`
+- The landing wordmark intentionally uses the native primary stack so the LCP text has no webfont dependency.
 
-## 9. Anti-Patterns
-- Generic AI-SaaS slop copy. Use concrete product language.
-- Teal/cyan brand colors (replaced by emerald/mint). The earlier teal identity is gone; green is the brand.
-- `export const runtime = "edge"` (incompatible with `@opennextjs/cloudflare`).
-- Animating `width / height / top / left / margin / padding`.
-- Importing the full `framer-motion` package.
+## 4. Spacing & Layout
+
+### Base Unit
+
+All spacing resolves to a 4px rhythm. Existing Tailwind values map to the same rhythm: `gap-2` 8px, `gap-3` 12px, `gap-4` 16px, `gap-6` 24px, `mt-24` 96px, `mt-32` 128px, `mt-40` 160px.
+
+### Grid
+
+- Max marketing content width: `1200px`.
+- Docs max width: `1280px`.
+- Docs desktop grid: `260px | minmax(0, 1fr) | 220px`.
+- Docs collapse: hide the ToC below `1100px`; single column and mobile menu below `768px`.
+- Full-height surfaces use `min-h-[100dvh]`, never `h-screen`.
+
+### Rules
+
+- `MarketingContainer`, `MarketingSection`, and `MarketingRuleGrid` in `components/design-system/layout.tsx` own the repeated page width and split-section geometry.
+- Use CSS Grid for multi-column layouts. Avoid percentage flex math.
+- Preserve the existing information architecture: landing first, docs as a single richly-sectioned page.
+
+## 5. Components
+
+### BrandMark
+
+- **Source**: `components/design-system/brand-mark.tsx`.
+- **Structure**: inline SVG rounded square, `L` stroke, mint/green dot.
+- **Variants**: `nav` 24px geometry, `hero` 160px geometry with `HeroBrandMark` glow wrapper.
+- **States**: inherited from the containing link or surface.
+- **Accessibility**: decorative mark uses `aria-hidden`; header link owns the accessible label.
+
+### Layout Primitives
+
+- **Source**: `components/design-system/layout.tsx`.
+- **Components**: `PageShell`, `SkipLink`, `MarketingMain`, `MarketingContainer`, `MarketingSection`, `MarketingRuleGrid`.
+- **Usage**: pages and repeated landing bands. They preserve the current DOM semantics while centralizing width, `dvh`, and split-grid rules.
+
+### Typography Primitives
+
+- **Source**: `components/design-system/typography.tsx`.
+- **Components**: `Kicker`, `SectionHeading`, `BodyText`, `GradientTitle`, `AccentBadge`, `InlineCode`.
+- **Usage**: marketing sections, showcase titles, badges, and command/code snippets.
+- **Motion**: typography itself does not animate; reveal behavior remains in CSS utilities.
+
+### Surface Primitives
+
+- **Source**: `components/design-system/surfaces.tsx`.
+- **Components**: `SurfaceCard`, `AccentSurface`, `ShowcaseSurface`, `CommandCodeSurface`, `IconWell`, `FactList`, `CompactDotList`, `NumberedPoint`.
+- **Usage**: command cards, OmO/Lazy comparison cards, Hephaestus and Ultrawork black showcases, numbered workflow rows.
+- **Depth**: border plus tonal shift, with showcase shadows only where already present.
+
+### Action Primitives
+
+- **Source**: `components/design-system/actions.tsx`.
+- **Components**: `LinkAction`, `GlowActionFrame`.
+- **Variants**: primary filled text button, secondary outlined button.
+- **States**: hover scale or tonal shift, visible focus ring, no layout-property animation.
+
+### DocsHero
+
+- **Source**: `components/design-system/docs-hero.tsx`.
+- **Structure**: version badge, title, tagline using the existing docs CSS hooks.
+- **Usage**: docs page header; intentionally keeps the current `docs-*` class contract for pixel-stable docs layout.
+
+## 6. Motion & Interaction
+
+### Timing
+
+| Type | Duration | Usage |
+| --- | --- | --- |
+| Micro | 150ms | Nav links, docs links, inputs |
+| Standard | 200-300ms | Buttons, card hover, focus feedback |
+| Splash | 720ms | Landing reveal only |
+
+### Rules
+
+- Animate `transform`, `opacity`, `filter`, and color only. Never animate width, height, top, left, margin, or padding.
+- Respect `prefers-reduced-motion`; `splash-reveal` disables itself.
+- Focus states are visible through global `:focus-visible` and component-level rings.
+- Docs interactions must keep working: mobile menu, sidebar search, Cmd/Ctrl-K focus, hash navigation, scroll-spy, and prev/next cards.
+
+## 7. Depth & Surface
+
+### Strategy
+
+LazyCodex uses a mixed but constrained depth strategy: tonal-shift panels and borders for everyday surfaces, plus existing deep showcase shadows for the landing hero and black showcase panels.
+
+| Level | Treatment | Usage |
+| --- | --- | --- |
+| Canvas | `--surface-base` | Whole site background |
+| Panel | `--surface-panel` or `bg-white/[0.03]` with subtle border | Cards, install bar, docs input |
+| Accent panel | `--accent-primary` soft fill and border | Built-in skills, Lazy comparison, workflow code |
+| Showcase | black surface, ring, green radial glow, shadow | Hephaestus and Ultrawork feature blocks |
+| Hero | `--card-base`, layered `.card-gradient-*`, large shadow | Landing hero card |
+
+### Rules
+
+- Do not add generic white cards or purple-blue gradients.
+- Do not replace the hero or brand mark with raster screenshots.
+- If a component pattern appears twice, it belongs in `components/design-system/` and this section.

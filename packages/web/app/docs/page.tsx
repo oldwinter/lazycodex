@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { DocsHero } from "@/components/design-system/docs-hero";
+import { SkipLink } from "@/components/design-system/layout";
 import { DocsShell, type SectionView } from "@/components/docs/docs-shell";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
@@ -32,21 +34,12 @@ export default function DocsPage() {
 
   return (
     <>
-      <a href="#content" className="skip-link">
-        跳到主要内容
-      </a>
+      <SkipLink>跳到主要内容</SkipLink>
       <SiteHeader />
       <main id="content" className="docs-page">
-        <div className="docs-hero">
-          <div className="docs-hero-badge">
-            <span className="docs-hero-dot" aria-hidden="true" />
-            {SITE_CONFIG.version}
-          </div>
-          <h1 className="docs-hero-title">文档</h1>
-          <p className="docs-hero-tagline">
-            在 Codex 中安装并运行面向复杂代码库的 OmO harness：项目记忆、规划、执行与可验证完成。
-          </p>
-        </div>
+        <DocsHero badge={SITE_CONFIG.version} title="文档">
+          在 Codex 中安装并运行面向复杂代码库的 OmO harness：项目记忆、规划、执行与可验证完成。
+        </DocsHero>
         <DocsShell sections={sections} />
       </main>
       <SiteFooter />

@@ -21,11 +21,37 @@ jobs:
         run: |
           set -euo pipefail
 
+          source_files="$(mktemp)"
+
+          gh api --paginate \
+            "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" \
+            --jq '.[].filename' |
+            while IFS= read -r file; do
+              case "$file" in
+                packages/web/lib/docs-content.generated.ts)
+                  ;;
+                bin/*|test/*|plugins/omo/*|packages/web/app/*|packages/web/components/*|packages/web/e2e/*|packages/web/scripts/*|packages/web/lib/*|packages/web/package.json|packages/web/pnpm-lock.yaml|packages/web/next.config.ts|packages/web/open-next.config.ts|packages/web/postcss.config.mjs|packages/web/tsconfig.json|packages/web/playwright.config.ts|packages/web/wrangler.toml|packages/web/biome.json|package.json|package-lock.json)
+                  printf '%s\n' "$file"
+                  ;;
+              esac
+            done > "$source_files"
+
+          if [[ ! -s "$source_files" ]]; then
+            echo "No source-code files changed; leaving pull request $PR_NUMBER open."
+            exit 0
+          fi
+
           PR_URL="https://github.com/$GITHUB_REPOSITORY/pull/$PR_NUMBER"
 
           body="$(mktemp)"
           cat > "$body" <<MARKDOWN
           Thanks for the PR! Changes to LazyCodex land through [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) — could you open this against [omo-codex](https://github.com/code-yeongyu/oh-my-openagent/tree/dev/packages/omo-codex) over there instead? PRs in this repository can't be merged.
+
+          This PR was closed because it changes source-code paths in this repository:
+
+          \`\`\`text
+          $(cat "$source_files")
+          \`\`\`
 
           If you're working with a coding agent, prompt it like this:
 

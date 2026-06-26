@@ -1,4 +1,9 @@
 import type { JSX } from "react"
+import {
+  CommandCodeSurface,
+  FactList,
+  IconWell,
+} from "../design-system/surfaces"
 import type { LazyCommand } from "../../lib/commands"
 
 interface CommandCardProps {
@@ -71,32 +76,25 @@ export function CommandCard({ command }: CommandCardProps): JSX.Element {
   return (
     <article className="flex flex-col gap-4 rounded-xl border border-white/5 bg-[color:var(--surface-panel)] p-6 shadow-sm transition-colors hover:border-white/10">
       <header className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[color:var(--accent-primary)]/10 text-[color:var(--accent-primary)]">
+        <IconWell>
           <GlyphIcon type={command.glyph} />
-        </div>
+        </IconWell>
         <h2 className="font-mono text-lg font-semibold text-[color:var(--text-primary)]">
           {command.name}
         </h2>
       </header>
 
-      <div className="rounded-md bg-black/40 p-3">
+      <CommandCodeSurface>
         <code className="block overflow-x-auto whitespace-nowrap font-mono text-sm text-[color:var(--text-secondary)]">
           {command.syntax}
         </code>
-      </div>
+      </CommandCodeSurface>
 
       <p className="text-sm leading-relaxed text-[color:var(--text-muted)]">
         {command.summary}
       </p>
 
-      <ul className="mt-auto flex flex-col gap-2 pt-4">
-        {command.facts.map((fact) => (
-          <li key={fact} className="flex items-start gap-2 text-sm text-[color:var(--text-tertiary)]">
-            <span className="mt-1 block h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent-primary)]" aria-hidden="true" />
-            <span>{fact}</span>
-          </li>
-        ))}
-      </ul>
+      <FactList items={command.facts} />
     </article>
   )
 }
