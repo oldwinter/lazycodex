@@ -80,7 +80,7 @@ function isContextPressureTranscript(transcriptPath) {
   if (transcriptPath === undefined || transcriptPath === null)
     return false;
   try {
-    return isContextPressureRecoveryPrompt(readFileSync2(transcriptPath, "utf8"));
+    return isContextPressureRecoveryPrompt(readTranscriptTail(transcriptPath));
   } catch (error) {
     if (error instanceof Error)
       return false;

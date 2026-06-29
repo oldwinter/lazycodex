@@ -14,7 +14,7 @@ LazyCodex 会把 OmO commands、skills 和 hooks 接入 Codex configuration。�
 ```text
 https://github.com/code-yeongyu/lazycodex
 
-Install LazyCodex from this repository.
+请从这个仓库安装 LazyCodex。
 ```
 
 如果你更想直接运行命令：

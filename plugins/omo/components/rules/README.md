@@ -35,7 +35,7 @@ globs: ["**/*.ts", "**/*.tsx"]
 alwaysApply: false
 ---
 
-Prefer strict TypeScript and keep runtime imports ESM-compatible.
+优先使用 strict TypeScript，并保持 runtime imports 与 ESM 兼容。
 ```
 
 ## 本地安装
