@@ -639,7 +639,10 @@ function wrap(proc) {
 }
 function killProcessTree(proc, signal) {
   if (process.platform === "win32" && proc.pid) {
-    const result = spawnSync("taskkill", ["/pid", String(proc.pid), "/f", "/t"], { stdio: "ignore" });
+    const result = spawnSync("taskkill", ["/pid", String(proc.pid), "/f", "/t"], {
+      stdio: "ignore",
+      windowsHide: true
+    });
     if (!result.error && result.status === 0)
       return;
     if (result.error)
@@ -3296,6 +3299,7 @@ async function runMcpStdioServer(input = process.stdin, output = process.stdout)
   await runJsonRpcStdioServer({
     input,
     output,
+    idleTimeoutMs: 0,
     handler: handleLspMcpRequest,
     handlerOptions: undefined
   });
